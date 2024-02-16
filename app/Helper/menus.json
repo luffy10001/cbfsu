@@ -1,0 +1,50 @@
+[
+  {
+    "label": "Manage Users",
+    "key": "manage-users",
+    "items": [
+      {
+        "label": "Manage Users",
+        "key": "manage-users"
+      },
+      {
+        "label": "Manage Roles",
+        "key": "manage-roles"
+      },
+      {
+        "label": "Manage Permissions",
+        "key": "manage-permissions"
+      },
+      {
+        "label": "Assign Area to Users",
+        "key": "assign-area-to-users"
+      }
+    ]
+  },
+  {
+    "label": "Manage Tasks",
+    "key": "manage-tasks"
+  },
+  {
+    "label": "Manage Agencies",
+    "key": "manage-agencies"
+  },
+  {
+    "label": "Manage Payments",
+    "key": "manage-payments"
+  },
+  {
+    "label": "Manage Packages / Addons",
+    "key": "manage-packagee-addons",
+    "items": [
+      {
+        "label": "Manage Packages",
+        "key": "manage-packages"
+      },
+      {
+        "label": "Manage Addons",
+        "key": "manage-addons"
+      }
+    ]
+  }
+]

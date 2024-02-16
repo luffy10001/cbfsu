@@ -1,0 +1,258 @@
+@import '../vendors/wizardsmart';
+
+
+#checkoutWizard {
+  border: none;
+
+  .nav {
+    position: relative;
+    border: none;
+    counter-reset: my-awesome-counter;
+    margin: 0 -3px;
+    background: none !important;
+
+    @include media ("<tablet-x") {
+      text-align: center;
+      display: block;
+      letter-spacing: -5px;
+      overflow: visible;
+      justify-content: center;
+
+    }
+
+    li {
+      width: 16.66%;
+      padding: 3px 3px 0;
+      counter-increment: my-awesome-counter;
+
+      @include media ("<tablet-x") {
+        width: auto;
+        display: inline-block;
+        vertical-align: top;
+        letter-spacing: 0;
+        padding: 1px 1px 0;
+        position: relative;
+        color: #fff;
+      }
+
+      @include media ("<xs-phone") {
+        &:first-child{
+          a{
+            .description{
+              left: 0;
+              transform: none;
+            }
+          }
+        }
+
+        &:last-child{
+          a{
+            .description{
+              left: auto;
+              right: 0;
+              transform: none;
+            }
+          }
+        }
+      }
+
+      &:hover{
+        &:after{
+          @include media ("<tablet-x") {
+            opacity: 1;
+          }
+        }
+      }
+
+      &:after {
+        content: " ";
+        position: absolute;
+        left: 46%;
+        opacity: 0;
+        margin: 0 auto;
+        bottom: 0px;
+        border: 5px solid transparent;
+        border-bottom-color: red;
+        transition: 0.1s ease-in-out;
+
+        @include media ("<tablet-x") {
+          bottom: -10px;
+        }
+
+      }
+
+      &.done{
+        pointer-events: inherit;
+        cursor: pointer;
+
+        .box{
+          background-color: #fff;
+
+          h6{
+            color: #000;
+          }
+
+          .icon-box{
+            background: $themecolor;
+            color: #fff;
+          }
+
+        }
+      }
+
+      &.active {
+
+        a{
+          background: none !important;
+        }
+
+        .box{
+          background-color: #fff;
+
+          h6{
+            color: #000;
+          }
+
+          .icon-box{
+            background: $themecolor;
+            color: #fff;
+          }
+
+        }
+      }
+
+
+
+      a{
+        width: 100%;
+        height: 100%;
+        position: relative;
+        top: 0;
+        padding: 0;
+        border-radius: 5px 5px 0 0;
+        @include flex-align;
+        color: #000;
+
+        @include media ("<tablet-x") {
+          display: block;
+        }
+
+
+
+        &:after,
+        &:before{
+          display: none;
+        }
+
+
+        &:hover {
+          color: #000;
+        }
+
+        .box{
+          padding: 10px;
+          width: 100%;
+          @include flex-align;
+          background-color: rgba(153, 155, 163, 0.1);
+          height: 100%;
+
+          @include media ("<tablet-x") {
+            display: block;
+            text-align: center;
+            position: relative;
+
+            &:hover{
+              .description{
+                opacity: 1;
+                visibility: visible;
+              }
+            }
+          }
+
+          @include media ("<xs-phone") {
+            padding: 5px;
+          }
+
+
+        }
+
+        .description{
+          @include media ("<tablet-x") {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px;
+            width: 150px;
+            z-index: 1;
+            background: $themecolor;
+            opacity: 0;
+            visibility: hidden;
+            @include ease;
+            margin: 11px 0 0;
+          }
+        }
+
+        .step{
+          position: relative;
+          font-size: 11px;
+          color: rgba(0,0,0,0.3);
+
+          @include media ("<tablet-x") {
+            color: #fff;
+          }
+
+          &:before{
+            content:  "Step" counter(my-awesome-counter);
+          }
+        }
+
+        .icon-box{
+          width: 32px;
+          height: 32px;
+          border-radius: 4px;
+          font-size: 14px;
+          color: #000;
+          @include flex-align-center;
+          background-color: #e1e1e1;
+          margin: 0 10px 0 0;
+
+          @include media ("<tablet-x") {
+            margin: 0 auto;
+          }
+
+          &:before{display: none}
+
+
+        }
+
+        h6{
+          font-size: 12px;
+          font-family: $titillium;
+        }
+      }
+    }
+  }
+
+  .tab-pane {
+    position: relative;
+
+    h3 {
+      margin-top: 0;
+    }
+  }
+}
+
+.sw-toolbar-bottom{
+  overflow: hidden;
+}
+
+.step-content{
+  padding: 20px !important;
+}
+
+.checkoutSteps{
+  @include media ("<tablet") {
+    min-height: auto !important;
+  }
+}

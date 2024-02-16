@@ -1,0 +1,72 @@
+.select2-container .select2-selection--single {
+  height: 38px !important;
+  padding: 11px 7px !important;
+  color: #363B44;
+  font-weight: 400;
+  font-size: 15.5px;
+  border-color: #ced4da !important;
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+  color: #444;
+  line-height: 16px !important;
+}
+.modal .select2-container {
+  z-index: 9999;
+  width:100% !important;
+}
+img#preview {
+  width: 40px;
+  padding: 0;
+  margin: 0;
+}
+.zoomable{
+  cursor: pointer;
+  transition: transform 1s;
+}
+.form-check-label , .form-check-input {
+  cursor: pointer;
+}
+.img_preview {
+  width: 200px;
+}
+.form-control{
+  border-color: #ced4da !important;
+  -webkit-border-radius: 5px !important;
+}
+.removeItem ,.add_addon{
+  cursor: pointer;
+}
+.table-rounded {
+  border-radius: 10px !important;
+}
+#image_quality .select2-container {
+  z-index: 9999;
+  width:100% !important;
+}
+img.card-img-top {
+  object-fit: cover;
+  width: 100%;
+  height: 225px;
+}
+select[readonly]
+{
+  pointer-events: none;
+  background: #ccc;
+}
+//custom css
+.sidebar ul .nav-item.live-active a
+{
+  color: #fff !important;
+}
+.sidebar ul .nav-item.live-active a:hover
+{
+  background-color: #fff;
+  color: #000 !important;
+}
+.sidebar ul .nav-item .nav-link:hover {
+  background-color: #000;
+  color: #fff !important;
+}
+.filter-button {
+  padding: 10px 0 0 0 !important;
+}

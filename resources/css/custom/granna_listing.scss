@@ -1,0 +1,241 @@
+.listing_label {
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    padding:  10px;
+    padding-left: 17px;
+    margin-right: 10px;
+    min-width: 98px;
+    -webkit-box-pack: center;
+
+}
+
+.listing_label.active {
+    border-color: red;
+    border-radius: 7px;
+}
+.listing_i {
+    padding-right: 10px;
+
+}
+.bed_room_listing_label {
+    border: 1px solid #ccc;
+    padding:  3px;
+
+    margin-right: 10px;
+    min-width: 58px;
+    -webkit-box-pack: center;
+    border-radius:40px;
+    text-align: center;
+}
+.bed_room_listing_label.active {
+    border-color: red;
+    border-radius: 40px;
+}
+.bed_room_listing_i {
+    padding-right: 10px;
+
+}
+
+.tabs {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 700px !important;
+    font-family: sans-serif;
+}
+
+.tabs__label {
+    padding: 10px 30px;
+    cursor: pointer;
+}
+
+.tabs__radio {
+    display: none;
+}
+
+.tabs__content {
+    order: 1;
+    width: 100%;
+    border-bottom: 3px solid #dddddd;
+    line-height: 1.5;
+    font-size: 0.9em;
+    display: none;
+}
+
+.tabs__radio:checked + .tabs__label {
+    font-weight: bold;
+    color: #0daeff;
+    border-bottom: 2px solid red;
+}
+
+.tabs__radio:checked + .tabs__label + .tabs__content {
+    display: initial;
+}
+
+
+#switch[type=checkbox]{
+    height: 0;
+    width: 0;
+    visibility: hidden;
+}
+
+#label {
+    cursor: pointer;
+    text-indent: -9999px;
+    width: 50px;
+    height: 30px;
+    background: grey;
+    display: block;
+    border-radius: 10px;
+    position: relative;
+    margin-top: 15px;
+}
+
+#label:after {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+#switch:checked + label {
+    background: red;
+}
+
+#switch:checked + label:after {
+    left: calc(100% - 5px);
+    transform: translateX(-100%);
+}
+
+.plot_listing_label {
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    padding:  10px;
+    padding-left: 17px;
+    margin-right: 10px;
+    min-width: 98px;
+    -webkit-box-pack: center;
+
+}
+
+.plot_listing_label.active {
+    border-color: red;
+    border-radius: 7px;
+}
+.plot_listing_i {
+    padding-right: 10px;
+
+}
+
+#plot_switch[type=checkbox]{
+    height: 0;
+    width: 0;
+    visibility: hidden;
+}
+
+#plot_label {
+    cursor: pointer;
+    text-indent: -9999px;
+    width: 50px;
+    height: 30px;
+    background: grey;
+    display: block;
+    border-radius: 10px;
+    position: relative;
+    margin-top: 15px;
+}
+
+#plot_label:after {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+#plot_switch:checked + label {
+    background: red;
+}
+
+#plot_switch:checked + label:after {
+    left: calc(100% - 5px);
+    transform: translateX(-100%);
+}
+
+.commercial_listing_label {
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    padding:  10px;
+    padding-left: 17px;
+    margin-right: 10px;
+    min-width: 98px;
+    -webkit-box-pack: center;
+}
+
+.commercial_listing_label.active {
+    border-color: red;
+    border-radius: 7px;
+}
+.commercial_room_listing_label {
+    border: 1px solid #ccc;
+    padding:  3px;
+
+    margin-right: 10px;
+    min-width: 58px;
+    -webkit-box-pack: center;
+    border-radius:40px;
+    text-align: center;
+}
+.commercial_room_listing_label.active {
+    border-color: red;
+    border-radius: 40px;
+}
+#commercial_switch[type=checkbox]{
+    height: 0;
+    width: 0;
+    visibility: hidden;
+}
+
+#commercial_label {
+    cursor: pointer;
+    text-indent: -9999px;
+    width: 50px;
+    height: 30px;
+    background: grey;
+    display: block;
+    border-radius: 10px;
+    position: relative;
+    margin-top: 15px;
+}
+
+#commercial_label:after {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+#commercial_switch:checked + label {
+    background: red;
+}
+
+#commercial_switch:checked + label:after {
+    left: calc(100% - 5px);
+    transform: translateX(-100%);
+}
+.tab_select .select2-container {
+    display: block;
+}

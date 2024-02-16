@@ -1,0 +1,71 @@
+.color-list{
+    @extend %listreset;
+    letter-spacing: -5px;
+    margin: 0 0 0 -7px;
+
+    li{
+        display: inline-block;
+        vertical-align: top;
+        letter-spacing: 0;
+        margin: 2px;
+    }
+
+
+
+    .custom-control{
+        padding: 0;
+
+        .custom-control-input{
+            &:checked {
+                ~ .custom-control-label{
+                    border-color: var(--switch-bg);
+
+                    &:before{
+                        background: var(--switch-bg);
+                    }
+                }
+            }
+
+            &:focus {
+                ~ .custom-control-label{
+                    &:before {
+                        box-shadow: none;
+                    }
+                }
+            }
+
+            &:not(:disabled){
+                &:active{
+                    ~ .custom-control-label{
+                        &:before {
+                            background-color: var(--switch-bg);
+                            border-color: var(--switch-bg);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .custom-control-label{
+        text-indent: -9999px;
+        overflow: hidden;
+        position: relative;
+        padding: 0;
+        line-height: 0;
+        border: 1px solid transparent;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+
+        &:before{
+            width: 80%;
+            height: 80%;
+            top: 50%;
+            left: 50%;
+            border: none;
+            background: var(--switch-bg);
+            transform: translate(-50%, -50%);
+        }
+    }
+}
