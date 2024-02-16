@@ -23,13 +23,13 @@
 
                 <div class="row">
 
-                    <div class="form-group mb-3 col-md-4">
+                    <div class="form-group mb-6 col-md-6">
                         <label for="email" class="form-label">Name*</label>
                         <input type="text" class="form-control" name="name" placeholder="Name"
                                value="{{isset($user->email) ? $user->name : ''}}"/>
                     </div>
 
-                    <div class="form-group mb-3 col-md-4">
+                    <div class="form-group mb-6 col-md-6">
                         <label for="email" class="form-label"> Email address* </label>
                         <input type="email" class="form-control" name="email" placeholder="Email"
                                value="{{isset($user->email) ? $user->email : ''}}"/>
@@ -55,8 +55,8 @@
                         </select>
                     </div>
                 </div>
-                <button type="button" class="form_submit btn btn-primary">Update</button>
-                <button type="button" class="btn btn-primary " data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                <button type="button" class="form_submit btn btn-success">Update</button>
+                <button type="button" class="btn btn-success cancel-btn " data-bs-dismiss="modal" aria-label="Close">Cancel</button>
 
             </form>
         </div>
@@ -64,3 +64,9 @@
         </script>
     </x-slot>
 </x-custom-modal-component>
+<script type="module">
+    $(document).find('#role').select2(
+        {
+            dropdownParent: $('#default_modal'),
+        });
+</script>

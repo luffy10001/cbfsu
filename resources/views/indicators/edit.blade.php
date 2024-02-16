@@ -1,6 +1,6 @@
 <x-custom-modal-component>
     <x-slot name="title">
-            {{ __('Edit Indicator') }}{{$indicator->id}}
+            {{ __('Edit Indicator') }}
     </x-slot>
     <x-slot name="body">
         <div class="modal-body">
@@ -17,7 +17,7 @@
                         <select  placeholder="Select a Role" class="form-select" id="service" name="service">
                             <option value="0"> Select a Service</option>
                             @foreach($service as $row)
-                                <option value="{{$row->id}}" {{ $row->id== $indicator->province_id ? 'selected' : '' }}>{{$row->name}}</option>
+                                <option value="{{$row->id}}" {{ $row->id== $indicator->service_id ? 'selected' : '' }}>{{$row->name}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -27,3 +27,8 @@
         </div>
     </x-slot>
 </x-custom-modal-component>
+<script type="module">
+    $(document).find('#service').select2({
+        dropdownParent: $('#default_modal'),
+    });
+</script>

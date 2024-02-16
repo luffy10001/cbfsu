@@ -1,6 +1,6 @@
 <x-custom-modal-component>
     <x-slot name="title">
-            {{ __('Edit City') }}{{$city->id}}
+            {{ __('Edit City') }}
     </x-slot>
     <x-slot name="body">
         <div class="modal-body">
@@ -22,8 +22,13 @@
                         </select>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-success">Submit</button>
             </form>
         </div>
     </x-slot>
 </x-custom-modal-component>
+<script>
+    $(document).find('#province').select2({
+        dropdownParent: $('#default_modal'),
+    });
+</script>

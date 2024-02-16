@@ -43,7 +43,7 @@ class RolesDataTable extends BaseDataTable
             })
             ->filter(function ($instance) use ($request, $db_connection) {
                 if (!empty($request->get('name'))) {
-                    $instance->where('name', ($db_connection === 'mysql') ? 'LIKE' : 'ILIKE', "%" . $request->get('name') . "%");
+                    $instance->where('roles.name', ($db_connection === 'mysql') ? 'LIKE' : 'ILIKE', "%" . $request->get('name') . "%");
                 }
             })
             ->rawColumns(['actions']);

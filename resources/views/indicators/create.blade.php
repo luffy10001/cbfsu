@@ -26,3 +26,8 @@
         </div>
     </x-slot>
 </x-custom-modal-component>
+<script type="module">
+    $(document).find('#service').select2({
+        dropdownParent: $('#default_modal'),
+    });
+</script>

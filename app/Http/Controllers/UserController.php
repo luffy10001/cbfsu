@@ -64,9 +64,10 @@ class UserController extends Controller
     }
     public function update(Request $request)
     {
+        $user = User::find($request->id);
         $request->validate([
             'name' => 'required|min:2|max:20|regex:/^[A-Za-z\s]+$/',
-            'email' => 'required|unique:' . TableName(User::class) . ',email|email',Rule::unique(TableName(User::class))->ignore($request->id),
+            'email' => ['required','email',Rule::unique(TableName(User::class))->ignore($user->id)],
             'role' => 'required|gt:0',
             'password' => 'nullable|min:8|confirmed|max:20',
         ], [

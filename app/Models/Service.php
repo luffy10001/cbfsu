@@ -10,4 +10,9 @@ class Service extends Model
     use HasFactory;
     protected $table='services';
     protected $fillable=['name','status'];
+
+    public function indicators()
+    {
+        return $this->hasMany(Indicator::class, 'service_id')->select('id','name');
+    }
 }

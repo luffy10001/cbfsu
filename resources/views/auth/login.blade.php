@@ -46,11 +46,12 @@
         <div class="bg-dark w-50 d-flex flex-column justify-content-center align-items-center"
              style="max-height:  100vh; height:434px; overflow: hidden; position: relative;">
             <div class="bg-dark text-center">
-                <img src="{{ asset('/icons/graanaLoginLogo.svg') }}" style="width: 192px; margin-bottom: 33px; "
-                     class="bi bi-house listing_i">
+                <h2 style="color:#ffff ;">HIV <br> Program Management System</h2>
+{{--                <img src="{{ asset('/icons/graanaLoginLogo.svg') }}" style="width: 192px; margin-bottom: 33px; "--}}
+{{--                     class="bi bi-house listing_i">--}}
             </div>
             <p class="powerByImarat text-center " style="position: absolute; bottom: 50px">
-                Powered by IMARAT
+                Powered by HIV Program Management System
             </p>
         </div>
     </div>
@@ -127,6 +128,10 @@
           integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <style>
+        .center-div.w-100.d-flex{
+            width: 75%!important;
+            margin: 0 auto;
+        }
         .center-div {
             border: 1px solid #dcdcdc;
         }
@@ -140,12 +145,26 @@
         }
 
         .container {
-            padding-top: 50px;
+            padding-top: 150px;
             margin: auto;
         }
 
         div[data-lastpass-icon-root] {
             display: none !important;
+        }
+        .formRedButton {
+            align-items: center;
+            background-color: #e85451;
+            border: 1px solid #e85451;
+            border-radius: 10px;
+            color: #fff;
+            cursor: pointer;
+            flex-shrink: 0;
+            gap: 10px;
+            height: 35px;
+            justify-content: center;
+            outline: none;
+            width: 80px;
         }
     </style>
 </x-guest-layout>

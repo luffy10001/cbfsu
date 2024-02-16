@@ -48,7 +48,7 @@
             color: white;
         }
         .row.cbo-row {
-            position: absolute;
+            position: relative;
             top: 95%;
             left: 53%;
             transform: translate(-50%, -50%);
@@ -89,7 +89,9 @@
             background: #EDEFD3;
         }
     </style>
-
+    <x-slot name="title">
+        {{ __('Manage Categories') }}
+    </x-slot>
         <div class="inner-dive">
             <div style="position: relative;">
                 <img src="{{ asset('images/ins.png') }}" alt="Example Image" style="width: 100%; height: auto;">

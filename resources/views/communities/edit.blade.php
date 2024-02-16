@@ -1,6 +1,6 @@
 <x-custom-modal-component>
     <x-slot name="title">
-            {{ __('Edit Community') }}{{$community->id}}
+            {{ __('Edit Community') }}
     </x-slot>
     <x-slot name="body">
         <div class="modal-body">
@@ -13,7 +13,7 @@
                         <input type="text" class="form-control" id="name" name="name" value="{{$community->name}}">
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-success">Submit</button>
             </form>
         </div>
     </x-slot>

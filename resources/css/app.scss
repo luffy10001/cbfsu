@@ -495,7 +495,8 @@ body{
 
 
     .sidebar{
-      height: calc(100vh - 100px);
+      //height: calc(100vh - 100px);
+      height: calc(100vh);
       overflow-y: scroll;
 
       ul.nav{
@@ -1047,4 +1048,44 @@ button[data-bs-dismiss="modal"]{
   height: 0;
   opacity: 0;
   visibility: hidden;
+}
+button.btn.btn-success.filterBtnReset.ico-btn , .cancel-btn {
+  background: #ca4544;
+  border-color: #ca4544;
+}
+button.btn.btn-success.filterBtnReset.ico-btn:hover, .cancel-btn:hover {
+  background: #ae1311;
+  border-color: #ca4544;
+}
+#services tbody tr:nth-of-type(odd),table#services tbody tr:nth-of-type(even){
+  background-color: #ffff;
+}
+#services > :not(caption) > * > *{
+  box-shadow:unset !important;
+}
+.indicatorsRow .dropdown-item {
+  display: contents;
+}
+.row.serviceName {
+  background: #2196F314;
+  margin-bottom: 4px;
+}
+.row.serviceName p{
+  padding: 10px 0;
+  font-size: 15px;
+  font-weight: 400;
+  padding: 10px 0;
+  margin:0;
+  text-transform: capitalize;
+}
+.row.indicatorsRow div {
+  color:#1E88E5;
+  border-bottom: 1px solid #80808047;
+}
+.row.indicatorsRow div p{
+  padding: 8px 0;
+  margin: 0;
+}
+row.indicatorsRow .bi::before, [class^=bi-]::before, [class*=" bi-"]::before{
+  line-height: 2.5;
 }

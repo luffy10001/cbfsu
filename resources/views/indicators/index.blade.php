@@ -1,15 +1,15 @@
 <x-app-layout>
     <x-slot name="header">
         <x-table-header-component>
-            <x-slot name="title">
-                {{ __('Performance Indicators') }}
-            </x-slot>
             <x-slot name="buttons">
-                <button class="btn btn-primary float-end modal_open" url="{{route('indicator.create')}}" size="md">Add Indicator</button>
+                <button class="btn btn-success float-end modal_open" url="{{route('indicator.create')}}" size="md">Add Indicator</button>
                 <a class="btn btn-primary float-end mr-1 " href="{{route('cbo.index')}}" size="md">CBO List</a>
             </x-slot>
             {{ $dataTable->filters() }}
         </x-table-header-component>
+        <x-slot name="title">
+            {{ __('Performance Indicators') }}
+        </x-slot>
     </x-slot>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -28,4 +28,8 @@
     @push('scripts')
         {{ $dataTable->scripts() }}
     @endpush
+    <script type="module">
+        $(document).find('.filter-dropdown').select2();
+    </script>
 </x-app-layout>
+

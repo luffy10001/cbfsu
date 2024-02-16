@@ -183,7 +183,7 @@ class UsersDataTable extends BaseDataTable
             'email'    => ['title' => 'Email',  'class' => '', 'type' => 'text', 'condition' => 'like'],
             'department_id'  => [ 'title' => 'Department','options' => $departments,'id'=>'role-filter', 'placeholder'=>'Select a role', 'class' => 'filter-dropdown', 'type' => 'select', 'condition' => 'like', 'active' => true],
             'role_name'  => [ 'title' => 'Role','options' => $roles,'id'=>'role-filter', 'placeholder'=>'Select a role', 'class' => 'filter-dropdown', 'type' => 'select', 'condition' => 'like', 'active' => true],
-            'status'  => ['title' => 'Status ','options'=>$all_users, 'placeholder'=>'Select a City', 'class' => '', 'type' => 'select', 'condition' => 'like', 'active' => true],
+            'status'  => ['title' => 'Status ','options'=>$all_users, 'placeholder'=>'Select a City', 'class' => 'filter-dropdown', 'type' => 'select', 'condition' => 'like', 'active' => true],
        ];
     }
 }

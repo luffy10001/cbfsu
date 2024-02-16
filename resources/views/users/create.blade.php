@@ -55,18 +55,17 @@
                     </div>
 
                 </div>
-                <button type="button" class="form_submit btn btn-primary mt-3">Submit</button>
-                <button type="button" class="btn btn-primary mt-3" data-bs-dismiss="modal" aria-label="Close">Cancel
+                <button type="button" class="form_submit btn btn-success mt-3">Submit</button>
+                <button type="button" class="btn btn-primary cancel-btn mt-3" data-bs-dismiss="modal" aria-label="Close">Cancel
                 </button>
             </form>
         </div>
-        <script type="module">
-            $(document).find('.city_selector').select2(
-                {
-                    dropdownParent: $('#default_modal'),
-                });
-        </script>
     </x-slot>
 </x-custom-modal-component>
-
+<script type="module">
+    $(document).find('#role').select2(
+        {
+            dropdownParent: $('#default_modal'),
+        });
+</script>
 

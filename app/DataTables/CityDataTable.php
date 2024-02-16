@@ -28,26 +28,27 @@ class CityDataTable extends BaseDataTable
         $db_connection = env('DB_CONNECTION');
         return datatables()
             ->eloquent($query)
-            ->addColumn('actions', function($city){
-                return view('cities.actions',compact('city'));
-            })
-            ->addColumn('created_at', function($city){
-                return crm_date_format($city->created_at);
-            })
-            ->addColumn('updated_at', function($city){
-                return crm_date_format($city->updated_at);
-            })
-            ->addColumn('province_name', function($city){
-                return $city->province_name;
+            ->addColumn('province_id', function($city){
+                if(isset($city->provinces)){
+                    return $city->provinces->name;
+                }
+                return '--';
+
             })
             ->addColumn('status', function($city){
                 if($city->status)
                     return "<span class='badge bg-success '>Active</span> ";
                 return "<span class='badge bg-primary '>In-Active</span> ";
             })
+            ->addColumn('actions', function($city){
+                return view('cities.actions',compact('city'));
+            })
             ->filter(function ($instance) use ($request, $db_connection) {
                 if (!empty($request->get('name'))) {
                     $instance->where('name', ($db_connection === 'mysql') ? 'LIKE' : 'ILIKE', "%" . $request->get('name') . "%");
+                }
+                if (!empty($request->get('provinces')) && $request->get('provinces') !='all'){
+                    $instance->where('province_id',$request->get('provinces'));
                 }
             })
             ->rawColumns(['actions','status']);
@@ -61,10 +62,7 @@ class CityDataTable extends BaseDataTable
      */
     public function query(City $model)
     {
-        $city = $model->from(TableName(City::class).' as city')
-            ->leftJoin(TableName(Province::class).' as province','city.province_id','=','province.id')
-            ->select('city.*','province.name as province_name');
-        return $city->orderByDesc('id')
+        return $model->orderByDesc('id')
             ->newQuery();
     }
 
@@ -104,7 +102,7 @@ class CityDataTable extends BaseDataTable
         return [
             Column::make('id'),
             Column::make('name'),
-            Column::make('province_name')->title('Province'),
+            Column::computed('province_id')->title('Province'),
             Column::computed('status'),
             Column::computed('actions')
                 ->exportable(false)
@@ -126,8 +124,14 @@ class CityDataTable extends BaseDataTable
 
     public function getFilters(): array
     {
+        $datas['all'] = 'Select a Province';
+        $provices  = Province::select('id','name','status')->where('status',true)->get();
+        foreach($provices as $obj){
+            $datas[$obj->id]= $obj->name;
+        }
         return [
             'name'  => ['title' => 'Name', 'class' => '', 'type' => 'text', 'condition' => 'like', 'active' => true],
+            'provinces'  => [ 'title' => 'Province','options' => $datas,'id'=>'role-filter', 'placeholder'=>'Select a Province', 'class' => 'filter-dropdown', 'type' => 'select', 'condition' => 'like', 'active' => true],
         ];
     }
 }

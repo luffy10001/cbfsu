@@ -67,7 +67,7 @@ class IndicatorController extends Controller
     {
         $id = mws_encrypt('D',$id);
         Indicator::where('id',$id)->delete();
-        return response()->json([ 'success' =>  TRUE, 'message' => 'Indicator Deleted Successfully', 'close_modal' => TRUE, 'table' => 'indicators'], 200);
+        return response()->json([ 'success' =>  TRUE, 'message' => 'Indicator Deleted Successfully', 'close_modal' => TRUE, 'table' => 'services'], 200);
     }
 
     public function status(Request $request,$id, $status)

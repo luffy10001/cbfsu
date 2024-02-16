@@ -38,8 +38,8 @@ class ServiceDataTable extends BaseDataTable
                 return view('services.actions',compact('service'));
             })
             ->filter(function ($instance) use ($request, $db_connection) {
-                if (!empty($request->get('name'))) {
-                    $instance->where('name', ($db_connection === 'mysql') ? 'LIKE' : 'ILIKE', "%" . $request->get('name') . "%");
+                if (!empty($request->get('name')) && $request->get('name') !='all') {
+                    $instance->where('id',$request->get('name'));
                 }
             })
             ->rawColumns(['actions','status']);
