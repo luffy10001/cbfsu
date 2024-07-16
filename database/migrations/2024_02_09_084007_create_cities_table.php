@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->boolean('status')->default(true);
-            $table->bigInteger('province_id')->nullable();
+            $table->bigInteger('state_id')->nullable();
             $table->timestamps();
         });
     }
