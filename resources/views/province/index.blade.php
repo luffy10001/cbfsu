@@ -2,12 +2,12 @@
     <x-slot name="header">
         <x-table-header-component>
             <x-slot name="buttons">
-                <button class="btn btn-success float-end modal_open" url="{{route('province.create')}}" size="md">Add Province</button>
+                <button class="btn btn-success float-end modal_open" url="{{route('state.create')}}" size="md">Add State</button>
             </x-slot>
             {{ $dataTable->filters() }}
         </x-table-header-component>
         <x-slot name="title">
-            {{ __('Manage Province') }}
+            {{ __('Manage States') }}
         </x-slot>
     </x-slot>
     <div class="py-12">

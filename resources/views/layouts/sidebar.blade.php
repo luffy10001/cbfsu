@@ -14,54 +14,8 @@
                 </a>
             </li>
         @endif
-
         @include('layouts.partials.user_management')
-        @include('layouts.partials.system_initialization')
         @include('layouts.partials.settings')
-{{--        @include('layouts.partials.departments')--}}
-{{--       <x-sidebar-dropdown>--}}
-{{--            <x-slot name="label">--}}
-{{--                Parent 1--}}
-{{--            </x-slot>--}}
-{{--            <li class="nav-item"><a class="nav-link" href="#">Child 1</a></li>--}}
-{{--            <li class="nav-item"><a class="nav-link" href="#">Child 2</a></li>--}}
-{{--            <li class="nav-item"><a class="nav-link" href="#">Child 3</a></li>--}}
-{{--            <x-sidebar-dropdown>--}}
-{{--                <x-slot name="label">--}}
-{{--                    Parent 2--}}
-{{--                </x-slot>--}}
-{{--                <li class="nav-item"><a class="nav-link" href="#">Child 1</a></li>--}}
-{{--                <li class="nav-item"><a class="nav-link" href="#">Child 2</a></li>--}}
-{{--                <li class="nav-item"><a class="nav-link" href="#">Child 3</a></li>--}}
-{{--                <x-sidebar-dropdown>--}}
-{{--                    <x-slot name="label">--}}
-{{--                        Parent 3--}}
-{{--                    </x-slot>--}}
-{{--                    <li class="nav-item"><a class="nav-link" href="#">Child 1</a></li>--}}
-{{--                    <li class="nav-item"><a class="nav-link" href="#">Child 2</a></li>--}}
-{{--                    <li class="nav-item"><a class="nav-link" href="#">Child 3</a></li>--}}
-{{--                    <x-sidebar-dropdown>--}}
-{{--                        <x-slot name="label">--}}
-{{--                            Parent 4--}}
-{{--                        </x-slot>--}}
-{{--                        <li class="nav-item"><a class="nav-link" href="#">Child 1</a></li>--}}
-{{--                        <li class="nav-item"><a class="nav-link" href="#">Child 2</a></li>--}}
-{{--                        <li class="nav-item"><a class="nav-link" href="#">Child 3</a></li>--}}
-{{--                        <x-sidebar-dropdown>--}}
-{{--                            <x-slot name="label">--}}
-{{--                                Parent 7--}}
-{{--                            </x-slot>--}}
-{{--                            <li class="nav-item"><a class="nav-link" href="#">Child 1</a></li>--}}
-{{--                            <li class="nav-item"><a class="nav-link" href="#">Child 2</a></li>--}}
-{{--                            <li class="nav-item"><a class="nav-link" href="#">Child 3</a></li>--}}
-{{--                        </x-sidebar-dropdown>--}}
-{{--                    </x-sidebar-dropdown>--}}
-{{--                </x-sidebar-dropdown>--}}
-{{--            </x-sidebar-dropdown>--}}
-{{--        </x-sidebar-dropdown>--}}
-        {{-- Dropdown Sample code --}}
-
-
     </ul>
 </div>
 

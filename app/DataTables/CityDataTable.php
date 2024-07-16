@@ -102,7 +102,7 @@ class CityDataTable extends BaseDataTable
         return [
             Column::make('id'),
             Column::make('name'),
-            Column::computed('province_id')->title('Province'),
+            Column::computed('province_id')->title('State'),
             Column::computed('status'),
             Column::computed('actions')
                 ->exportable(false)
@@ -124,7 +124,7 @@ class CityDataTable extends BaseDataTable
 
     public function getFilters(): array
     {
-        $datas['all'] = 'Select a Province';
+        $datas['all'] = 'Select a State';
         $provices  = Province::select('id','name','status')->where('status',true)->get();
         foreach($provices as $obj){
             $datas[$obj->id]= $obj->name;

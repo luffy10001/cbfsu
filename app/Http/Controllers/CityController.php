@@ -32,7 +32,7 @@ class CityController extends Controller
             'province.gt' => 'The Province field is required.',
         ]);
         $data = [
-            'name'  => $request['name'],
+            'name'        => $request['name'],
             'province_id'  => $request['province'],
         ];
         City::create($data);
