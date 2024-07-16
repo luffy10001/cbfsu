@@ -32,7 +32,7 @@ class ProvinceController extends Controller
             'status'  => true,
         ];
         Province::create($data);
-        Session::flash('message', 'Province has been created');
+        Session::flash('message', 'State has been created');
         return redirect()->back();
     }
 
@@ -58,7 +58,7 @@ class ProvinceController extends Controller
     {
         $id = mws_encrypt('D',$id);
         Province::where('id',$id)->delete();
-        return response()->json([ 'success' =>  TRUE, 'message' => 'Province Deleted Successfully', 'close_modal' => TRUE, 'table' => 'province'], 200);
+        return response()->json([ 'success' =>  TRUE, 'message' => 'State Deleted Successfully', 'close_modal' => TRUE, 'table' => 'State'], 200);
     }
 
     public function status(Request $request,$id, $status)
@@ -73,16 +73,16 @@ class ProvinceController extends Controller
         if($status == 0){
             return response()->json([
                 'success' => TRUE,
-                'message' => 'Province De-Activated Successfully',
+                'message' => 'State De-Activated Successfully',
                 'close_modal' =>  TRUE,
                 'table' => 'province'],  200);
         }
         elseif($status == 1){
             return response()->json([
                 'success' => TRUE,
-                'message' => 'Province Active Successfully',
+                'message' => 'State Active Successfully',
                 'close_modal' =>  TRUE,
-                'table' => 'province'],  200);
+                'table' => 'State'],  200);
         }else{
             return response()->json([
                 'success' => TRUE,

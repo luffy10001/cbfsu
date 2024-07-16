@@ -12,9 +12,9 @@
                         <input type="text" class="form-control" id="name" name="name">
                     </div>
                     <div class="col-md-12 mb-3">
-                        <label for="province" class="form-label">Province*</label>
+                        <label for="province" class="form-label">State*</label>
                         <select  placeholder="Select a Role" class="form-select" id="province" name="province">
-                            <option value="0"> Select a Province</option>
+                            <option value="0"> Select a State</option>
                             @foreach($province as $row)
                                 <option value="{{$row->id}}">{{$row->name}}</option>
                             @endforeach
