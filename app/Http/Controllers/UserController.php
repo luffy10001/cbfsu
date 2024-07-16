@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Department;
 use App\Models\Role;
 use App\Models\User;
 use App\Rules\UserManagerRule;
@@ -26,7 +25,7 @@ class UserController extends Controller
 
     public function create()
     {
-        $roles = Role::select('id','name','department_id')->get();
+        $roles = Role::select('id','name')->get();
         return view('users.create', compact('roles'));
     }
 

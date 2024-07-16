@@ -20,8 +20,7 @@ class RoleController extends Controller
 
     public function create()
     {
-        $departments = Department::select('id','name')->where('status',true)->get();
-        return view('roles.create',compact('departments'));
+        return view('roles.create');
     }
 
     public function store(Request $request)
@@ -33,7 +32,6 @@ class RoleController extends Controller
         $data = [
             'name'  => $request['name'],
             'slug'  => $slug_name,
-            'department_id' => $request['department_id'],
         ];
         Role::create($data);
         Session::flash('message', 'Role has been created');
@@ -42,8 +40,7 @@ class RoleController extends Controller
 
     public function edit(Role $role)
     {
-        $departments = Department::select('id','name')->where('status',true)->get();
-        return view('roles.edit',['role'=>$role,'departments'=>$departments]);
+        return view('roles.edit',['role'=>$role]);
     }
 
     public function update(Request $request)
@@ -53,11 +50,8 @@ class RoleController extends Controller
             'name'=>'required|max:200'
         ]);
         Role::where('id',$request->id)->first();
-        $slug_name = Str::slug($request['name']);
         $data =[
             'name'  => $request['name'],
-            'slug'  => $slug_name,
-            'department_id' => $request['department_id'],
         ];
         Role::where('id',$request->id)->update($data);
         return redirect()->back();

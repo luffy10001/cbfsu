@@ -29,9 +29,6 @@ class RolesDataTable extends BaseDataTable
         $db_connection = env('DB_CONNECTION');
         return datatables()
             ->eloquent($query)
-            ->addColumn('department_id',function($role){
-                return $role->department_name;
-            })
             ->addColumn('actions', function($role){
                 return view('roles.actions',compact('role'));
             })
@@ -58,9 +55,8 @@ class RolesDataTable extends BaseDataTable
     public function query(Role $model)
     {
         $users=  $model->from(TableName(Role::class).' as roles')
-            ->leftJoin(TableName(Department::class).' as departments','roles.department_id','=','departments.id')
             ->select(
-                'roles.*','departments.name as department_name'
+                'roles.*'
             )->orderByDesc('roles.id');
         return $users->newQuery();
     }
@@ -102,7 +98,6 @@ class RolesDataTable extends BaseDataTable
             Column::make('id'),
             Column::make('name'),
             Column::make('slug'),
-            Column::computed('department_id')->title('Department'),
             Column::computed('actions')
                 ->exportable(false)
                 ->printable(false)

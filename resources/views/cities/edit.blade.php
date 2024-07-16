@@ -13,9 +13,9 @@
                         <input type="text" class="form-control" id="name" name="name" value="{{$city->name}}">
                     </div>
                     <div class="col-md-12 mb-3">
-                        <label for="province" class="form-label">Province*</label>
-                        <select  placeholder="Select a Role" class="form-select" id="province" name="province">
-                            <option value="0"> Select a Province</option>
+                        <label for="province" class="form-label">State*</label>
+                        <select  placeholder="Select a State" class="form-select" id="province" name="province">
+                            <option value="0"> Select a State</option>
                             @foreach($province as $row)
                                 <option value="{{$row->id}}" {{ $row->id== $city->province_id ? 'selected' : '' }}>{{$row->name}}</option>
                             @endforeach

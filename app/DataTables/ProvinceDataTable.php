@@ -15,7 +15,7 @@ class ProvinceDataTable extends BaseDataTable
 {
 
     public $tableId = 'province';
-    public $createRoute = 'province.create';
+    public $createRoute = 'state.create';
     /**
      * Build DataTable class.
      *
