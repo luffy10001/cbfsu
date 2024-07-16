@@ -12,7 +12,8 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
         <!-- Scripts -->
-        @vite(['resources/css/private_app.scss', 'resources/js/app.js'])
+{{--        @vite(['resources/css/private_app.scss', 'resources/js/app.js'])--}}
+        <link href="{!! asset('assets/css/app.css') !!}" rel="stylesheet">
 
     </head>
     <body class="font-sans text-gray-900 antialiased">
