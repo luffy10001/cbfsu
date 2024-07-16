@@ -63,9 +63,7 @@ class UsersDataTable extends BaseDataTable
                 if (!empty($request->get('email'))) {
                     $instance->where('users.email', ($db_connection === 'mysql') ? 'LIKE' : 'ILIKE', "%" . $request->get('email') . "%");
                 }
-                if (!empty($request['department_id']) && $request['department_id'] !='all'){
-                    $instance->where('users.department_id',$request['department_id']);
-                }
+
                 if (!empty($request['role_name']) && $request['role_name'] !='all'){;
                     $instance->where('users.role_id',$request['role_name']);
                 }
@@ -92,10 +90,9 @@ class UsersDataTable extends BaseDataTable
         $user       =   request()->user();
         $users=  $model->from(TableName(User::class).' as users')
             ->leftJoin(TableName(Role::class).' as roles','users.role_id','=','roles.id')
-            ->leftJoin(TableName(Department::class).' as departments','users.department_id','=','departments.id')
             ->select(
                 'users.*',
-                'roles.name as role_name','departments.name as department_name'
+                'roles.name as role_name'
             );
         return $users->newQuery();
     }
@@ -138,7 +135,6 @@ class UsersDataTable extends BaseDataTable
             Column::computed('name'),
             Column::make('email'),
             Column::make('role_name')->title('Role'),
-            Column::make('department_name')->title('Department'),
             Column::make('status')->title('Account Status'),
             Column::computed('actions')
                 ->title('Action')
@@ -167,21 +163,16 @@ class UsersDataTable extends BaseDataTable
             $roles[$role->id] = $role->name;
         }
 
-        $departments['all'] = 'All Department';
-        $departmentss = Department::select('id','name')->get();
-        foreach ($departmentss as $department ){
-            $departments[$department->id] = $department->name;
-        }
+
 
         $all_users['all'] = 'All ';
         $all_users['active'] = 'Active';
-        $all_users['inactive'] = 'In-Active';
+        $all_users['inactive'] = 'InActive';
 
         return [
             'id'  => ['title' => 'User ID', 'class' => 'input_number', 'type' => 'number', 'condition' => 'like', 'active' => true],
             'name'  => ['title' => 'Name', 'class' => '', 'type' => 'text', 'condition' => 'like', 'active' => true],
             'email'    => ['title' => 'Email',  'class' => '', 'type' => 'text', 'condition' => 'like'],
-            'department_id'  => [ 'title' => 'Department','options' => $departments,'id'=>'role-filter', 'placeholder'=>'Select a role', 'class' => 'filter-dropdown', 'type' => 'select', 'condition' => 'like', 'active' => true],
             'role_name'  => [ 'title' => 'Role','options' => $roles,'id'=>'role-filter', 'placeholder'=>'Select a role', 'class' => 'filter-dropdown', 'type' => 'select', 'condition' => 'like', 'active' => true],
             'status'  => ['title' => 'Status ','options'=>$all_users, 'placeholder'=>'Select a City', 'class' => 'filter-dropdown', 'type' => 'select', 'condition' => 'like', 'active' => true],
        ];

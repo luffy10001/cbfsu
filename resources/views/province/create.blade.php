@@ -1,10 +1,10 @@
 <x-custom-modal-component>
     <x-slot name="title">
-            {{ __('Add Province') }}
+            {{ __('Add State') }}
     </x-slot>
     <x-slot name="body">
         <div class="modal-body">
-            <form action="{{route("province.store")}}" method="POST">
+            <form action="{{route("state.store")}}" method="POST">
                 @csrf
                 <div class="mb-3">
                     <label for="name" class="form-label">Name</label>

@@ -34,15 +34,9 @@ Route::group(['middleware' => ['auth', 'user_permission']], function () {
     include __DIR__ . '/user.php';
     include __DIR__ . '/role.php';
     include __DIR__ . '/permission.php';
-    include __DIR__ . '/department.php';
     include __DIR__ . '/dashboard.php';
     include __DIR__ . '/province.php';
     include __DIR__ . '/city.php';
-    include __DIR__ . '/community.php';
-    include __DIR__ . '/institution.php';
-    include __DIR__ . '/cbo.php';
-    include __DIR__ . '/service.php';
-    include __DIR__ . '/indicator.php';
 
 });
 

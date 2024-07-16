@@ -1,10 +1,10 @@
 <x-custom-modal-component>
     <x-slot name="title">
-            {{ __('Edit Province') }}
+            {{ __('Edit State') }}
     </x-slot>
     <x-slot name="body">
         <div class="modal-body">
-            <form action="{{route("province.update")}}" method="POST">
+            <form action="{{route("state.update")}}" method="POST">
                 @csrf
                 <input type="hidden" name="id" value="{{$province->id}}">
                 <div class="mb-3">

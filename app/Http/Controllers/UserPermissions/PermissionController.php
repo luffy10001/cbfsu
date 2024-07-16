@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
 class PermissionController extends Controller
@@ -55,6 +57,12 @@ class PermissionController extends Controller
                 $permission_obj->update($data);
             }else {
                 Permission::create($data);
+            }
+            try {
+                Artisan::call('cache:clear');
+                Log::info('Cache cleared successfully on permission change.');
+            } catch (\Exception $e) {
+                Log::info('Error clearing cache on permission change: ' . $e->getMessage());
             }
         }
         return response()->json([
