@@ -65,9 +65,9 @@ class UserController extends Controller
     {
         $user = User::find($request->id);
         $request->validate([
-            'name' => 'required|min:2|max:20|regex:/^[A-Za-z\s]+$/',
+            'name'  => 'required|min:2|max:20|regex:/^[A-Za-z\s]+$/',
             'email' => ['required','email',Rule::unique(TableName(User::class))->ignore($user->id)],
-            'role' => 'required|gt:0',
+            'role'  => 'required|gt:0',
             'password' => 'nullable|min:8|confirmed|max:20',
         ], [
             'role' => 'The role field is required',
@@ -77,8 +77,6 @@ class UserController extends Controller
             'name' => $request['name'],
             'email' => $request['email'],
             'role_id' => $request['role'],
-            'department_id' => $role->department_id,
-            'password' => Hash::make($request['password']),
         ];
         if (!empty($request['password'])) {
             $data['password'] = Hash::make($request['password']);

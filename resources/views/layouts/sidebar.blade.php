@@ -14,6 +14,7 @@
                 </a>
             </li>
         @endif
+        @include('layouts.partials.agents')
         @include('layouts.partials.user_management')
         @include('layouts.partials.settings')
     </ul>

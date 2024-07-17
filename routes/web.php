@@ -37,6 +37,7 @@ Route::group(['middleware' => ['auth', 'user_permission']], function () {
     include __DIR__ . '/dashboard.php';
     include __DIR__ . '/province.php';
     include __DIR__ . '/city.php';
+    include __DIR__ . '/agent.php';
 
 });
 
