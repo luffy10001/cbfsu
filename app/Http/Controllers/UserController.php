@@ -32,19 +32,17 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|min:2|max:20|regex:/^[A-Za-z\s]+$/',
+            'name' => 'required',
             'email' => 'required|unique:' . TableName(User::class) . ',email|email',
             'role' => 'required|gt:0',
             'password' => 'required|min:8|confirmed|max:20',
         ], [
             'role' => 'The role field is required',
         ]);
-        $role = Role::select('id','department_id')->where('id',$request['role'])->first();
         $data = [
             'name' => $request['name'],
             'email' => $request['email'],
             'role_id' => $request['role'],
-            'department_id' => $role->department_id,
             'password' => Hash::make($request['password']),
         ];
         User::create($data);
@@ -58,21 +56,20 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
-        $roles = Role::select('id','name','department_id')->get();
+        $roles = Role::select('id','name')->get();
         return view('users.edit', compact('user','roles'));
     }
     public function update(Request $request)
     {
         $user = User::find($request->id);
         $request->validate([
-            'name'  => 'required|min:2|max:20|regex:/^[A-Za-z\s]+$/',
+            'name'  => 'required',
             'email' => ['required','email',Rule::unique(TableName(User::class))->ignore($user->id)],
             'role'  => 'required|gt:0',
             'password' => 'nullable|min:8|confirmed|max:20',
         ], [
             'role' => 'The role field is required',
         ]);
-        $role = Role::select('id','department_id')->where('id',$request['role'])->first();
         $data = [
             'name' => $request['name'],
             'email' => $request['email'],
@@ -108,5 +105,39 @@ class UserController extends Controller
             'close_modal' => true,
             'table' => 'users'
         ]);
+    }
+    public function view(User $user)
+    {
+        return view('users.show', compact('user'));
+    }
+
+    public function status(Request $request,$id, $status){
+        $user = User::find($id);
+        $obj = $status == 'active' ? true : false;
+        if($user){
+            $user->update([
+                'status' => $obj,
+            ]);
+        }
+        if($obj === false){
+            return response()->json([
+                'success' => TRUE,
+                'message' => 'User De-Activated Successfully',
+                'close_modal' =>  TRUE,
+                'table' => 'users'],  200);
+        }
+        elseif($obj === true){
+            return response()->json([
+                'success' => TRUE,
+                'message' => 'User Active Successfully',
+                'close_modal' =>  TRUE,
+                'table' => 'users'],  200);
+        }else{
+            return response()->json([
+                'success' => TRUE,
+                'message' => 'Something Went Wrong',
+                'close_modal' =>  TRUE,
+                'table' => 'users'],  200);
+        }
     }
 }

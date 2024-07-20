@@ -9,6 +9,7 @@ Route::group(['prefix'=>'users','groupName' => 'Users', 'access' => 'all'], func
     Route::post('store',[UserController::class,'store'])->name('users.store');
     Route::get('{user}/edit', [UserController::class, 'edit'])->name('users.edit');
     Route::post('update', [UserController::class, 'update'])->name('users.update');
-
-    Route::get('department/get-roles',[UserController::class,'getDepartmentRoles'])->name('department.get-roles');
+    Route::get('{user}/view', [UserController::class, 'view'])->name('users.view');
+    Route::post('delete/{id}',[UserController::class,'delete'])->name('users.delete');
+    Route::post('status/{id}/{status}',[UserController::class,'status'])->name('users.status');
 });

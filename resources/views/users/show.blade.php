@@ -4,18 +4,40 @@
     </x-slot>
     <x-slot name="body">
         <div class="modal-body">
-            <form action="{{route('users.assign-area-store',$user->id)}}" method="POST">
-                @csrf
-                <div class="mb-3">
-                    <label for="role" class="form-label">Select a Area</label>
-                    <select multiple class="form-select ccrm-select" id="role" name="area_id" required>
-                        @foreach($areas as $area)
-                            <option {!! $selfController->mws_user_area($user_areas,$area->id)?'selected':'' !!} value={{$area->id}}>{{$area->name }}</option>
-                        @endforeach
-                    </select>
+            <section>
+                <div class="container p-0 mt-2">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card mb-2">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Name</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class="text-muted mb-0">{{$user->name}}</p>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Email Address</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class="text-muted mb-0">{{$user->email}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <button type="" class="form_submit btn btn-primary">Save</button>
-            </form>
+            </section>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                <span class="btn btn btn-sm btn-primary cancel-btn" >Close </span>
+            </button>
         </div>
     </x-slot>
 </x-custom-modal-component>
