@@ -1,6 +1,6 @@
 <x-custom-modal-component>
     <x-slot name="title">
-        {{ __($user->name." Details") }}
+        {{ __($agent->user->name." Details") }}
     </x-slot>
     <x-slot name="body">
         <div class="modal-body">
@@ -15,7 +15,7 @@
                                             <p class="mb-0">Name</p>
                                         </div>
                                         <div class="col-sm-9">
-                                            <p class="text-muted mb-0">{{$user->name}}</p>
+                                            <p class="text-muted mb-0">{{$agent->user->name}}</p>
                                         </div>
                                     </div>
                                     <hr>
@@ -24,7 +24,16 @@
                                             <p class="mb-0">Email Address</p>
                                         </div>
                                         <div class="col-sm-9">
-                                            <p class="text-muted mb-0">{{$user->email}}</p>
+                                            <p class="text-muted mb-0">{{$agent->user->email}}</p>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Phone</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class="text-muted mb-0">{{$agent->phone}}</p>
                                         </div>
                                     </div>
                                 </div>

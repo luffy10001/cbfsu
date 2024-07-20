@@ -10,7 +10,7 @@ class Role extends Model
     use HasFactory;
     protected $table='roles';
     protected $fillable=[
-        'name', 'parent_id','department_id', 'slug'
+        'name', 'parent_id', 'slug'
     ];
     public function permissions(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
