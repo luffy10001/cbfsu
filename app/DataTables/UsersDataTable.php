@@ -45,13 +45,12 @@ class UsersDataTable extends BaseDataTable
 
             })
             ->editColumn('name',function ($user){
-                if ($user->is_default){
-                    return $user->name." (Default)";
-                }
                 return $user->name;
             })
             ->addColumn('actions', function($user){
-                return view('users.actions',compact('user'));
+                if($user->role->slug!='super-admin') {
+                    return view('users.actions', compact('user'));
+                }
             })
             ->filter(function ($instance) use ($request, $db_connection) {
                 if(!empty($request->get('id'))){
