@@ -115,6 +115,18 @@ if (!function_exists('positions')) {
         );
     }
 }
+if (!function_exists('am_best_rating')) { // added here for easily change in future
+    function am_best_rating(): array
+    {
+        return array(
+            '1' => '1',
+            '2' => '2',
+            '3' => '3',
+            '4' => '4',
+            '5' => '5',
+        );
+    }
+}
 
 if (!function_exists('crm_date_format')) {
     function crm_date_format($dateTime, $isDate = false): string

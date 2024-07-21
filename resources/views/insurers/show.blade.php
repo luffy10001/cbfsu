@@ -1,6 +1,6 @@
 <x-custom-modal-component>
     <x-slot name="title">
-        {{ __($customer->user->name." Details") }}
+        {{ __($insurer->name." Details") }}
     </x-slot>
     <x-slot name="body">
         <div class="modal-body">
@@ -15,7 +15,7 @@
                                             <p class="mb-0">Name</p>
                                         </div>
                                         <div class="col-sm-9">
-                                            <p class="text-muted mb-0">{{$customer->user->name}}</p>
+                                            <p class="text-muted mb-0">{{$insurer->name}}</p>
                                         </div>
                                     </div>
                                     <hr>
@@ -24,7 +24,7 @@
                                             <p class="mb-0">Email Address</p>
                                         </div>
                                         <div class="col-sm-9">
-                                            <p class="text-muted mb-0">{{$customer->user->email}}</p>
+                                            <p class="text-muted mb-0">{{$insurer->email}}</p>
                                         </div>
                                     </div>
                                     <hr>
@@ -33,25 +33,25 @@
                                             <p class="mb-0">Phone</p>
                                         </div>
                                         <div class="col-sm-9">
-                                            <p class="text-muted mb-0">{{$customer->phone}}</p>
+                                            <p class="text-muted mb-0">{{$insurer->phone}}</p>
                                         </div>
                                     </div>
                                     <hr>
                                     <div class="row">
                                         <div class="col-sm-3">
-                                            <p class="mb-0">Positions Title</p>
+                                            <p class="mb-0">Underwriter Name</p>
                                         </div>
                                         <div class="col-sm-9">
-                                            <p class="text-muted mb-0">{{$customer->positions}}</p>
+                                            <p class="text-muted mb-0">{{$insurer->underwriter->name}}</p>
                                         </div>
                                     </div>
                                     <hr>
                                     <div class="row">
                                         <div class="col-sm-3">
-                                            <p class="mb-0">Date Signed</p>
+                                            <p class="mb-0">Am Best Rating</p>
                                         </div>
                                         <div class="col-sm-9">
-                                            <p class="text-muted mb-0">{{$customer->signed_in}}</p>
+                                            <p class="text-muted mb-0">{{$insurer->am_best_rating}}</p>
                                         </div>
                                     </div>
                                     <hr>
@@ -60,7 +60,7 @@
                                             <p class="mb-0">Zip</p>
                                         </div>
                                         <div class="col-sm-9">
-                                            <p class="text-muted mb-0">{{$customer->zip}}</p>
+                                            <p class="text-muted mb-0">{{$insurer->zip}}</p>
                                         </div>
                                     </div>
                                     <hr>
@@ -69,7 +69,7 @@
                                             <p class="mb-0">City Name</p>
                                         </div>
                                         <div class="col-sm-9">
-                                            <p class="text-muted mb-0">{{$customer->city->name}}</p>
+                                            <p class="text-muted mb-0">{{$insurer->city->name}}</p>
                                         </div>
                                     </div>
                                     <hr>
@@ -78,7 +78,7 @@
                                             <p class="mb-0">State Name</p>
                                         </div>
                                         <div class="col-sm-9">
-                                            <p class="text-muted mb-0">{{$customer->state->name}}</p>
+                                            <p class="text-muted mb-0">{{$insurer->state->name}}</p>
                                         </div>
                                     </div>
                                     <hr>
@@ -87,7 +87,7 @@
                                             <p class="mb-0">Address</p>
                                         </div>
                                         <div class="col-sm-9">
-                                            <p class="text-muted mb-0">{{$customer->address}}</p>
+                                            <p class="text-muted mb-0">{{$insurer->address}}</p>
                                         </div>
                                     </div>
                                 </div>

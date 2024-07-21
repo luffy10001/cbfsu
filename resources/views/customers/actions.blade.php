@@ -1,20 +1,20 @@
 <x-crm-dropdown>
     @if(isPermission('customer.edit'))
         <li>
-            <a class="dropdown-item modal_open" size="xl" url="{!! route('customer.edit',$user->id) !!}"><i
+            <a class="dropdown-item modal_open" size="xl" url="{!! route('customer.edit',$obj->id) !!}"><i
                         class="bi bi-pencil-square"></i>
                 Edit</a>
         </li>
     @endif
     @if(isPermission('customer.view'))
         <li>
-            <a class="dropdown-item modal_open" size="lg" url="{!! route('customer.view',$user->id) !!}"><i
+            <a class="dropdown-item modal_open" size="lg" url="{!! route('customer.view',$obj->id) !!}"><i
                         class="bi bi-info-circle"></i>
                 View</a>
         </li>
     @endif
     @if(isPermission('customer.status'))
-       @if($user->status ==='active')
+       @if($obj->status === true )
             <li class="divider"></li>
             <li>
                 <a
@@ -24,7 +24,7 @@
                     swal_button="Yes"
                     cancel_button_text="No"
                     class="dropdown-item modal_submit" size="lg"
-                    url="{!! route('customer.status',[$user->id,'inactive']) !!}"><i
+                    url="{!! route('customer.status',[$obj->user_id,'inactive']) !!}"><i
                         class="bi bi-door-closed"></i>
                     Deactivate Account</a>
             </li>
@@ -38,7 +38,7 @@
                         swal_button="Yes"
                         cancel_button_text="No"
                         class="dropdown-item modal_submit" size="lg"
-                        url="{!! route('customer.status',[$user->id,'active']) !!}"><i
+                        url="{!! route('customer.status',[$obj->user_id,'active']) !!}"><i
                             class="bi bi-play"></i>
                     Activate Account</a>
             </li>
@@ -53,7 +53,7 @@
                     swal_button="Yes"
                     cancel_button_text="No"
                     class="dropdown-item modal_submit" size="lg"
-                    url="{!! route('customer.delete',[$user->id]) !!}"><i
+                    url="{!! route('customer.delete',[$obj->id]) !!}"><i
                         class="fa fa-trash"></i>
                 Delete Customer</a>
         </li>
