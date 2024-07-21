@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProvinceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,6 +29,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('state/get-cities',[ProvinceController::class,'getStateCities'])->name('state.get-cities');
 });
 
 Route::group(['middleware' => ['auth', 'user_permission']], function () {
@@ -39,6 +41,7 @@ Route::group(['middleware' => ['auth', 'user_permission']], function () {
     include __DIR__ . '/city.php';
     include __DIR__ . '/agent.php';
     include __DIR__ . '/customer.php';
+    include __DIR__ . '/insurer.php';
 
 });
 
