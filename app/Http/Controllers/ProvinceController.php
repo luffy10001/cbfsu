@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\ProvinceDataTable;
+use App\Models\City;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use App\Models\Province;
@@ -91,5 +92,16 @@ class ProvinceController extends Controller
                 'table' => 'province'],  200);
         }
 
+    }
+
+    public function getStateCities(Request $request)
+    {
+        if(!empty($request['province_id'])  && $request['province_id'] != 'all') {
+            $province_id = $request['province_id'];
+            $cities = City::where('province_id', $province_id)
+                ->select(['id', 'name'])
+                ->get();
+            return response()->json($cities);
+        }
     }
 }

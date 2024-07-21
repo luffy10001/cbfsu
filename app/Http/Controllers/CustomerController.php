@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\DataTables\CustomerDataTable;
 use App\Models\Agent;
+use App\Models\City;
+use App\Models\Province;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Customer;
@@ -11,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
+use Carbon\Carbon;
 
 class CustomerController extends Controller
 {
@@ -28,124 +31,168 @@ class CustomerController extends Controller
             ->leftJoin(TableName(User::class).' as user','agent.user_id','=','user.id')
             ->select('agent.id as id','user.name as name')
         ->where([ 'user.status' => true ])->get();
-
-        return view('customers.create',compact('agents'));
+        $provinces = Province::select('id','name')->where('status',true)->orderBY('name')->get();
+        return view('customers.create',compact('agents','provinces'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'name'     => 'required',
-            'phone'    => 'required',
-            'email'    => 'required|unique:' . TableName(User::class) . ',email|email',
-            'password' => 'required|min:8|confirmed|max:20',
+            'name'         => 'required',
+            'contact_name' => 'required',
+            'phone'        => 'required',
+            'zip'          => 'required',
+            'email'        => 'required|unique:' . TableName(User::class) . ',email|email',
+            'password'     => 'required|min:8|confirmed|max:20',
+            'address'      => 'required',
+            'positions'    => 'required|gt:0',
+            'province_id'  => 'required|gt:0',
+            'city_id'      => 'required|gt:0',
+            'agent_id'     => 'required|gt:0',
+        ], [
+            'positions.gt'   => 'The Positions field is required.',
+            'province_id.gt' => 'The State field is required.',
+            'city_id.gt'     => 'The Headquarter field is required.',
+            'agent_id.gt'    => 'The Agent field is required.',
         ]);
-        $role = Role::select('slug','id')->where('slug','agent')->first();
+        $role = Role::select('slug','id')->where('slug','customer')->first();
         $data = [
             'name'     => $request['name'],
             'email'    => $request['email'],
             'role_id'  => $role->id,
             'password' => Hash::make($request['password']),
-//            signed_in data
-//    user_id
+
         ];
         $user = User::create($data);
-        $agentData = [
-            'user_id'=>$user->id,
-            'phone'  =>$request['phone'],
+        $customerData = [
+            'user_id'   => $user->id,
+            'signed_in' => Carbon::now(),
+            'phone'     => $request['phone'],
+            'agent_id'  => $request['agent_id'],
+            'state_id'  => $request['province_id'],
+            'city_id'   => $request['city_id'],
+            'positions' => $request['positions'],
+            'contact_name' => $request['contact_name'],
+            'zip'          => $request['zip'],
+            'address'      => $request['address'],
         ];
-        Agent::create($agentData);
+        Customer::create($customerData);
         return response()->json([
             'success' => true,
-            'message' => 'Agent Created!',
+            'message' => 'Customer Created Successfully!',
             'close_modal' => true,
-            'table' => 'agents'
+            'table' => 'customers'
         ]);
     }
 
-    public function edit(Agent $agent)
+    public function edit(Customer $customer)
     {
-        return view('agents.edit', compact('agent'));
+        $agents = Agent::from(TableName(Agent::class).' as agent')
+            ->leftJoin(TableName(User::class).' as user','agent.user_id','=','user.id')
+            ->select('agent.id as id','user.name as name')
+            ->where([ 'user.status' => true ])->get();
+        $provinces = Province::select('id','name')->where('status',true)->orderBY('name')->get();
+        $cities = City::select('id','name')->where('status',true)->orderBY('name')->get();
+        return view('customers.edit', compact('customer','agents','provinces','cities'));
     }
     public function update(Request $request)
     {
-        $agent = Agent::where('id',$request->id)->first();
+        $customer = Customer::select('id','user_id')->where('id',$request->id)->first();
         $request->validate([
-            'name' => 'required',
-            'phone' => 'required',
-            'email' => ['required','email',Rule::unique(TableName(User::class))->ignore($agent->user_id)],
-            'password' => 'nullable|min:8|confirmed|max:20',
+            'name'         => 'required',
+            'contact_name' => 'required',
+            'phone'        => 'required',
+            'zip'          => 'required',
+            'email'        => ['required','email',Rule::unique(TableName(User::class))->ignore($customer->user_id)],
+            'password'     => 'nullable|min:8|confirmed|max:20',
+            'address'      => 'required',
+            'positions'    => 'required|gt:0',
+            'province_id'  => 'required|gt:0',
+            'city_id'      => 'required|gt:0',
+            'agent_id'     => 'required|gt:0',
+        ], [
+            'positions.gt'   => 'The Positions field is required.',
+            'province_id.gt' => 'The State field is required.',
+            'city_id.gt'     => 'The Headquarter field is required.',
+            'agent_id.gt'    => 'The Agent field is required.',
         ]);
+
         $data = [
-            'name' => $request['name'],
-            'email' => $request['email'],
+            'name'     => $request['name'],
+            'email'    => $request['email'],
         ];
         if (!empty($request['password'])) {
             $data['password'] = Hash::make($request['password']);
         }
-        $user = User::where('id', $agent->user_id)->first();
-        if ($user) {
-            $user->update($data);
-        }
-        $agentData = [
-            'phone' => $request['phone'],
+        User::where('id', $customer->user_id)->update($data);
+        $customerData = [
+            'user_id'   => $customer->user_id,
+            //'signed_in' => Carbon::now(),
+            'phone'     => $request['phone'],
+            'agent_id'  => $request['agent_id'],
+            'state_id'  => $request['province_id'],
+            'city_id'   => $request['city_id'],
+            'positions' => $request['positions'],
+            'contact_name' => $request['contact_name'],
+            'zip'          => $request['zip'],
+            'address'      => $request['address'],
         ];
-        $agent->update($agentData);
+        $customer->update($customerData);
 
-        return response()->json([
-            'success'     => true,
-            'message'     => 'Agent Updated Successfully!',
-            'close_modal' => true,
-            'table'       => 'agents'
-        ]);
-    }
-    public function view(Agent $agent)
-    {
-        return view('agents.show', compact('agent'));
-    }
-
-
-    public function delete(Request $request, $id)
-    {
-        $agent = Agent::find($id);
-        User::where('id',$agent->user_id)->delete();
-        if ($agent) {
-            $agent->delete();
-        }
         return response()->json([
             'success' => true,
-            'message' => "Agent Deleted Successfully!",
+            'message' => 'Customer Updated Successfully!',
             'close_modal' => true,
-            'table' => 'agents'
+            'table' => 'customers'
         ]);
     }
+    public function view(Customer $customer)
+    {
+        return view('customers.show', compact('customer'));
+    }
+
     public function status(Request $request,$id, $status){
-        $agent = User::find($id);
+        $customer = User::find($id);
         $obj = $status == 'active' ? true : false;
-        if($agent){
-            $agent->update([
+        if($customer){
+            $customer->update([
                 'status' => $obj,
             ]);
         }
-        if($status == 0){
+        if($status === false){
             return response()->json([
                 'success' => TRUE,
-                'message' => 'Agent De-Activated Successfully',
+                'message' => 'Customer De-Activated Successfully',
                 'close_modal' =>  TRUE,
-                'table' => 'agents'],  200);
+                'table' => 'customers'],  200);
         }
-        elseif($status == 1){
+        elseif($status === true){
             return response()->json([
                 'success' => TRUE,
-                'message' => 'Agent Active Successfully',
+                'message' => 'Customer Active Successfully',
                 'close_modal' =>  TRUE,
-                'table' => 'agents'],  200);
+                'table' => 'customers'],  200);
         }else{
             return response()->json([
                 'success' => TRUE,
                 'message' => 'Something Went Wrong',
                 'close_modal' =>  TRUE,
-                'table' => 'agents'],  200);
+                'table' => 'customers'],  200);
         }
     }
+    public function delete(Request $request, $id)
+    {
+        $customer = Customer::find($id);
+        User::where('id',$customer->user_id)->delete();
+        if ($customer) {
+            $customer->delete();
+        }
+        return response()->json([
+            'success' => true,
+            'message' => "Customer Deleted Successfully!",
+            'close_modal' => true,
+            'table' => 'customers'
+        ]);
+    }
+
 }

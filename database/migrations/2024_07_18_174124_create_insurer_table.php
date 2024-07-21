@@ -13,15 +13,17 @@ return new class extends Migration
     {
         Schema::create('insurers', function (Blueprint $table) {
             $table->id();
-            $table->integer('city_id');
-            $table->integer('state_id');
-            $table->string('underwriter_id');
-            $table->text('name');
+            $table->integer('user_id')->nullable();
+            $table->integer('city_id')->nullable();
+            $table->integer('state_id')->nullable();
+            $table->string('underwriter_id')->nullable();
+            $table->text('name')->nullable();
             $table->string('email')->unique();
-            $table->longText('address');
-            $table->string('zip');
-            $table->string('phone');
-            $table->integer('am_best_rating');
+            $table->longText('address')->nullable();
+            $table->string('zip')->nullable();
+            $table->string('phone')->nullable();
+            $table->integer('am_best_rating')->nullable();
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }
