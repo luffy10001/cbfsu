@@ -42,7 +42,7 @@
                                             <p class="mb-0">Underwriter Name</p>
                                         </div>
                                         <div class="col-sm-9">
-                                            <p class="text-muted mb-0">{{$insurer->underwriter->name}}</p>
+                                            <p class="text-muted mb-0">{{$insurer->underwriter->name??''}}</p>
                                         </div>
                                     </div>
                                     <hr>
