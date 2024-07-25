@@ -3,17 +3,10 @@
 namespace App\DataTables;
 
 use App\CRM\DataTable\BaseDataTable;
-use App\Models\City;
-use App\Models\Department;
 use App\Models\Role;
 use App\Models\User;
-use Illuminate\Support\Facades\Log;
-use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
-use Yajra\DataTables\Services\DataTable;
-use Illuminate\Support\HtmlString;
+
 
 class UsersDataTable extends BaseDataTable
 {   public $createRoute = 'users.create';
@@ -169,7 +162,7 @@ class UsersDataTable extends BaseDataTable
         $all_users['inactive'] = 'InActive';
 
         return [
-            'id'  => ['title' => 'User ID', 'class' => 'input_number', 'type' => 'number', 'condition' => 'like', 'active' => true],
+            'id'  => ['title' => 'User ID', 'class' => '', 'type' => 'number', 'condition' => 'like', 'active' => true],
             'name'  => ['title' => 'Name', 'class' => '', 'type' => 'text', 'condition' => 'like', 'active' => true],
             'email'    => ['title' => 'Email',  'class' => '', 'type' => 'text', 'condition' => 'like'],
             'role_name'  => [ 'title' => 'Role','options' => $roles,'id'=>'role-filter', 'placeholder'=>'Select a role', 'class' => 'filter-dropdown', 'type' => 'select', 'condition' => 'like', 'active' => true],
@@ -177,3 +170,4 @@ class UsersDataTable extends BaseDataTable
        ];
     }
 }
+

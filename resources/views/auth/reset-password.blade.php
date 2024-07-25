@@ -206,7 +206,7 @@
         </div>
 
         <div class="login-illustrator">
-            <img src="{{ asset('/images/login-illustrator.png') }}">
+            <img src="{{ asset('/images/forgotPassword.png') }}">
         </div>
 
         {{--        <div style="padding-top: 50px" class="bg-white w-50 leftContainer d-flex flex-column align-items-center">--}}
