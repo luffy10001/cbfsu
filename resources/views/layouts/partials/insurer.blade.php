@@ -1,4 +1,4 @@
-@if(isPermission('customer.index'))
+@if(isPermission('insurer.index'))
     <x-sidebar-dropdown>
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -8,14 +8,14 @@
             <polyline points="2 12 12 17 22 12"></polyline>
         </svg>
         <x-slot name="label">
-            Manage Customers
+            Manage Insurers
         </x-slot>
         <x-slot name="activeTab">
-            {!! (isCurrentRoute('customer.index'))?'show':'' !!}
+            {!! (isCurrentRoute('insurer.index'))?'show':'' !!}
         </x-slot>
-        @if(isPermission('customer.index'))
-            <li class="nav-item {!! isCurrentRoute('customer.index')?'live-active':'' !!}">
-                <a class="nav-link" href="{{route('customer.index')}}">
+        @if(isPermission('insurer.index'))
+            <li class="nav-item {!! isCurrentRoute('insurer.index')?'live-active':'' !!}">
+                <a class="nav-link" href="{{route('insurer.index')}}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                          stroke-linejoin="round" class="feather feather-users" aria-hidden="true">
@@ -24,7 +24,7 @@
                         <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
                         <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                     </svg>
-                    Customers
+                    Insurers
                 </a>
             </li>
         @endif
