@@ -16,10 +16,9 @@
         @endif
 
         @include('layouts.partials.user_management')
-            @include('layouts.partials.customers')
-            @include('layouts.partials.insurer')
-            @include('layouts.partials.agents')
+        @include('layouts.partials.customers')
+        @include('layouts.partials.insurer')
+        @include('layouts.partials.agents')
         @include('layouts.partials.settings')
     </ul>
 </div>
-

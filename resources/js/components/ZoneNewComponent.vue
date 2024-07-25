@@ -2,7 +2,7 @@
   <div>
     <div class="row mt-3">
       <div class="col-md-6">
-        <label class="form-label">Region*</label>
+        <label class="form-label">Region<span class="req text-danger">*</span></label>
         <select multiple class="form-select" @change="getCitiesByRegion($event)" v-model="regionId">
           <option @click="regionCurrentRowHandle($event,{
              regionId: row.id
@@ -11,7 +11,7 @@
         </select>
       </div>
       <div class="col-md-6">
-        <label class="form-label">City*</label>
+        <label class="form-label">City<span class="req text-danger">*</span></label>
         <select multiple class="form-select" v-model="cityId" @change="populateCitiesChange($event)" ref="cityRef">
           <option @click="selectedCitiesHandle($event,row)" v-for="row in cities" :value="row.cityId"
                   :selected="(row.selected)">{{ row.cityName }}
@@ -29,7 +29,7 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col-lg-6">
-                      <label class="form-label">Select Zone *</label>
+                      <label class="form-label">Select Zone <span class="req text-danger">*</span></label>
                       <select multiple class="form-select custom-select-mws1"
                               @change="zoneChangeHandle($event,city.cityId,region.regionId,regionIndex,cityIndex)"
                               v-model="zoneIds">
@@ -41,7 +41,7 @@
                     </div>
                     <div class="col-lg-6 mt-1">
                       <div v-if="areas[city.cityId]?.length>0">
-                        <label class="form-label">Select Area *</label>
+                        <label class="form-label">Select Area <span class="req text-danger">*</span></label>
                         <select multiple class="form-select custom-select-mws1" v-model="areaIds">
                           <option v-for="(area,areaIndex) in areas[city.cityId]" :value="area.areaId"
                                   :selected="area.selected">{{ area.areaName }} ({{ area.zoneName }} -
