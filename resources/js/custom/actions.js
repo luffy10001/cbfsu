@@ -63,9 +63,9 @@ let parser_url = url => url.slice(url.indexOf('?') + 1)
 $(document).ready(function () {
     $.ajaxPrefilter(function (options, _, jqXHR) {
         if (options.url && options.url.includes('user/get-areass')){
-            console.log(options.url,options);
+            // console.log(options.url,options);
             if (options.data){
-                console.log(decodeURI(options.data),"ff")
+                // console.log(decodeURI(options.data),"ff")
                 $('.select_all_checkbox').prop('checked',false)
                     .trigger('change');
                 /*const url= parser_url(options.data);*/
@@ -263,7 +263,7 @@ jQuery.fn.mwsNumeric =
             $(this).keydown(function (e) {
                 var key = e.charCode || e.keyCode || 0;
 
-                console.log(key);
+                // console.log(key);
                 // allow backspace, tab, delete, enter, arrows, numbers and keypad numbers ONLY
                 // home, end, period, and numpad decimal
                 return (
@@ -357,7 +357,7 @@ $(document).ready(function () {
 
 
             const targetSelect = $(elem).attr('target');
-            console.log($(elem).val() == 5);
+            // console.log($(elem).val() == 5);
             if ($(elem).val() == 5 && $(elem).attr('name') == 'role_id') { /* account manager*/
                 $($(targetSelect).attr('target')).removeAttr('multiple')
                 if ($('select[name="am_id"]').length > 0) {
@@ -467,7 +467,7 @@ $(document).ready(function () {
                 showError(error)
             }
         })
-        console.log(data);
+        // console.log(data);
     })
 
     $('body').on('change', '.filter_by_member', function () {
@@ -580,7 +580,8 @@ $(document).ready(function () {
                     modalMethod,
                     sweetalert,
                     clear_data,
-                    data_key
+                    data_key,
+                    reload
                 } = html
 
 
@@ -603,6 +604,9 @@ $(document).ready(function () {
                             $('#default_modal').modal('hide');
                         }
                         openModalUrl(modalUrl, modalSize, modalMethod, {})
+                    }
+                    if(reload){
+                        window.location.href = html.redirect;
                     }
                 }
                 if (!success) {
@@ -631,7 +635,7 @@ $(document).ready(function () {
                 window.inputFieldNumber();
             },
             error: function (error) {
-                console.log(error)
+                // console.log(error)
                 showError(error)
                 hideLoader()
             }
@@ -728,6 +732,7 @@ $(document).ready(function () {
                 }
                 if (!row.hasClass(`input-${name}`)) {
                     if (row.attr('prefix') !== undefined) {
+                        // console.log('name',name);
                         row.addClass(`input-${name.replace(/\[\d+\]/g, '')}` + row.attr('prefix'))
                     } else {
                         row.addClass(`input-${name}`)
@@ -809,7 +814,7 @@ $(document).ready(function () {
                             that.parents('form').trigger('reset');
                             that.parents('form').find('.hidden-cheque, .hidden-payorder, .hidden_adjusted_unit_id').addClass('d-none');
                         }
-                        console.log(message, 'Message Text')
+                        // console.log(message, 'Message Text')
                         toastr.success(message);
 
                     } else {
@@ -824,7 +829,7 @@ $(document).ready(function () {
                     // do something with the result
                 },
                 error: function (error) {
-                    console.log(error)
+                    // console.log(error)
                     elem/*.html(buttonText)*/.prop('disabled', false)
                     showError(error)
                 }
@@ -901,19 +906,15 @@ $(document).ready(function () {
 
         const params = (elem.attr('params')).split(',')
 
-        const totalAddonItems = $('.adons_items .item-row').length;
+        const totalItems = $('.department_list .item-row').length;
         const data = {};
         for (let i = 0; i < params.length; i++) {
-            if (params[i] == 'agency_id') {
-                var columnValue = $('.input_addon_id').attr('agency_id');
-            } else {
-                var columnValue = $(`.input_${params[i]}`).val();
-            }
+            var columnValue = $(`.input_${params[i]}`).val();
             if (columnValue !== '' && columnValue !== null) {
                 data[params[i]] = columnValue;
             }
         }
-        data.item_added = totalAddonItems;
+        data.item_added = totalItems;
         $.ajax({
             url: url,
             type: method,
@@ -923,9 +924,7 @@ $(document).ready(function () {
             },
             success: function (html) {
                 if (isAppend === 1) {
-
                     $(`.${targetDiv}`).append(html);
-                    TotalCalculatedCost(0);
                 } else {
                     $(`.${targetDiv}`).html('');
                     $(`.${targetDiv}`).html(html);
@@ -935,9 +934,6 @@ $(document).ready(function () {
                 } else {
                     toastr.success('loaded');
                 }
-                // console.log(html.warning);
-
-
                 hideLoader()
                 window.resizeWindow();
             },
@@ -1126,7 +1122,7 @@ $(document).ready(function () {
             row.find('button[type="button"]').attr('mwsindex', `${newIndex}`)
         })
         var ll = $(document).find('.mwslinks').find('.listItem').length;
-        console.log('ll', ll);
+        // console.log('ll', ll);
         window.mwsIndex = ($('.listItem').length) + 1
         updateLinkButton($('.addYoutubeLink'), window.mwsIndex)
     });
@@ -1208,7 +1204,7 @@ window.resizeColumn = () => {
 }
 
 window.ScrollFixed = (p) => {
-    console.log(p, 'pp')
+    // console.log(p, 'pp')
     const headerHeight = $('.navbar.navbar-dark.sticky-top').outerHeight() ?? 0;
     const tableTheadHeight = $('.table thead').outerHeight() ?? 0;
     const filterHeight = $('.mws-main-header').outerHeight() ?? 0;
@@ -1220,7 +1216,7 @@ window.ScrollFixed = (p) => {
         totalHeight = headerHeight + tableTheadHeight + filterHeight - 100;
     }
 
-    console.log(totalHeight, tHeight)
+    // console.log(totalHeight, tHeight)
     return `calc(100vh - ${totalHeight + p}px)`;
 }
 window.showTopBar = (seconds = undefined) => {
@@ -1340,7 +1336,7 @@ window.openModalUrl = (url, modalSize, modalMethod = 'get', data = {}) => {
         },
         success: function (html) {
 
-            console.log(isJsonString(html))
+            // console.log(isJsonString(html))
             if (isJsonString(html)) {
                 window.sweetAlertCrm(html.title, html.message, 'Ok', false);
                 hideLoader()
@@ -1670,6 +1666,107 @@ window.isJsonString = (str) => {
     }
 
 }
+
+
+ window.activateSteps = () =>{
+
+    $('.setup-content').each(function () {
+        var allFilled = true;
+        // console.log('l1');
+        $(this).find('input[required], select[required],textarea[required]').each(function () {
+            // console.log('l2' , $(this).val());
+            if ($(this).val() == '' || $(this).val() == 'null') {
+               allFilled = false;
+                // console.log('in if');
+                return false;
+            }
+        });
+        if(allFilled==true){
+            // console.log(' allFilled true ');
+            var stepId = $(this).attr('id');
+            $(document).find('a[href="#' + stepId + '"]').addClass(' filled').find('i').removeClass('circle').addClass('bi-solid bi-check');
+        }else{
+            // console.log(' allFilled false ');
+            var stepId = $(this).attr('id');
+            $(document).find('a[href="#' + stepId + '"]').removeClass(' filled').find('i').addClass('circle').removeClass('bi-solid bi-check');
+
+        }
+
+    });
+
+}
+function nextandPrev(curStep, prevStepWizard){
+    var curInputs = curStep.find("input[required='required'],input[type='radio'],input[type='checkbox'] , textarea[required='required']"),
+        isValid = true;
+    $(".form-group").removeClass("has-error");
+    var select2Fields = curStep.find("select[required='required']");
+    var isEmpty = false;
+    select2Fields.each(function() {
+        if ( $(this).val() =="null"){
+            isEmpty = true;
+            $(this).next('span').next('.text-danger').remove(); // Remove previous error message
+            $(this).next('span').after(`<div class="text-danger">Please select an option.</div>`);
+        }
+    });
+    if (isEmpty) {
+        return;
+    }
+    for (var i = 0; i < curInputs.length; i++) {
+        if (!curInputs[i].validity.valid) {
+            isValid = false;
+            if($(curInputs[i]).next('.text-danger').length==0){
+                var fName = $(curInputs[i]).prev('label').text();
+                $(curInputs[i]).after(`<div class="text-danger">The ${fName} field is required.</div>`);
+            }
+        }
+    }
+    if (isValid) prevStepWizard.removeAttr('disabled').trigger('click');
+}
+window.MultiStepFormJs = () => {
+        activateSteps();
+        var navListItems = $('div.setup-panel div a'),
+            allWells = $('.setup-content'),
+            allNextBtn = $('.nextBtn'),
+            allPreBtn = $('.prevBtn');
+
+        allWells.hide();
+        navListItems.click(function (e) {
+            e.preventDefault();
+            var $target = $($(this).attr('href')),
+                $item = $(this);
+
+            if (!$item.hasClass('disabled')) {
+                navListItems.removeClass('btn-success').addClass('btn-default');
+                $item.addClass('btn-success');
+                allWells.hide();
+                $target.show();
+                $target.find('input:eq(0)').focus();
+            }
+        });
+        allPreBtn.click(function () {
+            activateSteps();
+            var curStep = $(this).closest(".setup-content"),
+                curStepBtn = curStep.attr("id"),
+                prevStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().prev().children("a");
+            nextandPrev(curStep , prevStepWizard);
+        });
+        allNextBtn.click(function () {
+            activateSteps();
+            var curStep = $(this).closest(".setup-content"),
+                curStepBtn = curStep.attr("id"),
+                nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a");
+            nextandPrev(curStep , nextStepWizard);
+        });
+        $('div.setup-panel div a.btn-success').trigger('click');
+
+        $(document).find('.multiStep .form-control').on('input', function() {
+            $(this).next('.text-danger').remove();
+        });
+        $(document).find('.multiStep .select2selector').on('change', function() {
+            $(this).next('span').next('.text-danger').remove();
+        });
+    }
+
 
 
 
