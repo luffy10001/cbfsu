@@ -8,7 +8,7 @@
             <polyline points="2 12 12 17 22 12"></polyline>
         </svg>
         <x-slot name="label">
-            Manage Customers
+            Manage Customers  n
         </x-slot>
         <x-slot name="activeTab">
             {!! (isCurrentRoute('customer.index'))?'show':'' !!}
