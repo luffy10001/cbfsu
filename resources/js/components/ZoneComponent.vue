@@ -2,14 +2,14 @@
   <form @submit.prevent="submitForm">
   <div class="row">
     <div class="col-md-6">
-      <label class="form-label">Region*</label>
+      <label class="form-label">Region<span class="req text-danger">*</span></label>
       <select data-placeholder="Select Region" class="form-select" name="" id="" v-model="selectedRegion" ref="selectDropdown">
         <option v-for="row in regions" :value="row.id">{{row.name}}</option>
       </select>
     </div>
 
     <div class="col-md-6">
-      <label class="form-label">City*</label>
+      <label class="form-label">City<span class="req text-danger">*</span></label>
       <select data-placeholder="Select City" class="form-select" name="" id="" v-model="selectedCity" ref="citySelectDropdown">
         <option v-for="row in selectedCities" :value="row.id">{{row.name}}</option>
       </select>
@@ -27,7 +27,7 @@
 
     <div class="card-body">
       <div class="col-md-6">
-        <label class="form-label">Zone*</label>
+        <label class="form-label">Zone<span class="req text-danger">*</span></label>
         <select data-placeholder="Select Zone" class="form-select" v-model="selectedZone"  ref="zoneSelectDropdown" :data-cityId="city_id_item">
           <option v-for="(zone_name, zone_id) in zones" :value="zone_id">{{zone_name}}</option>
         </select>

@@ -70,3 +70,43 @@ select[readonly]
 .filter-button {
   padding: 10px 0 0 0 !important;
 }
+.full-box-left{
+  margin-top: 10px !important;
+  margin-left: 10px !important;
+  padding: 20px 20px 0 20px !important;
+  border-radius: 5px;
+  box-shadow: rgba(128, 0, 128, 0.20) 0px 5px 15px;
+}
+.full-box-right{
+  margin-top: 10px !important;
+  margin-right: 10px !important;
+  padding: 20px 20px 0 20px !important;
+  border-radius: 5px;
+  box-shadow: rgba(128, 0, 128, 0.20) 0px 5px 15px;
+}
+.position-sticky.pt-3.sidebar::-webkit-scrollbar {
+  display: none;
+}
+/* Hide the up and down buttons for Chrome, Safari, Edge */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Hide the spin button for Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+.sidebar{
+  padding-bottom: 200px !important;
+
+}
+.kbw-signature {
+  display: inline-block;
+  border: 1px solid #a0a0a0;
+  -ms-touch-action: none;
+}
+.kbw-signature-disabled {
+  opacity: 0.35;
+}

@@ -12,23 +12,37 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
         <!-- Scripts -->
-{{--        @vite(['resources/css/private_app.scss', 'resources/js/app.js'])--}}
+{{--        @vite(['resources/css/app.scss', 'resources/js/app.js'])--}}
+
         <link href="{!! asset('assets/css/app.css') !!}" rel="stylesheet">
-
     </head>
+    <style>
+        .main-container {
+            overflow-y: hidden;
+            background: #F1F2F4;
+            width: 1440px;
+            height: 875px;
+            top: -2841px;
+            left: -251px;
+            gap: 0px;
+            opacity: 0px;
+            /*display: flex;*/
+            /*align-items: center;*/
+        }
+    </style>
     <body class="font-sans text-gray-900 antialiased">
-        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 dark:bg-gray-900">
-            <div>
-                <a href="/">
-                    <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-                </a>
-            </div>
-
-            <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
-            <div class="container">
-                {{ $slot }}
-            </div>
-            </div>
-        </div>
+{{--        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 dark:bg-gray-900">--}}
+{{--            <div>--}}
+{{--                <a href="/">--}}
+{{--                    <x-application-logo class="w-20 h-20 fill-current text-gray-500" />--}}
+{{--                </a>--}}
+{{--            </div>--}}
+{{--            <div class="w-full sm:max-w-md   bg-transparent dark:bg-transparent shadow-md overflow-hidden sm:rounded-lg" style="background-image: url('{{asset('images/login/virus.png')}}'); background-size: cover; background-attachment: fixed; min-height: 100vh;overflow: hidden;">--}}
+{{--            <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">--}}
+                <div class="main-container">
+                    {{ $slot }}
+                </div>
+{{--            </div>--}}
+{{--        </div>--}}
     </body>
 </html>
