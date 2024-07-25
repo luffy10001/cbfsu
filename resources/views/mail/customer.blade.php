@@ -51,7 +51,7 @@
         <p>Dear {{ $mailData['name'] }},</p>
         <p>Your Email is {{ $mailData['email'] }}.</p>
         <p>Your Password is {{ $mailData['password'] }}.</p>
-        <p>Please use this credentials for login.</p> 
+        <p>Please use this credentials for login.</p>
     </div>
 
 </div>

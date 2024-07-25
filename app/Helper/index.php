@@ -356,3 +356,28 @@ if (!function_exists('datatables_lengthMenu')){
         return [10,20,30,40, 50,60, 70,80,90, 100];
     }
 }
+
+
+if (!function_exists('days_unit')) {
+    function days_unit(): array
+    {
+        return array(
+            '1'=>'Years',
+            '2'=>'Months',
+            '3'=>'Weeks',
+            '4'=>'Days',
+        );
+    }
+}
+
+if (!function_exists('territory_units')) {
+    function territory_units(): array
+    {
+        return array(
+            '1'=>'Miles',
+            '2'=>'Yards',
+            '3'=>'Kilometers',
+            '4'=>'Meters',
+        );
+    }
+}
