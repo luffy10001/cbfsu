@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\CustomerDataTable;
+use App\Mail\CustomerMail;
+use App\Mail\PasswordForgot;
 use App\Models\Agent;
 use App\Models\City;
 use App\Models\Province;
@@ -12,6 +14,7 @@ use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
 use Carbon\Carbon;
 
@@ -77,6 +80,13 @@ class CustomerController extends Controller
             'address'      => $request['address'],
         ];
         Customer::create($customerData);
+        Mail::to($request['email'])->send(new CustomerMail(
+            [
+                'name'     => $request['name'],
+                'email'    => $request['email'],
+                'password' => $request['password']
+            ]
+        ));
         return response()->json([
             'success' => true,
             'message' => 'Customer Created Successfully!',
