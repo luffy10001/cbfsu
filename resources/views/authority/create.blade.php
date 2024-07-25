@@ -25,7 +25,7 @@
                     <div class="col-md-6 mb-3">
                         <label for="Insurer" class="form-label">Insurer*</label>
                         <select  placeholder="Select a Insurer" class="form-select select2selector" id="agent_id" name="insurer">
-                            <option value="0"> Select Unit</option>
+                            <option value=""> Select Unit</option>
                             @foreach($insurers as $insurer)
                                 <option value="{!! $insurer['id'] !!}"> {!! $insurer->name !!}</option>
                             @endforeach

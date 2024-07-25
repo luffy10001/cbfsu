@@ -9,7 +9,7 @@
             {{ $dataTable->filters() }}
         </x-table-header-component>
         <x-slot name="title">
-            {{ __('Manage Agents') }}
+            {{ __('Manage Land oF Authority') }}
         </x-slot>
     </x-slot>
     <div class="py-12">

@@ -60,13 +60,14 @@ class AuthorityDataTable extends BaseDataTable
                 $maintenance_limit_unit = days_unit()[$obj->maintenance_limit_unit];
                 return "{$maintenance_limit} {$maintenance_limit_unit}";
             })
-//            ->addColumn('actions', function($obj){
-//                return view('agents.actions',compact('obj'));
-//            })
+            ->addColumn('actions', function($obj){
+                return view('authority.action',compact('obj'));
+            })
             ->filter(function ($instance) use ($request, $db_connection) {
-                if (!empty($request->get('name'))) {
+                if (!empty($request->get('name') && $request->get('name') !='all')) {
                     $instance->where('name', ($db_connection === 'mysql') ? 'LIKE' : 'ILIKE', "%" . $request->get('name') . "%");
                 }
+
             })
             ->rawColumns(['actions','status']);
     }
@@ -85,7 +86,6 @@ class AuthorityDataTable extends BaseDataTable
                 'at.*',
                 'ins.name as insurer_name'
             )->newQuery();
-
     }
 
     /**
@@ -154,19 +154,20 @@ class AuthorityDataTable extends BaseDataTable
         return 'agents_' . date('YmdHis');
     }
 
-//    public function getFilters(): array
-//    {
-//        $datas['all'] = 'Select a Name';
-//        $objs  = Agent::from(TableName(Agent::class).' as agent')
-//            ->leftJoin(TableName(User::class).' as user','agent.user_id','=','user.id')
-//            ->get();
-//        foreach($objs as $obj){
-//            $datas[$obj->id]= $obj->name;
-//        }
-//        return [
-//            'name'  => [ 'title' => 'Name','options' => $datas,'id'=>'role-filter', 'placeholder'=>'Select a Province', 'class' => 'filter-dropdown', 'type' => 'select', 'condition' => 'like', 'active' => true],
-//        ];
-//    }
+    public function getFilters(): array
+    {
+
+        $datas['all'] = 'Select Insurer Name';
+        $objs  = Authority::from(TableName(Authority::class).' as at')
+        ->join(TableName(Insurer::class).' as ins','at.insurer_id', '=' ,'ins.id')->get();
+        foreach($objs as $obj){
+            $datas[$obj->id]= $obj->name;
+        }
+
+        return [
+            'name'  => [ 'title' => 'Insurer Name','options' => $datas,'id'=>'role-filter', 'placeholder'=>'Select a Province', 'class' => 'filter-dropdown', 'type' => 'select', 'condition' => 'like', 'active' => true],
+        ];
+    }
 }
 
 
