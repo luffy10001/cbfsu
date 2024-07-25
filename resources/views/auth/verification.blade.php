@@ -176,7 +176,7 @@
 
                 <div class="login-input-field-container">
                     <img class="logo" src="{{ asset('/images/LOGO.png') }}">
-                    <p class="login-text">Enter Email Address</p>
+                    <p class="login-text">Enter Verification Address</p>
 
                     <!-- Session Status -->
 
@@ -188,20 +188,26 @@
                         <x-auth-session-status class="mb-4" :status="session('status')" />
                     @endif
 
-                    <form method="POST" action="{{ route('password.email') }}">
+                    @if($errors->has('verification_error'))
+                        <div class="alert alert-danger">
+                            {{ $errors->first('verification_error') }}
+                        </div>
+                    @endif
+
+                    <form method="POST" action="{{ route('password.verification.store') }}">
                         @csrf
 
                         <!-- Email Address -->
-                        <label style="color: #555555;" class="form-label">Email</label>
+                        <label style="color: #555555;" class="form-label">Verification Code</label>
                         <div>
                             <div class="mb-3 position-relative">
-                                <input id="email" class="form-control login-input-field" type="email" name="email" :value="old('email')" required>
+                                <input class="form-control login-input-field" type="number" name="verification_code" required>
                                 <span class="login-svg-background position-absolute">
-                            <img src="{{ asset('/icons/email.svg') }}"  class="login-svg">
+                            <img src="{{ asset('/icons/password.svg') }}" class="login-svg">
                         </span>
                             </div>
-                            {{--                            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />--}}
-{{--                            <x-input-error :messages="$errors->get('email')" class="mt-2" />--}}
+
+                            <input class="form-control login-input-field" type="hidden" name="email" value="{!!  $u_email!!}" required >
                         </div>
 
                         <div class="w-100 mt-3" style="text-align: center">
@@ -210,7 +216,7 @@
 
                         <div class="flex items-center justify-end mt-2">
                             <div class="d-flex justify-content-between align-items-center">
-                                <button type="submit" class="formRedButton mt-2">Send</button>
+                                <button type="submit" class="formRedButton mt-2">Submit</button>
                             </div>
 
                             {{--                            <x-primary-button>--}}

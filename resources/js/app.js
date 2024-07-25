@@ -2,8 +2,8 @@ window.$ = window.jQuery = import('jquery');
 /*
 require('bootstrap/dist/js/bootstrap');
 */
-require('bootstrap');
-require('select2');
+/*require('bootstrap');*/
+// require('select2');
 require('./custom/actions')
  require('leaflet/dist/leaflet.js');
 
@@ -40,7 +40,7 @@ sidebarBtn.addEventListener("click", ()=>{
 });
 */
 
-import 'laravel-datatables-vite';
+/*import 'laravel-datatables-vite';*/
 
 
 

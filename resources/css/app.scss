@@ -129,7 +129,7 @@ main{
   &.table-bordered{
     &.dataTable {
       tbody th, tbody td{
-        padding: 10px 8px !important;
+        padding: 5px 8px !important;
         vertical-align: middle !important;
       }
     }
@@ -504,7 +504,7 @@ body{
           border-bottom:none !important;
           a{
             color: #fff !important;
-            padding-left: 28px;
+            padding-left: 10px;
           }
           &.active{
             .iocn-link{
@@ -728,7 +728,7 @@ span.badge.bg-primary.Rejected{
 .sideBarButton{
   position: absolute;
   left: 15.5%;
-  top: 12%;
+  top: 6%;
   z-index: 99999;
   background-color: #C94444;
   border-radius: 25px;
@@ -781,6 +781,15 @@ span.badge.bg-primary.Rejected{
 
 .mws-main-wrapper .mws-main-body .table thead th{
   border-color: #EEEEEE
+}
+thead tr th{
+  height: auto !important;
+}
+table.dataTable tbody td {
+  padding:0;
+  line-height: 2.5;
+  border-bottom-width: 0;
+  padding-left:20px;
 }
 
 .mws-main-datatable{
@@ -865,6 +874,9 @@ flex-shrink: 0;
   color: #b2c2dd;
 }
 
+}
+.dataTables_paginate a{
+  background: unset;
 }
 .dataTables_paginate a:hover {
   background: rgb(0 0 0 / 75%);
@@ -1086,6 +1098,160 @@ button.btn.btn-success.filterBtnReset.ico-btn:hover, .cancel-btn:hover {
   padding: 8px 0;
   margin: 0;
 }
-row.indicatorsRow .bi::before, [class^=bi-]::before, [class*=" bi-"]::before{
-  line-height: 2.5;
+//row.indicatorsRow .bi::before, [class^=bi-]::before, [class*=" bi-"]::before{
+//  line-height: 2.5;
+//}
+.button-mws a{
+  text-transform: capitalize;
+  letter-spacing: 0;
+}
+.item-row .dp-name{
+  font-weight: 600;
+}
+.radio-row input,.radio-row label{
+  cursor: pointer;
+}
+.bi-trash{
+  cursor: pointer;
+}
+.dataTables_wrapper .sorting::after,
+.dataTables_wrapper .sorting_asc::after,
+.dataTables_wrapper .sorting_desc::after {
+  display: none !important;
+}
+.dataTables_wrapper .sorting::before,
+.dataTables_wrapper .sorting_asc::before,
+.dataTables_wrapper .sorting_desc::before {
+  display: none !important;
+}
+
+.add-more {
+  padding: 0px 7px;
+  font-size: 13px;
+}
+.multiStep{
+  padding-bottom: 30px;
+}
+
+.stepwizard-step p {
+  margin-top: 0px;
+  color:#4f46e5;
+  font-size: 16px;
+  font-weight: 500;
+}
+.stepwizard-row {
+  display: table-row;
+}
+.stepwizard {
+  display: table;
+  width: 100%;
+  position: relative;
+}
+.stepwizard-step button[disabled] {
+  /*opacity: 1 !important;
+  filter: alpha(opacity=100) !important;*/
+}
+
+.stepwizard .btn.disabled, .stepwizard .btn[disabled], .stepwizard fieldset[disabled] .btn {
+  opacity:1 !important;
+  color:#bbb;
+}
+.stepwizard-row:before {
+  top: 14px;
+  bottom: 0;
+  position: absolute;
+  content: " ";
+  width: 83%;
+  height: 1px;
+  background-color: #4f46e5;
+  z-index: 0;
+  margin-left: 8.5%;
+}
+
+.stepwizard-step {
+  display: table-cell;
+  text-align: center;
+  position: relative;
+}
+.stepwizard .btn-circle {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 15px;
+}
+.stepwizard a.btn.btn-default {
+  border-radius: 50%;
+  border: 2px solid #4f46e5;
+  background: #ffff;
+}
+
+.stepwizard .btn-default .circle {
+  border: 6px solid #4f46e5;
+  display: -webkit-inline-box;
+  border-radius: 50%;
+}
+.stepwizard .btn-success .circle {
+  border: 6px solid #d32e2f;
+  display: -webkit-inline-box;
+  border-radius: 50%;
+}
+.stepwizard-step .bi-check::before {
+  content: "\f26e";
+  font-size: 32px;
+  line-height: 0.5;
+  margin-left: -3px;
+}
+.stepwizard-step .filled{
+  background:#4f46e5 !important;
+}
+.footers {
+  margin-left: -28px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: white;
+  color: white;
+  box-shadow: 0 3px 26px -3px #333;
+}
+.custom-file-button input[type=file] {
+  margin-left: -2px !important;
+}
+
+.custom-file-button input[type=file]::-webkit-file-upload-button {
+  display: none;
+}
+
+.custom-file-button input[type=file]::file-selector-button {
+  display: none;
+}
+
+.custom-file-button:hover label {
+  background-color: #dde0e3;
+  cursor: pointer;
+}
+#inputGroupFile{
+  display:none;
+}
+label.input-group-text.custom-file-button {
+  color: #ffff;
+  background: #53a8ff;
+  border-top-right-radius: 5px !important;
+  border-bottom-right-radius: 5px !important;
+}
+
+#sidebarMenu .mws-sticky-sidebar {
+  background-color: #232323 !important;
+  background-image: url(images/graana_sidebar.png);
+  background-position: 0 10px;
+  background-repeat: no-repeat;
+  padding-top: 30px !important;
+  background-size: 98% auto;
+}
+.btn-xs{
+  padding: 2px 5px;
+  border-radius: 3px;
+  font-size: 12px;
 }
