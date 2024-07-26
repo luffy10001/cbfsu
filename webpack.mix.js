@@ -26,10 +26,11 @@ mix.copy('resources/js/jquery.signature.js', 'public/assets/js/jquery.signature.
 
 
 //images
-mix.copy('resources/css/images/forgotPassword.png', 'public/assets/css/images/forgotPassword.png');
-mix.copy('resources/css/images/login.png', 'public/assets/css/images/login.png');
-mix.copy('resources/css/images/login-illustrator.png', 'public/assets/css/images/login-illustrator.png');
-mix.copy('resources/css/images/LOGO.png', 'public/assets/css/images/LOGO.png');
+mix.copy('resources/css/images/forgotPassword.png', 'public/images/forgotPassword.png');
+mix.copy('resources/css/images/login.png', 'public/images/login.png');
+mix.copy('resources/css/images/login-illustrator.png', 'public/images/login-illustrator.png');
+mix.copy('resources/css/images/LOGO.png', 'public/images/LOGO.png');
+mix.copy('resources/css/images/icons/bellIcon.svg', 'public/icons/bellIcon.svg');
 
 
 mix.webpackConfig({
