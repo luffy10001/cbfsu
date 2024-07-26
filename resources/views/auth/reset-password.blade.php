@@ -43,7 +43,7 @@
         .logo {
             margin-left: 115px;
             margin-bottom: 40px;
-            height: 77px;
+            /*height: 77px;*/
             width: 184px;
             top: 195px;
             left: 148px;
@@ -180,7 +180,7 @@
                     <div class="mb-3 position-relative">
                         <input name="password" type="password" class="form-control login-input-field" placeholder="***********" aria-label="Username" aria-describedby="basic-addon1">
                         <span class="login-svg-background position-absolute">
-                            <img src="{{ asset('/icons/password.svg') }}"  class="login-svg">
+                            <img src="{{ asset('/assets/icons/password.svg') }}"  class="login-svg">
                         </span>
                     </div>
                     <x-input-error :messages="$errors->get('email')" class="mt-2"/>
@@ -190,7 +190,7 @@
                     <div class="mb-3 mt-2 position-relative">
                         <input name="conf_password" type="password" class="form-control login-input-field" placeholder="***********" aria-label="Password" >
                         <span class="login-svg-background position-absolute">
-                            <img src="{{ asset('/icons/password.svg') }}"  class="login-svg">
+                            <img src="{{ asset('/assets/icons/password.svg') }}"  class="login-svg">
                         </span>
                         {{--                        <span style="position: absolute;right: 8px;top: 12px;" class="fa fa-fw fa-eye-slash field-icon toggle-password"> </span>--}}
                     </div>
@@ -218,7 +218,7 @@
         {{--                @csrf--}}
         {{--                <div class="input-group mb-3">--}}
         {{--                <span class="input-group-text" id="basic-addon1">--}}
-        {{--                    <img src="{{ asset('/icons/userNameIcon.svg') }}" style="width: 20px; padding:3px "--}}
+        {{--                    <img src="{{ asset('/assets/icons/userNameIcon.svg') }}" style="width: 20px; padding:3px "--}}
         {{--                         class="bi bi-house listing_i">--}}
         {{--                </span>--}}
         {{--                    <input name="email" type="email" class="form-control" placeholder="Username" aria-label="Username"--}}
@@ -228,7 +228,7 @@
         {{--                <div class="input-group mb-3 mt-3">--}}
         {{--                <span class="input-group-text" id="basic-addon1">--}}
 
-        {{--                    <img src="{{ asset('/icons/passwordIcon.svg') }}" style="width: 20px; padding:3px "--}}
+        {{--                    <img src="{{ asset('/assets/icons/passwordIcon.svg') }}" style="width: 20px; padding:3px "--}}
         {{--                         class="bi bi-house listing_i">--}}
 
         {{--                </span>--}}
@@ -254,7 +254,7 @@
         {{--             style="max-height:  100vh; height:434px; overflow: hidden; position: relative;">--}}
         {{--            <div class="bg-dark text-center">--}}
         {{--                <h2 style="color:#ffff ;">HIV <br> Program Management System</h2>--}}
-        {{--                <img src="{{ asset('/icons/graanaLoginLogo.svg') }}" style="width: 192px; margin-bottom: 33px; "--}}
+        {{--                <img src="{{ asset('/assets/icons/graanaLoginLogo.svg') }}" style="width: 192px; margin-bottom: 33px; "--}}
         {{--                     class="bi bi-house listing_i">--}}
         {{--            </div>--}}
         {{--            <p class="powerByImarat text-center " style="position: absolute; bottom: 50px">--}}
