@@ -1,6 +1,6 @@
 <x-custom-modal-component>
     <x-slot name="title">
-        {{ __('Edit Line Of Authority') }}
+        {{ __('Edit Line of Authority') }}
     </x-slot>
 
     <x-slot name="body">
