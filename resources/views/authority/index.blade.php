@@ -9,7 +9,7 @@
             {{ $dataTable->filters() }}
         </x-table-header-component>
         <x-slot name="title">
-            {{ __('Manage Line oF Authorities') }}
+            {{ __('Manage Line of Authorities') }}
         </x-slot>
     </x-slot>
     <div class="py-12">
