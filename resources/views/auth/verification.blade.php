@@ -52,7 +52,7 @@
         .logo {
             margin-left: 115px;
             margin-bottom: 40px;
-            height: 77px;
+            /*height: 77px;*/
             width: 184px;
             top: 195px;
             left: 148px;
@@ -203,7 +203,7 @@
                             <div class="mb-3 position-relative">
                                 <input class="form-control login-input-field" type="number" name="verification_code" required>
                                 <span class="login-svg-background position-absolute">
-                            <img src="{{ asset('/icons/password.svg') }}" class="login-svg">
+                            <img src="{{ asset('/assets/icons/password.svg') }}" class="login-svg">
                         </span>
                             </div>
 

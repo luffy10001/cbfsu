@@ -32,7 +32,7 @@ mix.copy('resources/css/images/login-illustrator.png', 'public/images/login-illu
 mix.copy('resources/css/images/LOGO.png', 'public/images/LOGO.png');
 
 
-mix.copyDirectory('resources/css/icons', 'public/icons');
+mix.copyDirectory('resources/css/icons', 'public/assets/icons');
 
 
 mix.webpackConfig({
