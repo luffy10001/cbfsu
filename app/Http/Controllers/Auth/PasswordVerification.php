@@ -19,6 +19,7 @@ class PasswordVerification extends Controller
             );
         }
         $u_email = mws_encrypt('D',$email);
+        $request->session()->flash('u_email', $u_email);
         return view('auth.verification',compact('u_email'));
     }
 
@@ -40,7 +41,15 @@ class PasswordVerification extends Controller
                 [ 'email' => $email]
             );
         }else{
-            return redirect()->back()->withErrors(['verification_error' => 'Invalid email or verification code. Please try again.'])->withInput($request->only('email'));
+
+            $email_value = $request['email'];
+            $email = mws_encrypt('E',$email_value);
+            return redirect()->route('password.verification')->with([
+                'email' => $email,
+                'status' => 'Invalid Verification Code'
+            ]);
+
+//            return redirect()->back()->withErrors(['verification_error' => 'Invalid email or verification code. Please try again.'])->withInput($request->only('email'));
 
         }
 

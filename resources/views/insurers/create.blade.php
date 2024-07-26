@@ -18,7 +18,7 @@
             }
         </style>
         <div class="modal-body">
-            <form action="{{route('insurer.store')}}" method="POST">
+            <form action="{!!route('authority.store')  !!}" method="POST">
                 @csrf
                 <div class="row relative">
                     <div class="col-md-6 mb-3">
