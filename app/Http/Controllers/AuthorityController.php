@@ -81,7 +81,7 @@ class AuthorityController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Authority Created Successfully!',
+            'message' => 'Line OF Authority Created Successfully!',
             'close_modal' => true,
             'table' => 'authorities'
         ]);
@@ -176,7 +176,7 @@ class AuthorityController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Authority Updated Successfully!',
+            'message' => 'Line Of Authority Updated Successfully!',
             'close_modal' => true,
             'table' => 'authorities'
         ]);
