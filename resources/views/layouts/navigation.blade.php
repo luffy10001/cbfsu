@@ -23,10 +23,10 @@
 {{--                <?php $notifications = notifications(); ?>--}}
                 <div class="dropdown d-inline-block">
 
-                    <button type="button" class="btn header-item noti-icon waves-effect" id="page-header-notifications-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="toggleDropdown()">
-                        <img src="{{url('/')}}/icons/bellIcon.svg" style="width:34px">
-{{--                        <span class="badge iconStyle rounded-pill messages-count" style="margin-left:-15px">{!! count($notifications)??0 !!}</span>--}}
-                    </button>
+{{--                    <button type="button" class="btn header-item noti-icon waves-effect" id="page-header-notifications-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="toggleDropdown()">--}}
+
+{{--                        <img src="{{ asset('/assets/icons/bellIcon.svg') }}" style="width:34px">--}}
+{{--                    </button>--}}
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
                          aria-labelledby="page-header-notifications-dropdown"
                          style="position: absolute;inset: auto auto auto auto;margin-left: 0px;  margin-top: -63px;transform: translate(-248px, 72px);"
