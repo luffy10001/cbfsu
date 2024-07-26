@@ -38,7 +38,7 @@ class AgentController extends Controller
         $data = [
             'name'     => $request['name'],
             'email'    => $request['email'],
-            'role_id'  => $role->id,
+            'role_id'  => $role->id, 
             'password' => Hash::make($request['password']),
         ];
         $user = User::create($data);
