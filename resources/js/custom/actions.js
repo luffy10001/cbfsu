@@ -1649,6 +1649,7 @@ $(document).ready(function () {
         $('#sidebarMenu').parents('div.container-fluid').toggleClass('closeSidebar');
         $('.mws-sticky-sidebar li').removeClass('show')
         if (!$('#sidebarMenu').parents('div.container-fluid').hasClass('closeSidebar')) {
+            $(document).find('.dataTable').removeAttr('style');
             $('#sidebarMenu').parents('div.container-fluid').addClass('openSidebar')
         } else {
             $('#sidebarMenu').parents('div.container-fluid').removeClass('openSidebar')

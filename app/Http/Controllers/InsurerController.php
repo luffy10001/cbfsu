@@ -46,12 +46,12 @@ class InsurerController extends Controller
             'address'        => 'required',
             'province_id'    => 'required|gt:0',
             'city_id'        => 'required|gt:0',
-            'underwriter_id' => 'required|gt:0',
+//            'underwriter_id' => 'required|gt:0',
             'am_best_rating' => 'required|gt:0',
         ], [
             'province_id.gt' => 'The State field is required.',
             'city_id.gt'     => 'The City field is required.',
-            'underwriter_id.gt'    => 'The Underwriter field is required.',
+//            'underwriter_id.gt'    => 'The Underwriter field is required.',
             'am_best_rating.gt'    => 'The Am Best Rating field is required.',
         ]);
         $data = [

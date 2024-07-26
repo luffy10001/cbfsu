@@ -42,6 +42,7 @@ Route::group(['middleware' => ['auth', 'user_permission']], function () {
     include __DIR__ . '/agent.php';
     include __DIR__ . '/customer.php';
     include __DIR__ . '/insurer.php';
+    include __DIR__ . '/authority.php';
 
 });
 
