@@ -21,24 +21,24 @@
             <form action="{{route('customer.store')}}" method="POST">
                 @csrf
                 <div class="row relative">
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-4 mb-3">
                         <label for="name" class="form-label">Name*</label>
                         <input type="text" class="form-control" placeholder="Name" id="name" name="name">
                     </div>
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-4 mb-3">
                         <label for="contact_name" class="form-label">Contact Name*</label>
                         <input type="text" class="form-control" placeholder="Contact Name" id="contact_name" name="contact_name">
                     </div>
 
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-4 mb-3">
                         <label for="email" class="form-label">Email*</label>
                         <input type="email" class="form-control" id="email" name="email" placeholder="Email"/>
                     </div>
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-4 mb-3">
                         <label for="phone" class="form-label">Phone*</label>
                         <input type="text" class="form-control" id="phone" name="phone" placeholder="Phone"/>
                     </div>
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-4 mb-3">
                         <label for="name" class="form-label">Sate<span class="req text-danger">*</span></label>
                         <select target='select[name="city_id"]' placeholder="Select City"
                                 url="{!! route('state.get-cities') !!}" params="province_id" name="province_id"
@@ -49,18 +49,18 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <label for="city_id" class="form-label">City<span class="req text-danger">*</span></label>
                         <select name="city_id" class="form-select city_id_selector select2selector">
                             <option value="0">Select City</option>
                         </select>
                     </div>
 
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-4 mb-3">
                         <label for="zip" class="form-label">Zip*</label>
                         <input type="text" class="form-control" id="zip" name="zip" placeholder="Zip"/>
                     </div>
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-4 mb-3">
                         <label for="positions" class="form-label">Positions Title*</label>
                         <select  placeholder="Select a Position" class="form-select select2selector" id="positions" name="positions">
                             <option value="0"> Select a positions</option>
@@ -69,7 +69,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-4 mb-3">
                         <label for="agent_id" class="form-label">Service Agent Name*</label>
                         <select  placeholder="Select a Agent" class="form-select select2selector" id="agent_id" name="agent_id">
                             <option value="0"> Select a Agent</option>
@@ -78,21 +78,21 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-6 mb-0 " toggle="password-parent" style="position: relative">
+                    <div class="col-md-4 mb-0 " toggle="password-parent" style="position: relative">
                         <label class=" control-label">Password*</label>
                         <input id="password-field" type="password" class="form-control" name="password">
                         <span class="fa fa-fw fa-eye-slash field-icon toggle-password"> </span>
                     </div>
 
-                    <div class="col-md-6 mb-3 " toggle="password-parent" style="position: relative">
+                    <div class="col-md-4 mb-3 " toggle="password-parent" style="position: relative">
                         <label for="password_confirmation" class="form-label">Confirm Password*</label>
                         <input id="password_confirmation" type="password" class="form-control password"
                                name="password_confirmation">
                         <span class="fa fa-fw fa-eye-slash field-icon toggle-password"> </span>
                     </div>
-                    <div class="col-md-12 mb-3">
+                    <div class="col-md-4 mb-3">
                         <label for="address" class="form-label">Address*</label>
-                        <textarea class="form-control" id="address" name="address" placeholder="Address" rows="3"></textarea>
+                        <textarea class="form-control" id="address" name="address" placeholder="Address" rows="1"></textarea>
                     </div>
 
 
