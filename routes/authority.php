@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthorityController;
 
-Route::group(['prefix'=>'authority','groupName' => 'Authority', 'access' => 'all'], function () {
+Route::group(['prefix'=>'line-of-authorities','groupName' => 'Line Of Authorities', 'access' => 'all'], function () {
     Route::get('/',[AuthorityController::class,'index'])->name('authority.index');
     Route::get('create',[AuthorityController::class,'create'])->name('authority.create');
     Route::post('store',[AuthorityController::class,'store'])->name('authority.store');
