@@ -30,6 +30,7 @@ class PermissionController extends Controller
                 $groups[$new_types][]   =   [
                     'types'     =>  $new_types,
                     'route'     =>  $value->action['as']??'',
+                    'title'     => $value->defaults['title']??'',
                     'method'    =>  $value->methods()[0]??'GET'
                 ];
             }

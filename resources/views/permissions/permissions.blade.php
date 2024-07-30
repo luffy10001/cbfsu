@@ -41,7 +41,8 @@
                                                     id="{!! str_replace('.','_',$row['route']) !!}">
                                             <label class="form-check-label"
                                                    for="{!! str_replace('.','_',$row['route']) !!}">
-                                                {!! $row['route'] !!}
+{{--                                                {!! $row['route'] !!}--}}
+                                                {!! $row['title'] !!}
                                             </label>
                                         </div>
                                     </li>
