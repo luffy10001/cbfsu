@@ -12,4 +12,5 @@ Route::group(['prefix'=>'customers','groupName' => 'Customers', 'access' => 'all
     Route::get('{customer}/view', [CustomerController::class, 'view'])->name('customer.view')->defaults('title','Details');
     Route::post('delete/{id}',[CustomerController::class,'delete'])->name('customer.delete')->defaults('title','Delete');
     Route::post('status/{id}/{status}',[CustomerController::class,'status'])->name('customer.status')->defaults('title','Status');
+    Route::get('profile',[CustomerController::class,'profile'])->name('customer.profile')->defaults('title','Customer Profile');
 });
