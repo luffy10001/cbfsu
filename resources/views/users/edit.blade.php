@@ -34,7 +34,7 @@
                         <input type="email" class="form-control" name="email" placeholder="Email"
                                value="{{isset($user->email) ? $user->email : ''}}"/>
                     </div>
-                    <div class="col-md-12 mb-0 "  toggle="password-parent" style="position: relative">
+                    <div class="col-md-12 mb-3 "  toggle="password-parent" style="position: relative">
                         <label class=" control-label">Password</label>
                         <input id="password-field" type="password" class="form-control" name="password">
                         <span class="fa fa-fw fa-eye-slash field-icon toggle-password"> </span>

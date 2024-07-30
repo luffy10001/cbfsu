@@ -71,12 +71,14 @@ select[readonly]
   padding: 23px 0 0 0 !important;
 }
 .full-box-left{
-  margin-top: 10px !important;
-  margin-left: 10px !important;
-  padding: 20px 20px 0 20px !important;
+  margin-top: 0px !important;
+  margin-left: 0px !important;
+  padding: 10px !important;
   border-radius: 5px;
-  box-shadow: rgba(128, 0, 128, 0.20) 0px 5px 15px;
+  border: 1.3px solid #80808042;
+  box-shadow: rgba(128, 0, 128, 0.1) 0px 5px 15px;
 }
+
 .full-box-right{
   margin-top: 10px !important;
   margin-right: 10px !important;
@@ -109,4 +111,26 @@ input[type="number"] {
 }
 .kbw-signature-disabled {
   opacity: 0.35;
+}
+
+.SearchFilterPanel .select2-container .select2-selection--single {
+    height: 30px !important;
+    padding: 7px 0px !important;
+    color: #363B44;
+    font-weight: 400;
+    font-size: 0.875rem;
+    border-color: #ced4da !important;
+}
+
+.SearchFilterPanel .ico-btn {
+  margin-top: -1px;
+  padding: 2px 5px;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+
+.button-mws .mws-filter {
+  padding: 2px 12px;
+  font-size: 14px;
 }
