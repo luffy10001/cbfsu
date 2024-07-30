@@ -79,14 +79,17 @@ class CustomerController extends Controller
             'zip'          => $request['zip'],
             'address'      => $request['address'],
         ];
+        $baseUrl = config('app.url');
         Customer::create($customerData);
         Mail::to($request['email'])->send(new CustomerMail(
             [
                 'name'     => $request['name'],
                 'email'    => $request['email'],
-                'password' => $request['password']
+                'password' => $request['password'],
+                'website_link'    => $baseUrl,
             ]
         ));
+
         return response()->json([
             'success' => true,
             'message' => 'Customer Created Successfully!',
