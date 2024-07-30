@@ -52,7 +52,7 @@
         .logo {
             margin-left: 115px;
             margin-bottom: 40px;
-            height: 77px;
+            /*height: 77px;*/
             width: 184px;
             top: 195px;
             left: 148px;
@@ -197,7 +197,7 @@
                             <div class="mb-3 position-relative">
                                 <input id="email" class="form-control login-input-field" type="email" name="email" :value="old('email')" required>
                                 <span class="login-svg-background position-absolute">
-                            <img src="{{ asset('/icons/email.svg') }}"  class="login-svg">
+                            <img src="{{ asset('/assets/icons/email.svg') }}"  class="login-svg">
                         </span>
                             </div>
                             {{--                            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />--}}

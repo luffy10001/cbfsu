@@ -261,9 +261,9 @@ body{
   }
   .mws-main-header{
     position: relative;
-    background-color: transparent;
+    background-color: #f1f2f4;
     border-bottom: none;
-
+    border-radius: 10px;
   }
 
   .mws-main-body{
@@ -1244,7 +1244,6 @@ label.input-group-text.custom-file-button {
 
 #sidebarMenu .mws-sticky-sidebar {
   background-color: #232323 !important;
-  //background-image: url(images/graana_sidebar.png);
   background-position: 0 10px;
   background-repeat: no-repeat;
   padding-top: 30px !important;
@@ -1258,3 +1257,7 @@ label.input-group-text.custom-file-button {
 .closeSidebar .table{
   width: 100% !important;
 }
+//.row > *{
+//  width: 0%;
+//
+//}

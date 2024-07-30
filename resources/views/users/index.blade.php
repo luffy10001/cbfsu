@@ -3,7 +3,7 @@
         <x-table-header-component>
             <x-slot name="buttons">
                 @if(isPermission('users.create'))
-                    <button data='{!! json_encode(['test'=>'1']) !!}' class="btn testsss btn-success float-end modal_open"  url="{{route('users.create')}}" size="xl">Create User</button>
+                    <button data='{!! json_encode(['test'=>'1']) !!}' class="btn testsss btn-success float-end modal_open"  url="{{route('users.create')}}" size="md">Create User</button>
                 @endif
             </x-slot>
             {{ $dataTable->filters() }}

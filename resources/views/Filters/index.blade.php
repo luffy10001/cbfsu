@@ -4,21 +4,21 @@
             <?php  $total_filters = !empty($filtersFields)?count($filtersFields):0;
 
             if ($total_filters == 2 ) {
-                $columns = 6;
+                $columns = 3;
             } else if ($total_filters == 3 || $total_filters == 1) {
-                $columns = 4;
+                $columns = 3;
             } else if ($total_filters == 4) {
                 $columns = 3;
             } else if ($total_filters == 5) {
-                $columns = 4;
+                $columns = 3;
             } else if ($total_filters == 6) {
-                $columns = 4;
+                $columns = 3;
             } else if ($total_filters == 7) {
                 $columns = 3;
             } else if ($total_filters == 8) {
                 $columns = 3;
             } else {
-                $columns = 2;
+                $columns = 3;
             }
             ?>
             @if(!empty($filtersFields))
@@ -67,13 +67,15 @@
                         @endswitch
                     </div>
                 @endforeach
+                    <div class="col-md-3 form-group mt-4 mb-2 filter-button" table="{!! $tableId !!}">
+                        <button type="button" class="btn btn-success filterBtn ico-btn"><i class="fa fa-search"></i> Search</button>
+                        <button type="button" class="btn btn-success filterBtnReset ico-btn"><i class="fa fa-undo"></i>&nbsp;Reset</button>
+                    </div>
             @endif
 
+
         </div>
-        <div class="form-group mt-2 mb-2 filter-button" table="{!! $tableId !!}">
-            <button type="button" class="btn btn-success filterBtn ico-btn"><i class="fa fa-search"></i> Search</button>
-            <button type="button" class="btn btn-success filterBtnReset ico-btn"><i class="fa fa-undo"></i>&nbsp;Reset</button>
-        </div>
+
     </div>
 </div>
 

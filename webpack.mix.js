@@ -25,6 +25,16 @@ mix.copy('resources/js/jquery-ui.min.js', 'public/assets/js/jquery-ui.min.js');
 mix.copy('resources/js/jquery.signature.js', 'public/assets/js/jquery.signature.js');
 
 
+//images
+mix.copy('resources/css/images/forgotPassword.png', 'public/images/forgotPassword.png');
+mix.copy('resources/css/images/login.png', 'public/images/login.png');
+mix.copy('resources/css/images/login-illustrator.png', 'public/images/login-illustrator.png');
+mix.copy('resources/css/images/LOGO.png', 'public/images/LOGO.png');
+
+ 
+mix.copyDirectory('resources/css/icons', 'public/assets/icons');
+
+
 mix.webpackConfig({
     plugins: [
         // ...
