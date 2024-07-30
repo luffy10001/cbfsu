@@ -11,13 +11,13 @@
 
                 <div class="accordion-item">
                     <h2 class="accordion-header">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#app_{!! str_replace(' ','_',$key) !!}" aria-expanded="true"
+                        <button class="accordion-button  {{ $loop->first ? '' : 'collapsed' }}" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#app_{!! str_replace(' ','_',$key) !!}" aria-expanded="{{ $loop->first ? 'true' : 'false' }}"
                                 aria-controls="collapseOne">
                             {!! $key !!}
                         </button>
                     </h2>
-                    <div id="app_{!! str_replace(' ','_',$key) !!}" class="accordion-collapse collapse"
+                    <div id="app_{!! str_replace(' ','_',$key) !!}" class="accordion-collapse collapse {{ $loop->first ? 'show' : '' }}"
                          data-bs-parent="#accordionExample">
                         <div class="accordion-body">
                             <div class="form-check">
