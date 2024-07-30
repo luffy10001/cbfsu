@@ -34,7 +34,6 @@ class PermissionController extends Controller
                 ];
             }
         }
-
         return view('permissions.permissions',compact('role','groups'));
     }
     public function  store(Request $request)
