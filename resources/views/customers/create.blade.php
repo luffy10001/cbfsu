@@ -90,15 +90,15 @@
                                name="password_confirmation">
                         <span class="fa fa-fw fa-eye-slash field-icon toggle-password"> </span>
                     </div>
-                    <div class="col-md-4 mb-3">
+                    <div class="col-md-12 mb-3">
                         <label for="address" class="form-label">Address*</label>
-                        <textarea class="form-control" id="address" name="address" placeholder="Address" rows="1"></textarea>
+                        <textarea class="form-control" id="address" name="address" placeholder="Address" rows="3"></textarea>
                     </div>
 
 
                 </div>
-                <button type="button" class="form_submit btn btn-success mt-3">Submit</button>
-                <button type="button" class="btn btn-primary cancel-btn mt-3" data-bs-dismiss="modal" aria-label="Close">Cancel
+                <button type="button" class="form_submit btn btn-success mt-2">Submit</button>
+                <button type="button" class="btn btn-primary cancel-btn mt-2" data-bs-dismiss="modal" aria-label="Close">Cancel
                 </button>
             </form>
         </div>

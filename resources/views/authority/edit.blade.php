@@ -25,7 +25,7 @@
                     <div class="col-md-6 mb-3">
                         <label for="Insurer" class="form-label">Insurer*</label>
                         <select  placeholder="Select a Insurer" class="form-select select2selector"name="insurer">
-                            <option value=""> Select Unit</option>
+                            <option value=""> Select Insurer</option>
                             @foreach($insurers as $insurer)
                                 <option value="{!! $insurer['id'] !!}" @selected( $authority_value['insurer_id'] == $insurer['id'])> {!! $insurer->name !!}</option>
                             @endforeach
@@ -108,7 +108,7 @@
                         <label for="email" class="form-label">Maintenance Limit*</label>
                         <input type="number" class="form-control" id="email" name="maintenance_limit" value="{!! $authority_value['maintenance_limit'] !!}" placeholder="Maintenance Limit"/>
                     </div>
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-6 mb-0">
                         <label for="territory" class="form-label">Unit*</label>
                         <select class="form-select select2selector" name="maintenance_limit_unit">
                             @foreach(days_unit() as $key => $days)
@@ -117,8 +117,8 @@
                         </select>
                     </div>
                 </div>
-                <button type="button" class="form_submit btn btn-success mt-3">Submit</button>
-                <button type="button" class="btn btn-primary cancel-btn mt-3" data-bs-dismiss="modal" aria-label="Close">Cancel
+                <button type="button" class="form_submit btn btn-success mt-2">Submit</button>
+                <button type="button" class="btn btn-primary cancel-btn mt-2" data-bs-dismiss="modal" aria-label="Close">Cancel
                 </button>
             </form>
         </div>
