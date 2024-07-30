@@ -208,4 +208,11 @@ class CustomerController extends Controller
         ]);
     }
 
+    public function profile()
+    {
+        $userId = Auth::user()->id;
+        $customer = Customer::where('user_id',$userId)->first();
+        return view('customers.profile', compact('customer'));
+    }
+
 }
