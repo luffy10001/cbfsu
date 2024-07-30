@@ -23,29 +23,29 @@
 
                 <div class="row">
 
-                    <div class="form-group mb-6 col-md-6">
+                    <div class="form-group mb-6 col-md-12">
                         <label for="email" class="form-label">Name*</label>
                         <input type="text" class="form-control" name="name" placeholder="Name"
                                value="{{isset($agent->user->email) ? $agent->user->name : ''}}"/>
                     </div>
 
-                    <div class="form-group mb-6 col-md-6">
+                    <div class="form-group mb-6 col-md-12">
                         <label for="email" class="form-label"> Email address* </label>
                         <input type="email" class="form-control" name="email" placeholder="Email"
                                value="{{isset($agent->user->email) ? $agent->user->email : ''}}"/>
                     </div>
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-12 mb-3">
                         <label for="Phone" class="form-label">Phone*</label>
                         <input type="phone" class="form-control" id="Phone" name="phone" placeholder="Phone"
                                value="{{isset($agent->phone) ? $agent->phone : ''}}"/>
                     </div>
-                    <div class="col-md-6 mb-0 "  toggle="password-parent" style="position: relative">
+                    <div class="col-md-12 mb-0 "  toggle="password-parent" style="position: relative">
                         <label class=" control-label">Password</label>
                         <input id="password-field" type="password" class="form-control" name="password">
                         <span class="fa fa-fw fa-eye-slash field-icon toggle-password"> </span>
                     </div>
 
-                    <div class="col-md-6 mb-3 " toggle="password-parent"  style="position: relative">
+                    <div class="col-md-12 mb-3 " toggle="password-parent"  style="position: relative">
                         <label for="password_confirmation" class="form-label">Confirm Password</label>
                         <input id="password_confirmation" type="password" class="form-control password" name="password_confirmation">
                         <span class="fa fa-fw fa-eye-slash field-icon toggle-password"> </span>

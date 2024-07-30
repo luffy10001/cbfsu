@@ -1,7 +1,7 @@
 <x-crm-dropdown>
     @if(isPermission('agent.edit'))
         <li>
-            <a class="dropdown-item modal_open" size="xl" url="{!! route('agent.edit',$obj->id) !!}"><i
+            <a class="dropdown-item modal_open" size="md" url="{!! route('agent.edit',$obj->id) !!}"><i
                         class="bi bi-pencil-square"></i>
                 Edit</a>
         </li>
