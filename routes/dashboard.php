@@ -5,5 +5,5 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserPermissions\PermissionController;
 
 Route::group(['prefix'=>'dashboard','groupName' => 'Dashboards', 'access' => 'all'], function () {
-    Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index')->defaults('title','Dashboard');
 });
