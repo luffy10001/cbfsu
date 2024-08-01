@@ -11,32 +11,30 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('project_managements', function (Blueprint $table) {
+        Schema::create('projects', function (Blueprint $table) {
             $table->id();
             $table->integer('customer_id')->nullable();
+            $table->integer('oblige_id')->nullable();
+            $table->integer('city_id')->nullable();
+            $table->integer('state_id')->nullable();
+            $table->text('name')->nullable();
+            $table->longText('address')->nullable();
+            $table->text('zip')->nullable();
             $table->date('bid_date')->nullable();
+            $table->date('start_date')->nullable();
+            $table->date('completion_date')->nullable();
             $table->bigInteger('bid_amount')->nullable();
             $table->integer('gpm')->nullable();
-            $table->bigInteger('obligee_id')->nullable();
-            $table->longText('obligee_address')->nullable();
-            $table->integer('obligee_city')->nullable();
-            $table->integer('obligee_state')->nullable();
-            $table->text('obligee_zip')->nullable();
-
-            $table->text('engineer_name')->nullable();
-            $table->text('project_name')->nullable();
-            $table->longText('project_address')->nullable();
-            $table->integer('project_city')->nullable();
-            $table->integer('project_state')->nullable();
-            $table->text('project_zip')->nullable();
-
-            $table->text('project_delivery_method')->nullable();
-            $table->date('estimated_project_start_date')->nullable();
-            $table->date('estimated_project_completion_date')->nullable();
+            $table->integer('delivery_method')->nullable();
             $table->longText('warranty_terms')->nullable();
-            $table->text('liquidated_damages')->nullable();
-            $table->integer('retainage_amount')->nullable();
+            $table->longText('damages')->nullable();
+            $table->longText('retain_amount')->nullable();
             $table->longText('current_backlog')->nullable();
+            $table->text('engineer_name')->nullable();
+            $table->longText('oblige_address')->nullable();
+            $table->integer('oblige_city')->nullable();
+            $table->integer('oblige_state')->nullable();
+            $table->text('oblige_zip')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
@@ -47,6 +45,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-//        Schema::dropIfExists('project_management');
+//        Schema::dropIfExists('projects');
     }
 };

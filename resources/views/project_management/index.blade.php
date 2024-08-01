@@ -2,14 +2,14 @@
     <x-slot name="header">
         <x-table-header-component>
             <x-slot name="buttons">
-                @if(isPermission('project-management.create'))
-                    <button data='{!! json_encode(['test'=>'1']) !!}' class="btn testsss btn-success float-end modal_open"  url="{{route('project-management.create')}}" size="xl">Create Project Management</button>
+                @if(isPermission('project.create'))
+                    <button data='{!! json_encode(['test'=>'1']) !!}' class="btn testsss btn-success float-end modal_open"  url="{{route('project.create')}}" size="xl">Create Project</button>
                 @endif
             </x-slot>
             {{ $dataTable->filters() }}
         </x-table-header-component>
         <x-slot name="title">
-            {{ __('Project Management') }}
+            {{ __('Manage Projects') }}
         </x-slot>
     </x-slot>
     <div class="py-12">
