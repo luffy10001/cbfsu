@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\DataTables\ProjectMangementDataTable;
+use App\DataTables\ProjectDataTable;
 use App\Models\City;
 use App\Models\Insurer;
-use App\Models\ProjectManagement;
+use App\Models\Project;
 use App\Models\Province;
 //use GPBMetadata\Google\Api\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class ProjectManagementController extends Controller
+class ProjectController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(ProjectMangementDataTable $dataTable)
+    public function index(ProjectDataTable $dataTable)
     {
         return $dataTable->render('project_management.index');
     }
@@ -27,8 +27,8 @@ class ProjectManagementController extends Controller
     public function create()
     {
         $provinces = Province::select('id','name')->where('status',true)->orderBY('name')->get();
-        $insurers = Insurer::select('id','name')->get();
-        $cities = City::select('id','name')->where('status',true)->orderBY('name')->get();
+        $insurers  = Insurer::select('id','name')->get();
+        $cities    = City::select('id','name')->where('status',true)->orderBY('name')->get();
         return view('project_management.create',compact('insurers','provinces','cities'));
     }
 
@@ -72,34 +72,36 @@ class ProjectManagementController extends Controller
             'bid_amount' => $request['bid_amount'],
             'gpm' => $request['gpm'],
 
-            'obligee_id' => $request['insurer'],
-            'obligee_address' => $insurer['address'],
-            'obligee_state' => $insurer['state_id'],
-            'obligee_city' => $insurer['city_id'],
-            'obligee_zip' => $insurer['zip'],
+            'oblige_id' => $request['insurer'],
+            'oblige_address' => $insurer['address'],
+            'oblige_state' => $insurer['state_id'],
+            'oblige_city' => $insurer['city_id'],
+            'oblige_zip' => $insurer['zip'],
 
             'engineer_name' => $request['engineer_name'],
-            'project_name' => $request['project_name'],
-            'project_address' => $request['project_address'],
-            'project_state' => $request['province_id'],
-            'project_city' => $request['city_id'],
-            'project_zip' => $request['project_zip'],
-            'project_delivery_method' => $request['project_delivery_method'],
+            'name' => $request['project_name'],
+            'address' => $request['project_address'],
+            'state_id' => $request['province_id'],
+            'city_id' => $request['city_id'],
+            'zip' => $request['project_zip'],
+            'delivery_method' => $request['project_delivery_method'],
 
-            'estimated_project_start_date' => $request['est_pro_start'],
-            'estimated_project_completion_date' => $request['est_pro_compl'],
+            'start_date' => $request['est_pro_start'],
+            'completion_date' => $request['est_pro_compl'],
             'warranty_terms' => $request['warranty_term'],
-            'liquidated_damages' => $request['liquidated_damages'],
-            'retainage_amount' => $request['retainage_amount'],
+            'damages' => $request['liquidated_damages'],
+            'retain_amount' => $request['retainage_amount'],
             'current_backlog' => $request['current_backlog'],
             'customer_id' =>$userId
         ];
-        ProjectManagement::create($data);
+
+
+        Project::create($data);
 
         return response()->json([
             "success" => true,
-            "message" => "Project Management Created Successfully",
-            'redirect' => route('project-management.index')
+            "message" => "Project Created Successfully",
+            'redirect' => route('project.index')
         ]);
 
     }
@@ -110,20 +112,16 @@ class ProjectManagementController extends Controller
     public function show($id)
     {
         $d_id= mws_encrypt('D',$id);
-//        $pm = ProjectManagement::where('id',$d_id)->first();
-        $pm = ProjectManagement::from(TableName(ProjectManagement::class).' as pm')
-            ->join(TableName(Insurer::class).' as insurer','pm.obligee_id','=','insurer.id')
-            ->join(TableName(Province::class).' as province','pm.obligee_state','=','province.id')
-            ->join(TableName(City::class).' as city','pm.obligee_city','=','city.id')
-            ->select('pm.*','insurer.name as insurer_name','insurer.address as insurer_address','province.name as province_name','city.name as city_name')
-            ->where('pm.id',$d_id)
+        $pm = Project::from(TableName(Project::class).' as projects')
+            ->join(TableName(Insurer::class).' as insurer','projects.oblige_id','=','insurer.id')
+            ->join(TableName(Province::class).' as province','projects.oblige_state','=','province.id')
+            ->join(TableName(City::class).' as city','projects.oblige_city','=','city.id')
+            ->select('projects.*','insurer.name as insurer_name','insurer.address as insurer_address','province.name as province_name','city.name as city_name')
+            ->where('projects.id',$d_id)
             ->first();
 
-        $ps = Province::select('name')->where('id',$pm['project_state'])->first();
-        $pc = City::select('name')->where('id',$pm['project_city'])->first();
-        $insurers = Insurer::select('id','name')->get();
-        $cities = City::select('id','name')->where('status',true)->where('province_id',$pm['project_state'])->orderBY('name')->get();
-        $obligee_cities = City::select('id','name')->where('status',true)->orderBY('name')->get();
+        $ps = Province::select('name')->where('id',$pm['state_id'])->first();
+        $pc = City::select('name')->where('id',$pm['city_id'])->first();
         return view('project_management.show',compact('ps','pc','pm'));
 
     }
@@ -134,10 +132,10 @@ class ProjectManagementController extends Controller
     public function edit($id)
     {
         $d_id= mws_encrypt('D',$id);
-        $pm = ProjectManagement::where('id',$d_id)->first();
+        $pm = Project::where('id',$d_id)->first();
         $provinces = Province::select('id','name')->where('status',true)->orderBY('name')->get();
         $insurers = Insurer::select('id','name')->get();
-        $cities = City::select('id','name')->where('status',true)->where('province_id',$pm['project_state'])->orderBY('name')->get();
+        $cities = City::select('id','name')->where('status',true)->where('province_id',$pm['state_id'])->orderBY('name')->get();
         $obligee_cities = City::select('id','name')->where('status',true)->orderBY('name')->get();
         return view('project_management.edit',compact('insurers','provinces','cities','pm','obligee_cities'));
     }
@@ -181,34 +179,33 @@ class ProjectManagementController extends Controller
             'bid_amount' => $request['bid_amount'],
             'gpm' => $request['gpm'],
 
-            'obligee_id' => $request['insurer'],
-            'obligee_address' => $insurer['address'],
-            'obligee_state' => $insurer['state_id'],
-            'obligee_city' => $insurer['city_id'],
-            'obligee_zip' => $insurer['zip'],
+            'oblige_id' => $request['insurer'],
+            'oblige_address' => $insurer['address'],
+            'oblige_state' => $insurer['state_id'],
+            'oblige_city' => $insurer['city_id'],
+            'oblige_zip' => $insurer['zip'],
 
             'engineer_name' => $request['engineer_name'],
-            'project_name' => $request['project_name'],
-            'project_address' => $request['project_address'],
-            'project_state' => $request['province_id'],
-            'project_city' => $request['city_id'],
-            'project_zip' => $request['project_zip'],
-            'project_delivery_method' => $request['project_delivery_method'],
+            'name' => $request['project_name'],
+            'address' => $request['project_address'],
+            'state_id' => $request['province_id'],
+            'city_id' => $request['city_id'],
+            'zip' => $request['project_zip'],
+            'delivery_method' => $request['project_delivery_method'],
 
-            'estimated_project_start_date' => $request['est_pro_start'],
-            'estimated_project_completion_date' => $request['est_pro_compl'],
+            'start_date' => $request['est_pro_start'],
+            'completion_date' => $request['est_pro_compl'],
             'warranty_terms' => $request['warranty_term'],
-            'liquidated_damages' => $request['liquidated_damages'],
-            'retainage_amount' => $request['retainage_amount'],
+            'damages' => $request['liquidated_damages'],
+            'retain_amount' => $request['retainage_amount'],
             'current_backlog' => $request['current_backlog'],
             'customer_id' =>$userId
         ];
-        ProjectManagement::where('id',$request['pro_id'])->update($data);
-
+        Project::where('id',$request['pro_id'])->update($data);
         return response()->json([
             "success" => true,
-            "message" => "Project Management Updated Successfully",
-            'redirect' => route('project-management.index')
+            "message" => "Project Updated Successfully",
+            'redirect' => route('project.index')
         ]);
     }
 
@@ -217,13 +214,12 @@ class ProjectManagementController extends Controller
      */
     public function destroy($id)
     {
-//        $d_id= mws_encrypt('D',$id);
-        ProjectManagement::where('id',$id)->delete();
+        Project::where('id',$id)->delete();
         return response()->json([
             "success" => true,
             "message" => "Record Deleted Successfully",
             'close_modal' => true,
-            'table' => 'project_managements'
+            'table' => 'projects'
         ]);
     }
     public function insurers($id){

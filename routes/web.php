@@ -30,7 +30,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('state/get-cities',[ProvinceController::class,'getStateCities'])->name('state.get-cities');
-    Route::get('get-insurer/{id}',[\App\Http\Controllers\ProjectManagementController::class,'insurers'])->name('project_management.getInsurers');
+    Route::get('get-insurer/{id}',[\App\Http\Controllers\ProjectController::class,'insurers'])->name('project_management.getInsurers');
 });
 
 Route::group(['middleware' => ['auth', 'user_permission']], function () {
@@ -44,7 +44,7 @@ Route::group(['middleware' => ['auth', 'user_permission']], function () {
     include __DIR__ . '/customer.php';
     include __DIR__ . '/insurer.php';
     include __DIR__ . '/authority.php';
-    include __DIR__ . '/project_management.php';
+    include __DIR__ . '/project.php';
 
 });
 
