@@ -39,7 +39,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('authority_lines', function (Blueprint $table) {
+        Schema::table('authorities', function (Blueprint $table) {
             //
         });
     }

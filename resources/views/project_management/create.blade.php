@@ -1,6 +1,6 @@
 <x-custom-modal-component>
     <x-slot name="title">
-        {{ __('Create Project Management') }}
+        {{ __('Create Project') }}
     </x-slot>
     <x-slot name="body">
         <style>
@@ -18,68 +18,12 @@
             }
         </style>
         <div class="modal-body">
-            <form action="{{route('project-management.store')}}" method="POST">
+            <form action="{{route('project.store')}}" method="POST">
                 @csrf
                 <div class="row relative">
                     <div class="col-md-4 mb-3">
-                        <label class="form-label">Bid Date*</label>
-                        <input type="date" class="form-control" name="bid_date"/>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <label class="form-label">Bid Amount*</label>
-                        <input type="number" class="form-control" name="bid_amount" placeholder="Bid Amount"/>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <label class="form-label">GPM*</label>
-                        <input type="number" class="form-control" name="gpm" placeholder="GPM"/>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <label for="Insurer" class="form-label">Obligee Name*</label>
-                        <select  placeholder="Select a Insurer" class="form-select select2selector" id="oligee_name" name="insurer">
-                            <option value=""> Select Obligee</option>
-                            @foreach($insurers as $insurer)
-                                <option value="{!! $insurer['id'] !!}"> {!! $insurer->name !!}</option>
-                            @endforeach
-
-                        </select>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <label class="form-label">Obligee Address*</label>
-                        <input type="text" class="form-control" id="obligee_address" name="obligee_address" disabled/>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <label for="name" class="form-label">Obligee Sate<span class="req text-danger">*</span></label>
-                        <select id="obligee_state" class="form-select select2selector" disabled>
-                            <option value="0">Select State</option>
-                            @foreach($provinces as $row)
-                                <option value="{!! $row->id !!}">{!! $row->name !!}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="col-md-4">
-                        <label for="city_id" class="form-label">Obligee City<span class="req text-danger">*</span></label>
-                        <select name="city_name" class="form-select select2selector" id="obligee_city" disabled>
-                            <option value="0">Select City</option>
-                            @foreach($cities as $row)
-                                <option value="{!! $row->id !!}">{!! $row->name !!}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <label class="form-label">Obligee Zip*</label>
-                        <input type="text" class="form-control" id="obligee_zip" name="obligee_zip" disabled/>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <label class="form-label">Engineer Name*</label>
-                        <input type="text" class="form-control"  name="engineer_name" placeholder="Engineer Name"/>
-                    </div>
-                    <div class="col-md-4 mb-3">
                         <label class="form-label">Project Name*</label>
                         <input type="text" class="form-control"  name="project_name" placeholder="Project Name"/>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <label class="form-label">Project Address*</label>
-                        <input type="text" class="form-control"  name="project_address" placeholder="Project Address"/>
                     </div>
                     <div class="col-md-4 mb-3">
                         <label for="name" class="form-label">Project State<span class="req text-danger">*</span></label>
@@ -103,8 +47,12 @@
                         <input type="text" class="form-control"  name="project_zip" placeholder="Project Zip"/>
                     </div>
                     <div class="col-md-4 mb-3">
+                        <label class="form-label">Project Address*</label>
+                        <input type="text" class="form-control"  name="project_address" placeholder="Project Address"/>
+                    </div>
+                    <div class="col-md-4 mb-3">
                         <label class="form-label">Project Delivery Method*</label>
-                        <input type="text" class="form-control"  name="project_delivery_method" placeholder="Project Delivery Method"/>
+                        <input type="number" class="form-control"  name="project_delivery_method" placeholder="Project Delivery Method"/>
                     </div>
                     <div class="col-md-4 mb-3">
                         <label class="form-label">Estimate Project Start Date*</label>
@@ -130,6 +78,60 @@
                         <label class="form-label">Current Backlog*</label>
                         <input type="text" class="form-control"  name="current_backlog" placeholder="Current Backlog"/>
                     </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Bid Date*</label>
+                        <input type="date" class="form-control" name="bid_date"/>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Bid Amount*</label>
+                        <input type="number" class="form-control" name="bid_amount" placeholder="Bid Amount"/>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">GPM*</label>
+                        <input type="number" class="form-control" name="gpm" placeholder="GPM"/>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Engineer Name*</label>
+                        <input type="text" class="form-control"  name="engineer_name" placeholder="Engineer Name"/>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="Insurer" class="form-label">Oblige Name*</label>
+                        <select  placeholder="Select a Insurer" class="form-select select2selector" id="oligee_name" name="insurer">
+                            <option value=""> Select Oblige</option>
+                            @foreach($insurers as $insurer)
+                                <option value="{!! $insurer['id'] !!}"> {!! $insurer->name !!}</option>
+                            @endforeach
+
+                        </select>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Oblige Address*</label>
+                        <input type="text" class="form-control" id="obligee_address" name="obligee_address" disabled/>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="name" class="form-label">Oblige Sate<span class="req text-danger">*</span></label>
+                        <select id="obligee_state" class="form-select select2selector" disabled>
+                            <option value="0">Select State</option>
+                            @foreach($provinces as $row)
+                                <option value="{!! $row->id !!}">{!! $row->name !!}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="city_id" class="form-label">Oblige City<span class="req text-danger">*</span></label>
+                        <select name="city_name" class="form-select select2selector" id="obligee_city" disabled>
+                            <option value="0">Select City</option>
+                            @foreach($cities as $row)
+                                <option value="{!! $row->id !!}">{!! $row->name !!}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Oblige Zip*</label>
+                        <input type="text" class="form-control" id="obligee_zip" name="obligee_zip" disabled/>
+                    </div>
+
                 </div>
                 <button type="button" class="form_submit btn btn-success mt-2">Submit</button>
                 <button type="button" class="btn btn-primary cancel-btn mt-2" data-bs-dismiss="modal" aria-label="Close">Cancel
