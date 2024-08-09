@@ -3,7 +3,9 @@
         <x-table-header-component>
             <x-slot name="buttons">
                 @if(isPermission('insurer.create'))
-                    <button  class="btn testsss btn-success float-end modal_open"  url="{{route('insurer.create')}}" size="xl">Add Insurer</button>
+                   <a href="{{route('insurer.create')}}">
+                       <button  class="btn testsss btn-success float-end"  >Add Insurer</button>
+                   </a>
                 @endif
             </x-slot>
             {{ $dataTable->filters() }}

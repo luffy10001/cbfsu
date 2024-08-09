@@ -101,12 +101,12 @@ class InsurerDataTable extends BaseDataTable
         return [
             Column::make('id'),
             Column::make('name'),
-            Column::make('email')->title('Email Address'),
-            Column::make('phone'),
-            Column::make('zip'),
+            Column::make('am_best_rating')->title('AM Best Rating'),
+//            Column::make('state_name')->title('State'),
             Column::make('city_name')->title('City'),
-            Column::make('state_name')->title('State'),
-            Column::make('address'),
+            Column::make('cbu_name')->title('Contract Bond Underwriter'),
+            Column::make('clbu_name')->title('Commercial Bond Underwriter'),
+
             Column::computed('actions')
                 ->exportable(false)
                 ->printable(false)
@@ -145,7 +145,7 @@ class InsurerDataTable extends BaseDataTable
         return [
             'name'  => [ 'title' => 'Name','options' => $insurers,'id'=>'role-filter', 'placeholder'=>'Select Name', 'class' => 'filter-dropdown', 'type' => 'select', 'condition' => 'like', 'active' => true],
             'city'  => [ 'title' => 'City','options' => $cities,'id'=>'role-filter1', 'placeholder'=>'Select City', 'class' => 'filter-dropdown', 'type' => 'select', 'condition' => 'like', 'active' => true],
-            'state'  => [ 'title' => 'State','options' => $states,'id'=>'role-filter2', 'placeholder'=>'Select State', 'class' => 'filter-dropdown', 'type' => 'select', 'condition' => 'like', 'active' => true],
+//            'state'  => [ 'title' => 'State','options' => $states,'id'=>'role-filter2', 'placeholder'=>'Select State', 'class' => 'filter-dropdown', 'type' => 'select', 'condition' => 'like', 'active' => true],
         ];
     }
 }
