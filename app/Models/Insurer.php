@@ -21,6 +21,16 @@ class Insurer extends Model
         'phone',
         'am_best_rating',
         'status',
+        'website',
+        'cbu_name',
+        'cbu_phone',
+        'cbu_email',
+        'clbu_name',
+        'clbu_phone',
+        'clbu_email',
+        'attorney',
+        'treasury_list'
+
     ];
     public function underwriter(){
         return $this->belongsTo(User::class,'underwriter_id');
