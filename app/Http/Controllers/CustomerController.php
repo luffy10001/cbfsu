@@ -218,6 +218,7 @@ class CustomerController extends Controller
         return view('customers.profile', compact('customer'));
     }
 
+
     public function surety_details(Request $request){
         $surety_id = $request['surety_id'];
         if($surety_id>0){
@@ -226,6 +227,9 @@ class CustomerController extends Controller
         }
 
     }
-
+    public function landPageDetail()
+    {
+        return view('cust_land_page');
+    }
 
 }
