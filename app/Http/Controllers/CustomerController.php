@@ -215,4 +215,9 @@ class CustomerController extends Controller
         return view('customers.profile', compact('customer'));
     }
 
+
+    public function landPageDetail()
+    {
+        return view('cust_land_page');
+    }
 }

@@ -31,6 +31,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('state/get-cities',[ProvinceController::class,'getStateCities'])->name('state.get-cities');
     Route::get('get-insurer/{id}',[\App\Http\Controllers\ProjectController::class,'insurers'])->name('project_management.getInsurers');
+
+
+
+    Route::get('customer-detail',[\App\Http\Controllers\CustomerController::class,'landPageDetail'])->name('customer.landpage');
+
 });
 
 Route::group(['middleware' => ['auth', 'user_permission']], function () {
