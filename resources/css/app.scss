@@ -1258,6 +1258,14 @@ label.input-group-text.custom-file-button {
 .closeSidebar .table{
   width: 100% !important;
 }
+.custom_border {
+  border: 1px solid #aaa;
+  margin-left: 4px;
+  margin-right: 4px;
+  padding-top: 15px;
+  padding-bottom: 10px;
+  border-radius:10px;
+}
 //.row > *{
 //  width: 0%;
 //

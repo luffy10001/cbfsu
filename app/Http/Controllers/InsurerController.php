@@ -40,85 +40,129 @@ class InsurerController extends Controller
     {
         $request->validate([
             'name'           => 'required',
-            'phone'          => 'required',
-            'zip'            => 'required',
-            'email'          => 'required|unique:' . TableName(Insurer::class) . ',email|email',
+            'am_best_rating' => 'required|gt:0',
+            'treasury'       => 'required',
             'address'        => 'required',
             'province_id'    => 'required|gt:0',
             'city_id'        => 'required|gt:0',
-//            'underwriter_id' => 'required|gt:0',
-            'am_best_rating' => 'required|gt:0',
+            'zip'            => 'required',
+            'website'        => 'required',
+            'cbu_name'       => 'required',
+            'cbu_phone'       => 'required',
+            'cbu_email'       => 'required|email|email',
+            'clbu_name'       => 'required',
+            'clbu_phone'        => 'required',
+            'clbu_email'      => 'required|email|email',
+            'attorney'        => 'required',
+//            'email'          => 'required|unique:' . TableName(Insurer::class) . ',email|email',
         ], [
             'province_id.gt' => 'The State field is required.',
+            'website' => 'The surety website field is required..',
             'city_id.gt'     => 'The City field is required.',
-//            'underwriter_id.gt'    => 'The Underwriter field is required.',
             'am_best_rating.gt'    => 'The Am Best Rating field is required.',
+            'cbu_name'  =>  'The contract bond underwriter field is required.',
+            'cbu_phone'  =>  'The phone field is required.',
+            'cbu_email.required'  =>  'The email field is required.',
+            'cbu_email.email'  =>  'The email field must be a valid email address..',
+            'clbu_name'  =>  'The commercial bond underwriter field is required.',
+            'clbu_phone'  =>  'The phone field is required.',
+            'clbu_email.required'  =>  'The email field is required.',
+            'clbu_email.email'  =>  'The email field must be a valid email address..',
+            'attorney'  =>  'The Attorneys-in-Fact field is required.',
         ]);
         $data = [
             'name'      => $request['name'],
-            'email'     => $request['email'],
-            'phone'     => $request['phone'],
-            'underwriter_id'  => $request['underwriter_id'],
+            'am_best_rating'     => $request['am_best_rating'],
+            'treasury_list'     => $request['treasury'],
+            'address'  => $request['address'],
             'state_id'        => $request['province_id'],
             'city_id'         => $request['city_id'],
             'zip'             => $request['zip'],
-            'address'         => $request['address'],
-            'am_best_rating'  => $request['am_best_rating'],
+            'website'         => $request['website'],
+            'cbu_name'         => $request['cbu_name'],
+            'cbu_phone'         => $request['cbu_phone'],
+            'cbu_email'         => $request['cbu_email'],
+            'clbu_name'         => $request['clbu_name'],
+            'clbu_phone'         => $request['clbu_phone'],
+            'clbu_email'         => $request['clbu_email'],
+            'attorney'         => $request['attorney'],
         ];
         Insurer::create($data);
         return response()->json([
             'success' => true,
             'message' => 'Insurer Created Successfully!',
-            'close_modal' => true,
+            'redirect'  =>  route('insurer.index'),
             'table' => 'insurers'
         ]);
     }
 
     public function edit(Insurer $insurer)
     {
-        $underwriters = User::from(TableName(User::class).' as user')
-        ->leftJoin(TableName(Role::class).' as role','user.role_id','=','role.id')
-        ->select('user.id as id','user.name as name')
-        ->where([ 'role.slug' => 'underwriter' ])->get();
+//        $underwriters = User::from(TableName(User::class).' as user')
+//        ->leftJoin(TableName(Role::class).' as role','user.role_id','=','role.id')
+//        ->select('user.id as id','user.name as name')
+//        ->where([ 'role.slug' => 'underwriter' ])->get();
         $provinces = Province::select('id','name')->where('status',true)->orderBY('name')->get();
-        $cities = City::select('id','name')->where('status',true)->orderBY('name')->get();
-        return view('insurers.edit',compact('insurer','underwriters','provinces','cities'));
+        $cities = City::select('id','name')->where('status',true)->where('province_id',$insurer['state_id'])->orderBY('name')->get();
+        return view('insurers.edit',compact('insurer','provinces','cities'));
     }
     public function update(Request $request)
     {
         $request->validate([
             'name'           => 'required',
-            'phone'          => 'required',
-            'zip'            => 'required',
-            'email'          => ['required','email',Rule::unique(TableName(Insurer::class))->ignore($request['id'])],
+            'am_best_rating' => 'required|gt:0',
+            'treasury'       => 'required',
             'address'        => 'required',
             'province_id'    => 'required|gt:0',
             'city_id'        => 'required|gt:0',
-            'underwriter_id' => 'required|gt:0',
-            'am_best_rating' => 'required|gt:0',
+            'zip'            => 'required',
+            'website'        => 'required',
+            'cbu_name'       => 'required',
+            'cbu_phone'       => 'required',
+            'cbu_email'       => 'required|email|email',
+            'clbu_name'       => 'required',
+            'clbu_phone'        => 'required',
+            'clbu_email'      => 'required|email|email',
+            'attorney'        => 'required',
+//            'email'          => 'required|unique:' . TableName(Insurer::class) . ',email|email',
         ], [
             'province_id.gt' => 'The State field is required.',
+            'website' => 'The surety website field is required..',
             'city_id.gt'     => 'The City field is required.',
-            'underwriter_id.gt'    => 'The Underwriter field is required.',
             'am_best_rating.gt'    => 'The Am Best Rating field is required.',
+            'cbu_name'  =>  'The contract bond underwriter field is required.',
+            'cbu_phone'  =>  'The phone field is required.',
+            'cbu_email.required'  =>  'The email field is required.',
+            'cbu_email.email'  =>  'The email field must be a valid email address..',
+            'clbu_name'  =>  'The commercial bond underwriter field is required.',
+            'clbu_phone'  =>  'The phone field is required.',
+            'clbu_email.required'  =>  'The email field is required.',
+            'clbu_email.email'  =>  'The email field must be a valid email address..',
+            'attorney'  =>  'The Attorneys-in-Fact field is required.',
         ]);
         $data = [
             'name'      => $request['name'],
-            'email'     => $request['email'],
-            'phone'     => $request['phone'],
-            'underwriter_id'  => $request['underwriter_id'],
+            'am_best_rating'     => $request['am_best_rating'],
+            'treasury_list'     => $request['treasury'],
+            'address'  => $request['address'],
             'state_id'        => $request['province_id'],
             'city_id'         => $request['city_id'],
             'zip'             => $request['zip'],
-            'address'         => $request['address'],
-            'am_best_rating'  => $request['am_best_rating'],
+            'website'         => $request['website'],
+            'cbu_name'         => $request['cbu_name'],
+            'cbu_phone'         => $request['cbu_phone'],
+            'cbu_email'         => $request['cbu_email'],
+            'clbu_name'         => $request['clbu_name'],
+            'clbu_phone'         => $request['clbu_phone'],
+            'clbu_email'         => $request['clbu_email'],
+            'attorney'         => $request['attorney'],
         ];
 
         Insurer::where('id',$request['id'])->update($data);
         return response()->json([
             'success' => true,
             'message' => 'Insurer Updated Successfully!',
-            'close_modal' => true,
+            'redirect'  =>  route('insurer.index'),
             'table' => 'insurers'
         ]);
     }
