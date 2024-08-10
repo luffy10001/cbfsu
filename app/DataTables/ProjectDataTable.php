@@ -103,16 +103,16 @@ class ProjectDataTable extends BaseDataTable
     {
         return [
             Column::make('id')->title('ID'),
-            Column::computed('name')->title('Project Name'),
-            Column::computed('state_id')->title('Project State'),
-            Column::computed('city_id')->title('Project City'),
+            Column::computed('name')->title('Name'),
+            Column::computed('state_id')->title('State'),
+            Column::computed('city_id')->title('City'),
             Column::computed('bid_date')->title('Bid Date'),
             Column::computed('bid_amount')->title('Bid Amount'),
-            Column::computed('gpm')->title('GPM%'),
-            Column::computed('engineer_name')->title('Engineer Name'),
-            Column::computed('delivery_method')->title('Project Delivery Method'),
-            Column::computed('start_date')->title('Estimate Project Start Date'),
-            Column::computed('completion_date')->title('Estimate Project Completion Date'),
+//            Column::computed('gpm')->title('GPM%'),
+//            Column::computed('engineer_name')->title('Engineer Name'),
+//            Column::computed('delivery_method')->title('Delivery Method'),
+            Column::computed('start_date')->title('Start Date'),
+            Column::computed('completion_date')->title('Completion Date'),
             Column::computed('actions')
                 ->title('Action')
                 ->exportable(true)
