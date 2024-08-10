@@ -7,6 +7,7 @@ use App\Mail\CustomerMail;
 use App\Mail\PasswordForgot;
 use App\Models\Agent;
 use App\Models\City;
+use App\Models\Insurer;
 use App\Models\Province;
 use App\Models\Role;
 use App\Models\User;
@@ -35,7 +36,9 @@ class CustomerController extends Controller
             ->select('agent.id as id','user.name as name')
         ->where([ 'user.status' => true ])->get();
         $provinces = Province::select('id','name')->where('status',true)->orderBY('name')->get();
-        return view('customers.create',compact('agents','provinces'));
+        $insurers = Insurer::get();
+        $route = 'customer.index';
+        return view('customers.create',compact('agents','provinces','insurers','route'));
     }
 
     public function store(Request $request)
@@ -216,8 +219,17 @@ class CustomerController extends Controller
     }
 
 
+    public function surety_details(Request $request){
+        $surety_id = $request['surety_id'];
+        if($surety_id>0){
+            $insurer = Insurer::where('id', $surety_id)->first();
+            return view('components.surety-form', compact('insurer'));
+        }
+
+    }
     public function landPageDetail()
     {
         return view('cust_land_page');
     }
+
 }
