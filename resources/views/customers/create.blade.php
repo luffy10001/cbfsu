@@ -198,7 +198,7 @@
                 <div class="panel-heading">
                     <hr style="margin-top: 0;">
                     <h6 class="accordion-header mt-0" id="headingFive" style="background-color: #edf7fd;padding:15px">
-                        <strong>Line of Authority </strong>
+                        <strong>Surety </strong>
                     </h6>
                 </div>
                 <div class="panel-body">
