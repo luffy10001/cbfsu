@@ -19,7 +19,12 @@ class Customer extends Model
         'zip',
         'phone',
         'signed_in',
-        'address'
+        'address',
+        'corporation_type',
+        'primary_contact',
+        'average_size',
+        'largest_size',
+        'backlog',
     ];
     public function user(){
         return $this->belongsTo(User::class,'user_id');
