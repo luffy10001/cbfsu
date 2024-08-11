@@ -260,11 +260,11 @@
                                 </div>
                                 <div class="col-md-4 mb-3">
                                     <label class="form-label">Single Project Limit <span class="req text-danger">*</span></label>
-                                    <input type="number" class="form-control" placeholder="Single Job Limit" name="single_lim">
+                                    <input type="number" class="form-control" placeholder="Single Job Limit" name="single_limt">
                                 </div>
                                 <div class="col-md-4 mb-3">
                                     <label for="number" class="form-label">Aggregate Limit <span class="req text-danger">*</span></label>
-                                    <input type="number" class="form-control" id="number" name="aggr_lim" placeholder="Aggregate Limit"/>
+                                    <input type="number" class="form-control" id="number" name="aggr_limt" placeholder="Aggregate Limit"/>
                                 </div>
                                 <div class="col-md-4 mb-3">
                                     <label for="design_build" class="form-label">Design Build<span class="req text-danger">*</span></label>
@@ -278,8 +278,8 @@
                                     <input type="number" class="form-control" placeholder="Job Duration"  name="job_dur">
                                 </div>
                                 <div class="col-md-4 mb-3">
-                                    <label for="email" class="form-label">Warranty Period (years) <span class="req text-danger">*</span></label>
-                                    <input type="number" class="form-control" id="email" name="warranty_dur" placeholder="Warranty Period"/>
+                                    <label for="warranty_dur" class="form-label">Warranty Period (years) <span class="req text-danger">*</span></label>
+                                    <input type="number" class="form-control" id="warranty_dur" name="warranty_dur" placeholder="Warranty Period"/>
                                 </div>
                                 <div class="col-md-4 mb-3">
                                     <label for="Hazmat" class="form-label">Hazmat/Asbestos<span class="req text-danger">*</span></label>

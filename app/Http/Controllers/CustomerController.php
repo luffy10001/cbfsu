@@ -264,6 +264,7 @@ class CustomerController extends Controller
         $userId = Auth::user()->id;
         $customer = Customer::where('user_id',$userId)->first();
         return view('customers.profile', compact('customer'));
+        return view('customers.profile1', compact('customer'));
     }
 
 

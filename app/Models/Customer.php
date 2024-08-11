@@ -38,4 +38,10 @@ class Customer extends Model
     public function city(){
         return $this->belongsTo(City::class,'city_id');
     }
+    public function surerty(){
+        return $this->belongsTo(Insurer::class,'user_id');
+    }
+    public function authority(){
+        return $this->belongsTo(Authority::class,'customer_id');
+    }
 }
