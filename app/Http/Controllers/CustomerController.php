@@ -62,8 +62,8 @@ class CustomerController extends Controller
             'start_date'            => 'required',
             'exp_date'              => 'required',
             'territory'             => 'required',
-            'single_lim'            => 'required',
-            'aggr_lim'              => 'required',
+            'single_limt'            => 'required|',
+            'aggr_limt'              => 'required',
             'design_build'          => 'required',
             'job_dur'               => 'required',
             'warranty_dur'          => 'required',
@@ -73,16 +73,17 @@ class CustomerController extends Controller
 
 
         ], [
+            'corporation_type' => 'The corporation type field is required.',
             'name'           => 'The Positions field is required.',
             'positions.gt'   => 'The Positions field is required.',
             'province_id.gt' => 'The State field is required.',
             'city_id.gt'     => 'The Headquarter field is required.',
             'agent_id.gt'    => 'The Agent field is required.',
-            'insurer'        => 'The surety field is required.',
+            'insurer'        => 'The surety name field is required.',
             'start_date'     => 'The effective date field is required.',
             'exp_date'       => 'The expiration date field is required.',
-            'single_lim'     => 'The single project limit field is required.',
-            'aggr_lim'       => 'The aggregate limit field is required.',
+            'single_limt'     => 'The single project limit field is required.',
+            'aggr_limt'       => 'The aggregate limit field is required.',
             'job_dur'        => 'The job duration field is required.',
             'warranty_dur'   => 'The warranty period field is required.',
             'minim_bid'      => 'The bid spread field is required.',
@@ -119,8 +120,8 @@ class CustomerController extends Controller
             'start_date'       =>    $request['start_date'],
             'expiry_date'      =>    $request['exp_date'],
             'territory'        =>    $request['territory'],
-            'single_job_limit' =>    $request['single_lim'],
-            'aggregate_limit'  =>    $request['aggr_lim'],
+            'single_job_limit' =>    $request['single_limt'],
+            'aggregate_limit'  =>    $request['aggr_limt'],
             'design_build'     =>    $request['design_build'],
             'job_duration'     =>    $request['job_dur'],
             'job_duration_unit'      =>    1,
@@ -144,7 +145,8 @@ class CustomerController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Customer Created Successfully!',
-            'close_modal' => true,
+//            'close_modal' => true,
+            'redirect'  => route('customer.index'),
             'table' => 'customers'
         ]);
     }
