@@ -19,7 +19,12 @@ class Customer extends Model
         'zip',
         'phone',
         'signed_in',
-        'address'
+        'address',
+        'corporation_type',
+        'primary_contact',
+        'average_size',
+        'largest_size',
+        'backlog',
     ];
     public function user(){
         return $this->belongsTo(User::class,'user_id');
@@ -32,5 +37,11 @@ class Customer extends Model
     }
     public function city(){
         return $this->belongsTo(City::class,'city_id');
+    }
+    public function surerty(){
+        return $this->belongsTo(Insurer::class,'user_id');
+    }
+    public function authority(){
+        return $this->belongsTo(Authority::class,'customer_id');
     }
 }
