@@ -26,5 +26,8 @@ class Authority extends Model
         'minimum_bid',
         'maintenance_limit',
         'maintenance_limit_unit',
+        'customer_id',
+        'design_build',
+        'hazmat',
     ];
 }
