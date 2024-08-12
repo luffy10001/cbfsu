@@ -132,15 +132,15 @@ class CustomerController extends Controller
         ];
         Authority::create($authority_data);
 
-        $baseUrl = config('app.url');
-        Mail::to($request['email'])->send(new CustomerMail(
-            [
-                'name'     => $request['name'],
-                'email'    => $request['email'],
-                'password' => $request['password'],
-                'website_link'    => $baseUrl,
-            ]
-        ));
+//        $baseUrl = config('app.url');
+//        Mail::to($request['email'])->send(new CustomerMail(
+//            [
+//                'name'     => $request['name'],
+//                'email'    => $request['email'],
+//                'password' => $request['password'],
+//                'website_link'    => $baseUrl,
+//            ]
+//        ));
 
         return response()->json([
             'success' => true,
@@ -265,8 +265,11 @@ class CustomerController extends Controller
     {
         $userId = Auth::user()->id;
         $customer = Customer::where('user_id',$userId)->first();
+//        echo "<pre>";
+//        print_r($customer->authority->surerty->name);
+//        exit;
         return view('customers.profile', compact('customer'));
-        return view('customers.profile1', compact('customer'));
+//        return view('customers.profile1', compact('customer'));
     }
 
 

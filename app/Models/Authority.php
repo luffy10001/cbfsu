@@ -30,4 +30,7 @@ class Authority extends Model
         'design_build',
         'hazmat',
     ];
+    public function surerty(){
+        return $this->belongsTo(Insurer::class,'insurer_id');
+    }
 }
