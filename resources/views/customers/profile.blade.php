@@ -3,8 +3,6 @@
         {{$customer->user->name}} {{ __('Details') }}
     </x-slot>
     <style>
-
-
         .blockquote-footer {
             margin-bottom: 0.5rem;
         }
@@ -65,7 +63,7 @@
                                         <p class="mb-0">Corporation Type</p>
                                     </div>
                                     <div class="col-sm-9">
-                                        <p class="text-muted mb-0">{{$customer->corporation_type ??''}}</p>
+                                        <p class="text-muted mb-0">{{corporation_types()[$customer->corporation_type] ??''}}</p>
                                     </div>
                                 </div>
                                 <hr>
@@ -92,7 +90,7 @@
                                         <p class="mb-0">Email </p>
                                     </div>
                                     <div class="col-sm-9">
-                                        <p class="text-muted mb-0">{{$customer->email ??''}}</p>
+                                        <p class="text-muted mb-0">{{$customer->user->email}}</p>
                                     </div>
                                 </div>
                                 <hr>
@@ -176,19 +174,9 @@
                     <div class="accordion-body">
                         <div class="card mb-4 mt-2">
                             <div class="card-body">
-
                                 <div class="row">
                                     <div class="col-sm-3">
                                         <p class="mb-0">Corporate and Personal </p>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <p class="text-muted mb-0">Yes</p>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <p class="mb-0">Corporate Only </p>
                                     </div>
                                     <div class="col-sm-9">
                                         <p class="text-muted mb-0">Yes</p>
@@ -204,6 +192,17 @@
                                     </div>
                                 </div>
                                 <hr>
+
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0">Corporate Only </p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <p class="text-muted mb-0">Yes</p>
+                                    </div>
+                                </div>
+                                <hr>
+
                                 <div class="row">
                                     <div class="col-sm-3">
                                         <p class="mb-0">Corporate Indemnitor(s) </p>
@@ -234,7 +233,7 @@
                                         <p class="mb-0"> Surety Name </p>
                                     </div>
                                     <div class="col-sm-9">
-                                        <p class="text-muted mb-0"> {{$customer->surerty->name ?? ''}}  </p>
+                                        <p class="text-muted mb-0"> {{ $customer->authority->surerty->name ?? ''}}  </p>
                                     </div>
                                 </div>
                                 <hr>
@@ -243,7 +242,7 @@
                                         <p class="mb-0"> AM Best Rating </p>
                                     </div>
                                     <div class="col-sm-9">
-                                        <p class="text-muted mb-0"> {{$customer->surerty->rating ?? ''}}  </p>
+                                        <p class="text-muted mb-0"> {{$customer->authority->surerty->am_best_rating ?? ''}}  </p>
                                     </div>
                                 </div>
                                 <hr>
@@ -252,7 +251,7 @@
                                         <p class="mb-0"> Treasury Listed </p>
                                     </div>
                                     <div class="col-sm-9">
-                                        <p class="text-muted mb-0"> {{$customer->surerty->treasury_list ?? ''}}  </p>
+                                        <p class="text-muted mb-0"> {{$customer->authority->surerty->treasury_list ?? ''}}  </p>
                                     </div>
                                 </div>
                                 <hr>
@@ -262,7 +261,7 @@
                                         <p class="mb-0"> Underwriter Name </p>
                                     </div>
                                     <div class="col-sm-9">
-                                        <p class="text-muted mb-0"> {{$customer->surerty->underwriter_name ?? ''}}  </p>
+                                        <p class="text-muted mb-0"> {{$customer->authority->surerty->cbu_name ?? ''}}  </p>
                                     </div>
                                 </div>
                                 <hr>
@@ -271,7 +270,7 @@
                                         <p class="mb-0"> Underwriter Email </p>
                                     </div>
                                     <div class="col-sm-9">
-                                        <p class="text-muted mb-0"> {{$customer->surerty->underwriter_email ?? ''}}  </p>
+                                        <p class="text-muted mb-0"> {{$customer->authority->surerty->cbu_email ?? ''}}  </p>
                                     </div>
                                 </div>
                             </div>
@@ -306,7 +305,7 @@
                                         <p class="mb-0"> Expiration Date Date   </p>
                                     </div>
                                     <div class="col-sm-9">
-                                        <p class="text-muted mb-0"> {{$customer->authority->exp_date ?? ''}}  </p>
+                                        <p class="text-muted mb-0"> {{$customer->authority->expiry_date ?? ''}}  </p>
                                     </div>
                                 </div>
                                 <hr>
@@ -324,7 +323,7 @@
                                         <p class="mb-0"> Single Project Limit  </p>
                                     </div>
                                     <div class="col-sm-9">
-                                        <p class="text-muted mb-0"> {{$customer->authority->single_limt ?? ''}}  </p>
+                                        <p class="text-muted mb-0"> {{$customer->authority->single_job_limit ?? ''}}  </p>
                                     </div>
                                 </div>
                                 <hr>
@@ -333,7 +332,7 @@
                                         <p class="mb-0">Aggregate Limit  </p>
                                     </div>
                                     <div class="col-sm-9">
-                                        <p class="text-muted mb-0"> {{$customer->authority->aggr_limt ?? ''}}  </p>
+                                        <p class="text-muted mb-0"> {{$customer->authority->aggregate_limit ?? ''}}  </p>
                                     </div>
                                 </div>
                                 <hr>
@@ -342,7 +341,8 @@
                                         <p class="mb-0">Design Build </p>
                                     </div>
                                     <div class="col-sm-9">
-                                        <p class="text-muted mb-0"> {{$customer->authority->design_build ?? ''}}  </p>
+                                        <p class="text-muted mb-0"> {{$customer->authority->design_build==true ? 'Yes' : 'No'}}  </p>
+{{--                                        <p class="text-muted mb-0"> {{$customer->authority->design_build ?? ''}}  </p>--}}
                                     </div>
                                 </div>
                                 <hr>
@@ -351,7 +351,7 @@
                                         <p class="mb-0"> Job Duration (Years) </p>
                                     </div>
                                     <div class="col-sm-9">
-                                        <p class="text-muted mb-0"> {{$customer->authority->job_dur ?? ''}}  </p>
+                                        <p class="text-muted mb-0"> {{$customer->authority->job_duration ?? ''}}  </p>
                                     </div>
                                 </div>
                                 <hr>
@@ -361,7 +361,7 @@
                                         <p class="mb-0"> Warranty Period (years) </p>
                                     </div>
                                     <div class="col-sm-9">
-                                        <p class="text-muted mb-0"> {{$customer->authority->warranty_dur ?? ''}}  </p>
+                                        <p class="text-muted mb-0"> {{$customer->authority->warranty_duration ?? ''}}  </p>
                                     </div>
                                 </div>
                                 <hr>
@@ -370,8 +370,8 @@
                                         <p class="mb-0"> Hazmat/Asbestos </p>
                                     </div>
                                     <div class="col-sm-9">
-{{--                                        <p class="text-muted mb-0"> {{$customer->authority->hazmat==true ? 'Yes' : 'No'}}  </p>--}}
-                                        <p class="text-muted mb-0"> yes  </p>
+                                        <p class="text-muted mb-0"> {{$customer->authority->hazmat==true ? 'Yes' : 'No'}}  </p>
+{{--                                        <p class="text-muted mb-0"> yes  </p>--}}
                                     </div>
                                 </div>
                                 <hr>
@@ -380,7 +380,7 @@
                                         <p class="mb-0"> Bid Spread % </p>
                                     </div>
                                     <div class="col-sm-9">
-                                        <p class="text-muted mb-0"> {{$customer->authority->minim_bid ?? ''}}  </p>
+                                        <p class="text-muted mb-0"> {{$customer->authority->minimum_bid ?? ''}}  </p>
                                     </div>
                                 </div>
                             </div>

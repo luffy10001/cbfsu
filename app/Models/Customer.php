@@ -39,9 +39,9 @@ class Customer extends Model
         return $this->belongsTo(City::class,'city_id');
     }
     public function surerty(){
-        return $this->belongsTo(Insurer::class,'user_id');
+        return $this->hasOne(Insurer::class,'user_id');
     }
     public function authority(){
-        return $this->belongsTo(Authority::class,'customer_id');
+        return $this->hasOne(Authority::class,'customer_id');
     }
 }
