@@ -23,7 +23,7 @@ class BondController extends Controller
     public function index(BondDataTable $dataTable)
     {
         $user = Auth::user();
-        return $dataTable->with('user', $user)->render('bonds.index');
+        return $dataTable->with('user', $user)->render('bonds.index',compact('user'));
     }
 
     public function create()
@@ -192,8 +192,21 @@ class BondController extends Controller
                 'message' => 'Bond Details Updated Successfully!',
             ]);
         }elseif($request['type'] == 5){
-            $attachment ='get from form';
-            $bondObj->update(['attachment'=>$attachment]);
+            $request->validate([
+                'attachment'    =>  'required'
+            ]);
+            // Get the uploaded file
+            $file = $request->file('attachment');
+            $originalFileName = $file->getClientOriginalName();
+            $fileNameWithoutExtension = pathinfo($originalFileName, PATHINFO_FILENAME);
+            $imageName = $fileNameWithoutExtension.'_'.time().'.'.$file->getClientOriginalExtension();
+            $file->move(public_path('/bond_attachment'), $imageName);
+
+            $attachment   =   [
+              'attachment'    =>  $imageName
+            ];
+            $bondObj->update($attachment);
+
             $route = route('bond.index');
             return response()->json([
                 'success' => true,
