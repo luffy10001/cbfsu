@@ -42,4 +42,8 @@ class Bond extends Model
         return $this->hasMany(SubContractor::class,'bond_id');
     }
 
+    public function customer(){
+        return $this->belongsTo(Customer::class,'customer_id');
+    }
+
 }
