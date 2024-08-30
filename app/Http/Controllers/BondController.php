@@ -15,10 +15,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
+use App\Traits\FileUploadTrait;
 
 class BondController extends Controller
 {
     public string $userModule = 'bonds';
+    use FileUploadTrait;
 
     public function index(BondDataTable $dataTable)
     {
@@ -193,19 +195,31 @@ class BondController extends Controller
             ]);
         }elseif($request['type'] == 5){
             $request->validate([
-                'attachment'    =>  'required'
+                'attachment'=>'required',
             ]);
-            // Get the uploaded file
-            $file = $request->file('attachment');
-            $originalFileName = $file->getClientOriginalName();
-            $fileNameWithoutExtension = pathinfo($originalFileName, PATHINFO_FILENAME);
-            $imageName = $fileNameWithoutExtension.'_'.time().'.'.$file->getClientOriginalExtension();
-            $file->move(public_path('/bond_attachment'), $imageName);
+            if($request->has('attachment') && gettype($request->attachment=="object"))
+            {
+                $fileUploadResponse = $this->uploadFile($request->file('attachment'), 'images/bonds/');
+                if (isset($fileUploadResponse['success']) && $fileUploadResponse['success'] == TRUE )
+                {
+                    $data['attachment'] = $fileUploadResponse['filename'];
+                    $bondObj->update($data);
+                }
+            }
+//            $request->validate([
+//                'attachment'    =>  'required'
+//            ]);
+//            // Get the uploaded file
+//            $file = $request->file('attachment');
+//            $originalFileName = $file->getClientOriginalName();
+//            $fileNameWithoutExtension = pathinfo($originalFileName, PATHINFO_FILENAME);
+//            $imageName = $fileNameWithoutExtension.'_'.time().'.'.$file->getClientOriginalExtension();
+//            $file->move(public_path('/bond_attachment'), $imageName);
 
-            $attachment   =   [
-              'attachment'    =>  $imageName
-            ];
-            $bondObj->update($attachment);
+//            $attachment   =   [
+//              'attachment'    =>  $imageName
+//            ];
+//            $bondObj->update($attachment);
 
             $route = route('bond.index');
             return response()->json([
