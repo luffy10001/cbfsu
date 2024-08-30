@@ -6,7 +6,9 @@ use App\DataTables\CustomerDataTable;
 use App\Mail\CustomerMail;
 use App\Mail\PasswordForgot;
 use App\Models\Agent;
+use App\Models\Authority;
 use App\Models\City;
+use App\Models\Insurer;
 use App\Models\Province;
 use App\Models\Role;
 use App\Models\User;
@@ -35,28 +37,58 @@ class CustomerController extends Controller
             ->select('agent.id as id','user.name as name')
         ->where([ 'user.status' => true ])->get();
         $provinces = Province::select('id','name')->where('status',true)->orderBY('name')->get();
-        return view('customers.create',compact('agents','provinces'));
+        $insurers = Insurer::get();
+        $route = 'customer.index';
+        return view('customers.create',compact('agents','provinces','insurers','route'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'name'         => 'required',
-            'contact_name' => 'required',
-            'phone'        => 'required',
-            'zip'          => 'required',
-            'email'        => 'required|unique:' . TableName(User::class) . ',email|email',
-            'password'     => 'required|min:8|confirmed|max:20',
-            'address'      => 'required',
-            'positions'    => 'required|gt:0',
-            'province_id'  => 'required|gt:0',
-            'city_id'      => 'required|gt:0',
-            'agent_id'     => 'required|gt:0',
+            'corporation_type'      => 'required|gt:0',
+            'name'                  => 'required',
+            'primary_contact'       => 'required',
+            'phone'                 => 'required',
+            'email'                 => 'required|unique:' . TableName(User::class) . ',email|email',
+            'average_size'          => 'required',
+            'largest_size'          => 'required',
+            'backlog'               => 'required',
+            'province_id'           => 'required|gt:0',
+            'city_id'               => 'required|gt:0',
+            'zip'                   => 'required',
+            'address'               => 'required',
+            'password'              => 'required|min:8|confirmed|max:20',
+            'insurer'               => 'required|gt:0',
+            'start_date'            => 'required',
+            'exp_date'              => 'required',
+            'territory'             => 'required',
+            'single_limt'            => 'required|',
+            'aggr_limt'              => 'required',
+            'design_build'          => 'required',
+            'job_dur'               => 'required',
+            'warranty_dur'          => 'required',
+            'hazmat'                => 'required',
+            'minim_bid'             => 'required',
+
+
+
         ], [
+            'corporation_type' => 'The corporation type field is required.',
+            'name'           => 'The Positions field is required.',
             'positions.gt'   => 'The Positions field is required.',
             'province_id.gt' => 'The State field is required.',
             'city_id.gt'     => 'The Headquarter field is required.',
             'agent_id.gt'    => 'The Agent field is required.',
+            'insurer'        => 'The surety name field is required.',
+            'start_date'     => 'The effective date field is required.',
+            'exp_date'       => 'The expiration date field is required.',
+            'single_limt'     => 'The single project limit field is required.',
+            'aggr_limt'       => 'The aggregate limit field is required.',
+            'job_dur'        => 'The job duration field is required.',
+            'warranty_dur'   => 'The warranty period field is required.',
+            'minim_bid'      => 'The bid spread field is required.',
+
+
         ]);
         $role = Role::select('slug','id')->where('slug','customer')->first();
         $data = [
@@ -68,32 +100,53 @@ class CustomerController extends Controller
         ];
         $user = User::create($data);
         $customerData = [
-            'user_id'   => $user->id,
-            'signed_in' => Carbon::now(),
-            'phone'     => $request['phone'],
-            'agent_id'  => $request['agent_id'],
-            'state_id'  => $request['province_id'],
-            'city_id'   => $request['city_id'],
-            'positions' => $request['positions'],
-            'contact_name' => $request['contact_name'],
-            'zip'          => $request['zip'],
-            'address'      => $request['address'],
+            'user_id'             => $user->id,
+            'signed_in'           => Carbon::now(),
+            'corporation_type'    => $request['corporation_type'],
+            'primary_contact'     => $request['primary_contact'],
+            'phone'               => $request['phone'],
+            'average_size'        => $request['average_size'],
+            'largest_size'        => $request['largest_size'],
+            'backlog'             => $request['backlog'],
+            'state_id'            => $request['province_id'],
+            'city_id'             => $request['city_id'],
+            'zip'                 => $request['zip'],
+            'address'             => $request['address'],
         ];
-        $baseUrl = config('app.url');
-        Customer::create($customerData);
-        Mail::to($request['email'])->send(new CustomerMail(
-            [
-                'name'     => $request['name'],
-                'email'    => $request['email'],
-                'password' => $request['password'],
-                'website_link'    => $baseUrl,
-            ]
-        ));
+        $customer = Customer::create($customerData);
+        $authority_data = [
+            'customer_id'      =>   $customer->id,
+            'insurer_id'       =>    $request['insurer'],
+            'start_date'       =>    $request['start_date'],
+            'expiry_date'      =>    $request['exp_date'],
+            'territory'        =>    $request['territory'],
+            'single_job_limit' =>    $request['single_limt'],
+            'aggregate_limit'  =>    $request['aggr_limt'],
+            'design_build'     =>    $request['design_build'],
+            'job_duration'     =>    $request['job_dur'],
+            'job_duration_unit'      =>    1,
+            'warranty_duration'      =>    $request['warranty_dur'],
+            'warranty_duration_unit' =>    1,
+            'hazmat'           =>    $request['hazmat'],
+            'minimum_bid'      =>    $request['minim_bid'],
+        ];
+        Authority::create($authority_data);
+
+//        $baseUrl = config('app.url');
+//        Mail::to($request['email'])->send(new CustomerMail(
+//            [
+//                'name'     => $request['name'],
+//                'email'    => $request['email'],
+//                'password' => $request['password'],
+//                'website_link'    => $baseUrl,
+//            ]
+//        ));
 
         return response()->json([
             'success' => true,
             'message' => 'Customer Created Successfully!',
-            'close_modal' => true,
+//            'close_modal' => true,
+            'redirect'  => route('customer.index'),
             'table' => 'customers'
         ]);
     }
@@ -206,6 +259,31 @@ class CustomerController extends Controller
             'close_modal' => true,
             'table' => 'customers'
         ]);
+    }
+
+    public function profile()
+    {
+        $userId = Auth::user()->id;
+        $customer = Customer::where('user_id',$userId)->first();
+//        echo "<pre>";
+//        print_r($customer->authority->surerty->name);
+//        exit;
+        return view('customers.profile', compact('customer'));
+//        return view('customers.profile1', compact('customer'));
+    }
+
+
+    public function surety_details(Request $request){
+        $surety_id = $request['surety_id'];
+        if($surety_id>0){
+            $insurer = Insurer::where('id', $surety_id)->first();
+            return view('components.surety-form', compact('insurer'));
+        }
+
+    }
+    public function landPageDetail()
+    {
+        return view('cust_land_page');
     }
 
 }

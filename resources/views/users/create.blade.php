@@ -32,7 +32,7 @@
                         <input type="email" class="form-control" id="email" name="email" placeholder="Email"/>
                     </div>
 
-                    <div class="col-md-12 mb-0 " toggle="password-parent" style="position: relative">
+                    <div class="col-md-12 mb-3 " toggle="password-parent" style="position: relative">
                         <label class=" control-label">Password*</label>
                         <input id="password-field" type="password" class="form-control" name="password">
                         <span class="fa fa-fw fa-eye-slash field-icon toggle-password"> </span>
@@ -44,7 +44,7 @@
                                name="password_confirmation">
                         <span class="fa fa-fw fa-eye-slash field-icon toggle-password"> </span>
                     </div>
-                    <div class="col-md-12 mb-3">
+                    <div class="col-md-12 mb-0">
                         <label for="role" class="form-label">Role*</label>
                         <select  placeholder="Select a Role" class="form-select" id="role" name="role">
                             <option value="0"> Select a Role</option>
@@ -55,8 +55,8 @@
                     </div>
 
                 </div>
-                <button type="button" class="form_submit btn btn-success mt-3">Submit</button>
-                <button type="button" class="btn btn-primary cancel-btn mt-3" data-bs-dismiss="modal" aria-label="Close">Cancel
+                <button type="button" class="form_submit btn btn-success mt-2">Submit</button>
+                <button type="button" class="btn btn-primary cancel-btn mt-2" data-bs-dismiss="modal" aria-label="Close">Cancel
                 </button>
             </form>
         </div>

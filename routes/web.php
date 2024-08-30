@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProvinceController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\BondController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,6 +32,13 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('state/get-cities',[ProvinceController::class,'getStateCities'])->name('state.get-cities');
+    Route::post('append/surety_details', [CustomerController::class, 'surety_details'])->name('surety_details.append');
+    Route::get('get-insurer/{id}',[\App\Http\Controllers\ProjectController::class,'insurers'])->name('project_management.getInsurers');
+    Route::get('append_subcontractor_form', [BondController::class, 'append_subcontractor_form'])->name('append_subcontractor_form');
+
+
+    Route::get('customer-detail',[\App\Http\Controllers\CustomerController::class,'landPageDetail'])->name('customer.landpage');
+
 });
 
 Route::group(['middleware' => ['auth', 'user_permission']], function () {
@@ -43,6 +52,8 @@ Route::group(['middleware' => ['auth', 'user_permission']], function () {
     include __DIR__ . '/customer.php';
     include __DIR__ . '/insurer.php';
     include __DIR__ . '/authority.php';
+    include __DIR__ . '/project.php';
+    include __DIR__ . '/bonds.php';
 
 });
 

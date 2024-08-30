@@ -1,7 +1,7 @@
 <x-crm-dropdown>
     @if(isPermission('insurer.edit'))
         <li>
-            <a class="dropdown-item modal_open" size="xl" url="{!! route('insurer.edit',$obj->id) !!}"><i
+            <a class="dropdown-item" href="{!! route('insurer.edit',$obj->id) !!}"><i
                         class="bi bi-pencil-square"></i>
                 Edit</a>
         </li>
@@ -49,7 +49,7 @@
             <a
                     swal_title="Are you Sure!"
                     swal_icon="warning"
-                    swal_text="Do you want to delete this account?"
+                    swal_text="Do you want to delete this Insurer?"
                     swal_button="Yes"
                     cancel_button_text="No"
                     class="dropdown-item modal_submit" size="lg"

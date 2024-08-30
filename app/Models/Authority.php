@@ -26,5 +26,11 @@ class Authority extends Model
         'minimum_bid',
         'maintenance_limit',
         'maintenance_limit_unit',
+        'customer_id',
+        'design_build',
+        'hazmat',
     ];
+    public function surerty(){
+        return $this->belongsTo(Insurer::class,'insurer_id');
+    }
 }

@@ -164,23 +164,29 @@ window.dynamicSelection = (elem) => {
                 },
                 success: function (rows) {
                     if (target !== undefined) {
-                        $(target).html('');
-                        let optionPlaceholder = ``;
-                        if (elem.attr('targetMultiple') == 1) {
-                            if ($('select[name="role_id"]').length > 0) {
-                                let roleId = ''
-                                if ($('select[name="role_id"]').val() == 5) {
-                                    roleId = 6;
-                                }
-                                if ($('select[name="role_id"]').val() == 6) {
-                                    roleId = 5;
-                                }
-                                if (roleId) {
-                                    optionPlaceholder = $(`select[name="role_id"] option[value="${roleId}"]`).text();
+                        if(target=='div'){
+                            let target_div  = elem.attr('target_div');
+                            $("."+target_div).html('');
+                            $("."+target_div).append(rows);
+                        }else{
+                            $(target).html('');
+                            let optionPlaceholder = ``;
+                            if (elem.attr('targetMultiple') == 1) {
+                                if ($('select[name="role_id"]').length > 0) {
+                                    let roleId = ''
+                                    if ($('select[name="role_id"]').val() == 5) {
+                                        roleId = 6;
+                                    }
+                                    if ($('select[name="role_id"]').val() == 6) {
+                                        roleId = 5;
+                                    }
+                                    if (roleId) {
+                                        optionPlaceholder = $(`select[name="role_id"] option[value="${roleId}"]`).text();
+                                    }
                                 }
                             }
+                            $(target).append((placeholder !== undefined) ? `<option value="">${placeholder} ${optionPlaceholder}</option>` : '')
                         }
-                        $(target).append((placeholder !== undefined) ? `<option value="">${placeholder} ${optionPlaceholder}</option>` : '')
                     }
                     if (rows !== undefined && rows.length > 0 && isGroup === undefined) {
                         rows.map((row, index) => {
@@ -352,6 +358,7 @@ $(document).ready(function () {
 
 
     $('body').on('change', '.changeInputMws', function () {
+
         const elem = $(this);
         if ($(elem).attr('name') === 'role_id') {
 
@@ -1175,9 +1182,9 @@ window.resizeWindow = (p = 0) => {
     if ($('.mws-main-body .table').length === 0) {
 
     } else {
-       /* $('.dataTables_wrapper table tbody').css({
-            'max-height': ScrollFixed(180 - p)
-        })*/
+        /* $('.dataTables_wrapper table tbody').css({
+             'max-height': ScrollFixed(180 - p)
+         })*/
     }
 
 
@@ -1669,15 +1676,15 @@ window.isJsonString = (str) => {
 }
 
 
- window.activateSteps = () =>{
+window.activateSteps = () =>{
 
     $('.setup-content').each(function () {
         var allFilled = true;
         // console.log('l1');
         $(this).find('input[required], select[required],textarea[required]').each(function () {
             // console.log('l2' , $(this).val());
-            if ($(this).val() == '' || $(this).val() == 'null') {
-               allFilled = false;
+            if ($(this).val() == '' || $(this).val() == 'null' || $(this).val() == '0') {
+                allFilled = false;
                 // console.log('in if');
                 return false;
             }
@@ -1706,7 +1713,13 @@ function nextandPrev(curStep, prevStepWizard){
         if ( $(this).val() =="null"){
             isEmpty = true;
             $(this).next('span').next('.text-danger').remove(); // Remove previous error message
-            $(this).next('span').after(`<div class="text-danger">Please select an option.</div>`);
+            if ($(this).next('span').next('.text-danger').length === 0) {
+                // $(this).next('span').after(`<div class="text-danger">Please select an option.</div>`)
+            }
+        }
+        if($.isArray($(this).val()) && $(this).val().length === 0){
+            isEmpty = true;
+            $(this).next('span').next('.text-danger').remove();
         }
     });
     if (isEmpty) {
@@ -1721,52 +1734,53 @@ function nextandPrev(curStep, prevStepWizard){
             }
         }
     }
+    console.log('isValid',isValid);
     if (isValid) prevStepWizard.removeAttr('disabled').trigger('click');
 }
 window.MultiStepFormJs = () => {
+    activateSteps();
+    var navListItems = $('div.setup-panel div a'),
+        allWells = $('.setup-content'),
+        allNextBtn = $('.nextBtn'),
+        allPreBtn = $('.prevBtn');
+
+    allWells.hide();
+    navListItems.click(function (e) {
+        e.preventDefault();
+        var $target = $($(this).attr('href')),
+            $item = $(this);
+
+        if (!$item.hasClass('disabled')) {
+            navListItems.removeClass('btn-success').addClass('btn-default');
+            $item.addClass('btn-success');
+            allWells.hide();
+            $target.show();
+            $target.find('input:eq(0)').focus();
+        }
+    });
+    allPreBtn.click(function () {
         activateSteps();
-        var navListItems = $('div.setup-panel div a'),
-            allWells = $('.setup-content'),
-            allNextBtn = $('.nextBtn'),
-            allPreBtn = $('.prevBtn');
+        var curStep = $(this).closest(".setup-content"),
+            curStepBtn = curStep.attr("id"),
+            prevStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().prev().children("a");
+        nextandPrev(curStep , prevStepWizard);
+    });
+    allNextBtn.click(function () {
+        activateSteps();
+        var curStep = $(this).closest(".setup-content"),
+            curStepBtn = curStep.attr("id"),
+            nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a");
+        nextandPrev(curStep , nextStepWizard);
+    });
+    $('div.setup-panel div a.btn-success').trigger('click');
 
-        allWells.hide();
-        navListItems.click(function (e) {
-            e.preventDefault();
-            var $target = $($(this).attr('href')),
-                $item = $(this);
-
-            if (!$item.hasClass('disabled')) {
-                navListItems.removeClass('btn-success').addClass('btn-default');
-                $item.addClass('btn-success');
-                allWells.hide();
-                $target.show();
-                $target.find('input:eq(0)').focus();
-            }
-        });
-        allPreBtn.click(function () {
-            activateSteps();
-            var curStep = $(this).closest(".setup-content"),
-                curStepBtn = curStep.attr("id"),
-                prevStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().prev().children("a");
-            nextandPrev(curStep , prevStepWizard);
-        });
-        allNextBtn.click(function () {
-            activateSteps();
-            var curStep = $(this).closest(".setup-content"),
-                curStepBtn = curStep.attr("id"),
-                nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a");
-            nextandPrev(curStep , nextStepWizard);
-        });
-        $('div.setup-panel div a.btn-success').trigger('click');
-
-        $(document).find('.multiStep .form-control').on('input', function() {
-            $(this).next('.text-danger').remove();
-        });
-        $(document).find('.multiStep .select2selector').on('change', function() {
-            $(this).next('span').next('.text-danger').remove();
-        });
-    }
+    $(document).find('.multiStep .form-control').on('input', function() {
+        $(this).next('.text-danger').remove();
+    });
+    $(document).find('.multiStep .select2selector').on('change', function() {
+        $(this).next('span').next('.text-danger').remove();
+    });
+}
 
 
 

@@ -109,15 +109,15 @@ class CustomerDataTable extends BaseDataTable
         return [
             Column::make('id'),
             Column::make('name'),
-            Column::make('contact_name')->title('Contact Name'),
+//            Column::make('contact_name')->title('Contact Name'),
             Column::make('email')->title('Email Address'),
             Column::make('phone'),
-            Column::computed('positions')->title('Position Title'),
-            Column::make('signed_in')->title('Date Signed'),
-            Column::make('zip'),
+//            Column::computed('positions')->title('Position Title'),
+//            Column::make('signed_in')->title('Date Signed'),
+//            Column::make('zip'),
             Column::make('city_name')->title('City'),
-            Column::make('state_name')->title('State'),
-            Column::make('address'),
+//            Column::make('state_name')->title('State'),
+//            Column::make('address'),
             Column::computed('status'),
             Column::computed('actions')
                 ->exportable(false)

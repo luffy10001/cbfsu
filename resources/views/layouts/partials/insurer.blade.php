@@ -10,10 +10,10 @@
             Manage Insurers
         </x-slot>
         <x-slot name="activeTab">
-            {!! (isCurrentRoute('insurer.index'))?'show':'' !!}
+            {!! (isCurrentRoute('insurer.index'))|| isCurrentRoute('insurer.create') || isCurrentRoute('insurer.edit')?'show':'' !!}
         </x-slot>
         @if(isPermission('insurer.index'))
-            <li class="nav-item {!! isCurrentRoute('insurer.index')?'live-active':'' !!}">
+            <li class="nav-item {!! isCurrentRoute('insurer.index')|| isCurrentRoute('insurer.create') || isCurrentRoute('insurer.edit')?'live-active':'' !!}">
                 <a class="nav-link" href="{{route('insurer.index')}}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"

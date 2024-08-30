@@ -36,13 +36,13 @@
                         <input type="phone" class="form-control" id="Phone" name="phone" placeholder="Phone"/>
                     </div>
 
-                    <div class="col-md-12 mb-0 " toggle="password-parent" style="position: relative">
+                    <div class="col-md-12 mb-3 " toggle="password-parent" style="position: relative">
                         <label class=" control-label">Password*</label>
                         <input id="password-field" type="password" class="form-control" name="password">
                         <span class="fa fa-fw fa-eye-slash field-icon toggle-password"> </span>
                     </div>
 
-                    <div class="col-md-12 mb-3 " toggle="password-parent" style="position: relative">
+                    <div class="col-md-12 mb-1 " toggle="password-parent" style="position: relative">
                         <label for="password_confirmation" class="form-label">Confirm Password*</label>
                         <input id="password_confirmation" type="password" class="form-control password"
                                name="password_confirmation">
@@ -50,8 +50,8 @@
                     </div>
 
                 </div>
-                <button type="button" class="form_submit btn btn-success mt-3">Submit</button>
-                <button type="button" class="btn btn-primary cancel-btn mt-3" data-bs-dismiss="modal" aria-label="Close">Cancel
+                <button type="button" class="form_submit btn btn-success mt-2">Submit</button>
+                <button type="button" class="btn btn-primary cancel-btn mt-2" data-bs-dismiss="modal" aria-label="Close">Cancel
                 </button>
             </form>
         </div>
