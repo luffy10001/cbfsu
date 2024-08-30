@@ -266,16 +266,12 @@ class BondController extends Controller
     }
     public function delete(Request $request, $id)
     {
-        $customer = Customer::find($id);
-        User::where('id',$customer->user_id)->delete();
-        if ($customer) {
-            $customer->delete();
-        }
+         Bond::find($id)->delete();
         return response()->json([
             'success' => true,
-            'message' => "Customer Deleted Successfully!",
+            'message' => "Bonds Deleted Successfully!",
             'close_modal' => true,
-            'table' => 'customers'
+            'table' => 'bonds'
         ]);
     }
 
