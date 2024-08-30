@@ -2,6 +2,7 @@
 
 namespace App\DataTables;
 use App\CRM\DataTable\BaseDataTable;
+use App\Models\Bond;
 use App\Models\City;
 use App\Models\Province;
 use App\Models\User;
@@ -26,32 +27,30 @@ class BondDataTable extends BaseDataTable
         $db_connection = env('DB_CONNECTION');
         return datatables()
             ->eloquent($query)
-            ->addColumn('positions', function($obj){
-                if($obj->positions)
-                    return positions()[$obj->positions];
-                return "N/A";
-            })
-            ->addColumn('status', function($obj){
-                if($obj->status)
-                    return "<span class='badge bg-success '>Active</span> ";
-                return "<span class='badge bg-primary '>InActive</span> ";
-            })
-            ->addColumn('actions', function($obj){
-                return view('customers.actions',compact('obj'));
-            })
-            ->filter(function ($instance) use ($request, $db_connection) {
-                if (!empty($request->get('name')) AND $request->get('name') != 'all') {
-                    $instance->where('cust.id', ($db_connection === 'mysql') ? 'LIKE' : 'ILIKE', "%" . $request->get('name') . "%");
-                }
-                if (!empty($request->get('city')) AND $request->get('city') != 'all') {
-                    $instance->where('cust.city_id', $request->get('city'));
-                }
-                if (!empty($request->get('state')) AND $request->get('state') != 'all') {
-                    $instance->where('cust.state_id', $request->get('state'));
-                }
+            ->addColumn('company_name', function($obj){
+                return $obj->customer->user['name'];
             })
 
-            ->rawColumns(['actions','status']);
+            ->addColumn('actions', function($obj){
+//                return view('customers.actions',compact('obj'));
+            })
+            ->filter(function ($instance) use ($request, $db_connection) {
+                if (!empty($request->get('company_name')) AND $request->get('company_name') != 'all') {
+                    $instance->where('customer_id', ($db_connection === 'mysql') ? 'LIKE' : 'ILIKE', "%" . $request->get('name') . "%");
+                }
+
+                if (!empty($request->get('owner_name'))) {
+                    $instance->where('owner_name', ($db_connection === 'mysql') ? 'LIKE' : 'ILIKE', "%" . $request->get('owner_name') . "%");
+                }
+
+                if (!empty($request->get('pb_contract_amount'))) {
+                    $instance->where('pb_contract_amount',  $request->get('pb_contract_amount'));
+                }
+
+
+            })
+
+            ->rawColumns(['actions','company_name']);
     }
 
     /**
@@ -60,17 +59,12 @@ class BondDataTable extends BaseDataTable
      * @param \App\Models\AgentDataTable $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Customer $model)
+    public function query(Bond $model)
     {
-        return $model->newQuery()
-            ->from(TableName(Customer::class) . ' as cust')
-            ->leftJoin(TableName(User::class) . ' as user', 'cust.user_id', '=', 'user.id')
-            ->leftJoin(TableName(Province::class) . ' as state', 'cust.state_id', '=', 'state.id')
-            ->leftJoin(TableName(City::class) . ' as city', 'cust.city_id', '=', 'city.id')
-            ->select('cust.*', 'user.name as name', 'user.email as email', 'user.status as status','state.name as state_name'
-                ,'city.name as city_name')
-            ->where('cust.id',40000)
-            ->orderByDesc('cust.id');
+        return $model->newQuery();
+//            ->from(TableName(Bond::class) . ' as bond')
+//            ->join(TableName(Customer::class) . ' as cust', 'bond.customer_id', '=', 'cust.id')
+
 
     }
 
@@ -109,16 +103,16 @@ class BondDataTable extends BaseDataTable
     {
         return [
             Column::make('id'),
-            Column::make('name')->title('Company Name'),
-            Column::make('name')->title('Oblige/Owner Name'),
-            Column::make('name')->title('Bid Date'),
-            Column::make('name')->title('Contract Date'),
-            Column::make('name')->title('Contract Amount'),
-            Column::computed('actions')
-                ->exportable(false)
-                ->printable(false)
-                ->width(60)
-                ->addClass('text-center'),
+            Column::make('company_name')->title('Company Name'),
+            Column::make('owner_name')->title('Oblige/Owner Name'),
+            Column::make('owner_bid_date')->title('Bid Date'),
+            Column::make('pb_contract_date')->title('Contract Date'),
+            Column::make('pb_contract_amount')->title('Contract Amount'),
+//            Column::computed('actions')
+//                ->exportable(false)
+//                ->printable(false)
+//                ->width(60)
+//                ->addClass('text-center'),
         ];
     }
 
@@ -142,20 +136,11 @@ class BondDataTable extends BaseDataTable
         foreach($objs as $obj){
             $datas[$obj->id]= $obj->name;
         }
-        $cities['all'] = 'Select State';
-        $citiesList  = City::select('id','name')->where('status',true)->get();
-        foreach($citiesList as $city){
-            $cities[$city->id]= $city->name;
-        }
-        $states['all'] = 'Select State';
-        $statesList  = Province::select('id','name')->where('status',true)->get();
-        foreach($statesList as $state){
-            $states[$state->id]= $state->name;
-        }
+
         return [
-            'name'  => [ 'title' => 'Name','options' => $datas,'id'=>'role-filter', 'placeholder'=>'Select Name', 'class' => 'filter-dropdown', 'type' => 'select', 'condition' => 'like', 'active' => true],
-            'city'  => [ 'title' => 'City','options' => $cities,'id'=>'role-filter1', 'placeholder'=>'Select City', 'class' => 'filter-dropdown', 'type' => 'select', 'condition' => 'like', 'active' => true],
-            'state'  => [ 'title' => 'State','options' => $states,'id'=>'role-filter2', 'placeholder'=>'Select State', 'class' => 'filter-dropdown', 'type' => 'select', 'condition' => 'like', 'active' => true],
+            'company_name'  => [ 'title' => 'Name','options' => $datas,'id'=>'role-filter', 'placeholder'=>'Select Name', 'class' => 'filter-dropdown', 'type' => 'select', 'condition' => 'like', 'active' => true],
+            'owner_name'  =>  ['title' => 'Owner Name', 'class' => '', 'type' => 'text', 'condition' => 'like', 'active' => true],
+            'pb_contract_amount'  =>  ['title' => 'Contract Amount', 'class' => '', 'type' => 'number', 'condition' => 'like', 'active' => true],
         ];
     }
 }
