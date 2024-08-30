@@ -1683,7 +1683,7 @@ window.activateSteps = () =>{
         // console.log('l1');
         $(this).find('input[required], select[required],textarea[required]').each(function () {
             // console.log('l2' , $(this).val());
-            if ($(this).val() == '' || $(this).val() == 'null') {
+            if ($(this).val() == '' || $(this).val() == 'null' || $(this).val() == '0') {
                 allFilled = false;
                 // console.log('in if');
                 return false;
@@ -1713,7 +1713,9 @@ function nextandPrev(curStep, prevStepWizard){
         if ( $(this).val() =="null"){
             isEmpty = true;
             $(this).next('span').next('.text-danger').remove(); // Remove previous error message
-            $(this).next('span').after(`<div class="text-danger">Please select an option.</div>`)
+            if ($(this).next('span').next('.text-danger').length === 0) {
+                // $(this).next('span').after(`<div class="text-danger">Please select an option.</div>`)
+            }
         }
         if($.isArray($(this).val()) && $(this).val().length === 0){
             isEmpty = true;
