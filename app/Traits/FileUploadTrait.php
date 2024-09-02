@@ -19,34 +19,32 @@ trait FileUploadTrait
     protected function uploadFile(UploadedFile $file, string $directory = "", $public_id = ''): ?array
     {
         try {
-            if (empty($directory)) {
-                return ['success' => false, 'message' => 'Directory is empty.'];
+            if ($directory == "")
+            {
+                return array( 'success' => FALSE, 'message' => 'Directory is empty.' );
             }
 
-            // Generate a unique filename for the S3 bucket
-            $filename_new  = strtotime(now()) . '_' . mwsUuid() . '_' . str_replace(" ", '_', $file->getClientOriginalName());
+            $path = public_path($directory);
+            File::isDirectory($path) or File::makeDirectory($path, 0777, true, true);
 
-            $crm_dir = \Config::get('s3.AWS_S3_FOLDER').'/' . $directory;
-            $crm_dir = trim($crm_dir,'/');
-
-            // Upload the file to S3
-            $path = Storage::disk('s3')->putFileAs($crm_dir, $file, $filename_new, 'public');
-            if ($path) {
-                $url = Storage::disk('s3')->url($path);
-
-                $new_url = AWSS3Link::createS3Link($path);
-                if ($new_url){
-                    $url = $new_url;
+            $newFile =  $path.$file->getClientOriginalName();
+            $extension = pathinfo($newFile,PATHINFO_EXTENSION);
+            $filename = pathinfo($newFile, PATHINFO_FILENAME);
+            $duplicateCounter = 1;
+            if(file_exists($newFile))
+            {
+                while(file_exists($iterativeFileName = $path ."/". $filename ."_". $duplicateCounter .".". $extension)) {
+                    $duplicateCounter++;
                 }
-
-                // If a public_id is provided, delete the previous file on S3
-                //if (!empty($public_id)) {
-                // You can implement S3 file deletion here if needed
-                // }
-                return ['success' => true, 'filename' => $url, 'filepath' => $url];
+                $newFile = $iterativeFileName;
             }
-
-            return ['success' => false, 'message' => 'Sorry! Unable to Upload File...'];
+            $newname = pathinfo($newFile, PATHINFO_FILENAME);
+            $newfilename = $newname.".".$extension;
+            if($file->move($path, $newFile))
+            {
+                return array( 'success' => TRUE, 'filename' => $newfilename, 'filepath' => $directory.$newfilename );
+            };
+            return array( 'success' => FALSE, 'message' => 'Sorry! Unable to Uplaod File.' );
         } catch (\Throwable $e) {
 
             return ['success' => false, 'message' => 'Sorry! Unable to Upload File..'.$e->getMessage()];
