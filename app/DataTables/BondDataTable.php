@@ -31,9 +31,16 @@ class BondDataTable extends BaseDataTable
             ->addColumn('company_name', function($obj){
                 return $obj->customer->user['name'];
             })
+            ->addColumn('status', function($community){
+                if($community->status)
+                    return "<span class='badge bg-success '>Submitted</span> ";
+                return "<span class='badge bg-primary '>Draft</span> ";
+            })
 
             ->addColumn('actions', function($obj){
-                return view('bonds.actions',compact('obj'));
+                $user = Auth::user();
+                $role = $user->role;
+                return view('bonds.actions',compact('obj','role'));
             })
             ->filter(function ($instance) use ($request, $db_connection) {
                 if (!empty($request->get('company_name')) AND $request->get('company_name') != 'all') {
@@ -51,7 +58,7 @@ class BondDataTable extends BaseDataTable
 
             })
 
-            ->rawColumns(['actions','company_name']);
+            ->rawColumns(['actions','company_name','status']);
     }
 
     /**
@@ -62,9 +69,17 @@ class BondDataTable extends BaseDataTable
      */
     public function query(Bond $model)
     {
-        return $model->newQuery();
+        $user = $this->user;
+        $query = $model->newQuery();
 
+        if (isRoleCustomer($user->role)) {
+            $query = $model->from(TableName(Bond::class) . ' as bond')
+                ->leftJoin(TableName(Customer::class) . ' as cus', 'bond.customer_id', '=', 'cus.id')
+                ->select('bond.*')
+                ->where('cus.user_id', $user->id);
+        }
 
+        return $query;
     }
 
     /**
@@ -81,7 +96,7 @@ class BondDataTable extends BaseDataTable
             ->minifiedAjax()
 //             ->dom('Bfrtip')
             ->dom("<lf<t>ip>")
-            /* ->orderBy(1)*/
+//             ->orderBy(0)
             ->pageLength(10)
             ->buttons(
                 $this->buttons()
@@ -107,6 +122,7 @@ class BondDataTable extends BaseDataTable
             Column::make('owner_bid_date')->title('Bid Date'),
             Column::make('pb_contract_date')->title('Contract Date'),
             Column::make('pb_contract_amount')->title('Contract Amount'),
+            Column::computed('status')->title('Status'),
             Column::computed('actions')
                 ->exportable(false)
                 ->printable(false)
