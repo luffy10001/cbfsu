@@ -96,7 +96,7 @@ class BondDataTable extends BaseDataTable
             ->minifiedAjax()
 //             ->dom('Bfrtip')
             ->dom("<lf<t>ip>")
-//             ->orderBy(0)
+             ->orderBy(0)
             ->pageLength(10)
             ->buttons(
                 $this->buttons()
