@@ -262,6 +262,15 @@ if (!function_exists('isRoleSuperAdmin')) {
         return false;
     }
 }
+if (!function_exists('isRoleCustomer')) {
+    function isRoleCustomer($role): bool
+    {
+        if (!empty($role) && $role->slug === 'customer') {
+            return true;
+        }
+        return false;
+    }
+}
 if (!function_exists('send_email')){ // Email Notifications
     function send_email($to,$subject,$text,$cc){
         try {

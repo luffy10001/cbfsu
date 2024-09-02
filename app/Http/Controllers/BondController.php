@@ -35,10 +35,15 @@ class BondController extends Controller
         $cities  = City::select('id','name')->where('status',true)->orderBY('name')->get();
 
         $route = 'bond.create';
+
+
         $user = Auth::user();
         $role = $user->role;
+        if(isRoleCustomer($role)){
+            $customer = Customer::where('user_id',$user->id)->first();
+        }
 
-        $customer = Customer::where('user_id',$user->id)->first();
+
 
         // for edit
         $request = Request();
@@ -48,6 +53,8 @@ class BondController extends Controller
             $obj = bond::where([
                 'id' => $id,
             ])->first();
+            $customer = $obj->customer;
+            $user = $obj->customer->user;
         }
         return view('bonds.create',compact('obj','route','role','user','customer',
             'provinces','cities'));
@@ -73,7 +80,8 @@ class BondController extends Controller
                     'customer_id.gt'     => 'The Customer field is required.',
                 ]);
                 $general_data=[
-                    'customer_id'=> $request['customer_id'],
+                    'customer_id' => $request['customer_id'],
+                    'status'      => false,
                 ];
                 $obj = Bond::create($general_data);
                 $route = route('bond.edit',['id' => mws_encrypt('E',$obj->id)]);
@@ -154,72 +162,59 @@ class BondController extends Controller
                     }
                 }
             }
-
-//            if (count($errors) > 0) {
-//                return response()->json([
-//                   // 'message' => 'Validation error!',
-////                     'errors' => $errors // errors appended from js
-//                ], 422);
-//            }
-//            echo "<pre>";
-//            print_r($request['data']);
-//            exit;
-            $pb_data=[
-                'pb_contract_date'    => $request['pb_contract_date'],
-                'pb_contract_amount'  => $request['pb_contract_amount'],
-                'pb_estimated_profit' => $request['pb_estimated_profit'],
-                'pb_start_date'       => $request['pb_start_date'],
-                'pb_completion_date'  => $request['pb_completion_date'],
-                'pb_warranty_period'  => $request['pb_warranty_period'],
-                'pb_damages'          => $request['pb_damages'],
-                'is_subcontracted'    => $request['is_subcontracted'],
+            $pb_data = [
+                'pb_contract_date'    => $request->input('pb_contract_date'),
+                'pb_contract_amount'  => $request->input('pb_contract_amount'),
+                'pb_estimated_profit' => $request->input('pb_estimated_profit'),
+                'pb_start_date'       => $request->input('pb_start_date'),
+                'pb_completion_date'  => $request->input('pb_completion_date'),
+                'pb_warranty_period'  => $request->input('pb_warranty_period'),
+                'pb_damages'          => $request->input('pb_damages'),
+                'is_subcontracted'    => $request->input('is_subcontracted'),
             ];
+
             $bondObj->update($pb_data);
 
-            $contractorIds=[];
-            foreach($request['data'] as $contractor){
-                $data=[
-                    'bond_id'    => $bondObj->id,
-                    'name'       => $contractor['name'],
-                    'type'       => $contractor['type'],
-                    'bid_amount' => $contractor['amount'],
-                    'is_bonded'  => $contractor['bonded'] ?? false,
-                ];
-                $contractorObj = SubContractor::create($data);
-                array_push($contractorIds,$contractorObj->id);
+            $contractorIds = [];
+            if (isset($request['data']) && is_array($request['data'])) {
+                foreach ($request['data'] as $contractor) {
+                    $data = [
+                        'bond_id'    => $bondObj->id,
+                        'name'       => $contractor['name'],
+                        'type'       => $contractor['type'],
+                        'bid_amount' => $contractor['amount'],
+                        'is_bonded'  => isset($contractor['bonded']) ? $contractor['bonded'] : false,
+                    ];
+                    $contractorObj = SubContractor::create($data);
+                    $contractorIds[] = $contractorObj->id;
+                }
             }
-            SubContractor::where('bond_id', $contractorObj->id)->whereNotIn('id', $contractorIds)->delete();
+
+// Delete any subcontractors not in the current request's list
+            SubContractor::where('bond_id', $bondObj->id)
+                ->whereNotIn('id', $contractorIds)
+                ->delete();
+
             return response()->json([
                 'success' => true,
                 'message' => 'Bond Details Updated Successfully!',
             ]);
+
         }elseif($request['type'] == 5){
             $request->validate([
                 'attachment'=>'required',
             ]);
-            if($request->has('attachment') && gettype($request->attachment=="object"))
+            if($request->has('attachment') && gettype($request->attachment)=="object")
             {
                 $fileUploadResponse = $this->uploadFile($request->file('attachment'), 'images/bonds/');
                 if (isset($fileUploadResponse['success']) && $fileUploadResponse['success'] == TRUE )
                 {
                     $data['attachment'] = $fileUploadResponse['filename'];
+                    $data['status'] = true;
                     $bondObj->update($data);
                 }
             }
-//            $request->validate([
-//                'attachment'    =>  'required'
-//            ]);
-//            // Get the uploaded file
-//            $file = $request->file('attachment');
-//            $originalFileName = $file->getClientOriginalName();
-//            $fileNameWithoutExtension = pathinfo($originalFileName, PATHINFO_FILENAME);
-//            $imageName = $fileNameWithoutExtension.'_'.time().'.'.$file->getClientOriginalExtension();
-//            $file->move(public_path('/bond_attachment'), $imageName);
 
-//            $attachment   =   [
-//              'attachment'    =>  $imageName
-//            ];
-//            $bondObj->update($attachment);
 
             $route = route('bond.index');
             return response()->json([
@@ -277,7 +272,8 @@ class BondController extends Controller
 
     public function append_subcontractor_form(Request $request){
         $itemNo = $request['itemCount'];
-        return view('components.subcontractor',compact('itemNo'));
+        $contractor = false;
+        return view('components.subcontractor',compact('itemNo','contractor'));
     }
 
 }

@@ -59,16 +59,16 @@
                                     <label for="bond_start_date" class="form-label">If Yes, please complete below</label>
                                         @if(count($obj->subcontractors) > 0 )
                                             @foreach($obj->subcontractors as $key => $contractor)
-                                                <x-subcontractor :itemNo="0" :contractor="$contractor"/>
+                                                <x-subcontractor :itemNo="$key" :contractor="$contractor"/>
                                             @endforeach
                                         @else
-                                            <x-subcontractor :itemNo="0" :contractor="[]"/>
+                                            <x-subcontractor :itemNo="0" :contractor=false/>
                                         @endif
                                 </div>
                             @else
-                                <x-subcontractor :itemNo="0" :contractor="[]" />
+                                <x-subcontractor :itemNo="0" :contractor=false />
                             @endif
-                            <div class="row mt-3 add_subcontractor hidden">
+                            <div class="row mt-3 add_subcontractor     @if($obj) {{ count($obj->subcontractors) > 0 ? '' : 'hidden' }}  @endif ">
                                 <div class="col-12 mt-2 mb-2 ">
                                     <button type="button" class="btn btn-success btn-xs add_more">Add More</button>
                                 </div>
