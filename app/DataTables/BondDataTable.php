@@ -7,14 +7,15 @@ use App\Models\City;
 use App\Models\Province;
 use App\Models\User;
 use App\Models\Customer;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Utilities\Request as DataTablesRequest;
 
 class BondDataTable extends BaseDataTable
 {
 
-    public $tableId = 'customers';
-    public $createRoute = 'customer.create';
+    public $tableId = 'bonds';
+    public $createRoute = 'bond.create';
     /**
      * Build DataTable class.
      *
@@ -30,13 +31,20 @@ class BondDataTable extends BaseDataTable
             ->addColumn('company_name', function($obj){
                 return $obj->customer->user['name'];
             })
+            ->addColumn('status', function($community){
+                if($community->status)
+                    return "<span class='badge bg-success '>Submitted</span> ";
+                return "<span class='badge bg-primary '>Draft</span> ";
+            })
 
             ->addColumn('actions', function($obj){
-//                return view('customers.actions',compact('obj'));
+                $user = Auth::user();
+                $role = $user->role;
+                return view('bonds.actions',compact('obj','role'));
             })
             ->filter(function ($instance) use ($request, $db_connection) {
                 if (!empty($request->get('company_name')) AND $request->get('company_name') != 'all') {
-                    $instance->where('customer_id', ($db_connection === 'mysql') ? 'LIKE' : 'ILIKE', "%" . $request->get('name') . "%");
+                    $instance->where('customer_id', $request->get('company_name'));
                 }
 
                 if (!empty($request->get('owner_name'))) {
@@ -50,7 +58,7 @@ class BondDataTable extends BaseDataTable
 
             })
 
-            ->rawColumns(['actions','company_name']);
+            ->rawColumns(['actions','company_name','status']);
     }
 
     /**
@@ -61,11 +69,17 @@ class BondDataTable extends BaseDataTable
      */
     public function query(Bond $model)
     {
-        return $model->newQuery();
-//            ->from(TableName(Bond::class) . ' as bond')
-//            ->join(TableName(Customer::class) . ' as cust', 'bond.customer_id', '=', 'cust.id')
+        $user = $this->user;
+        $query = $model->newQuery();
 
+        if (isRoleCustomer($user->role)) {
+            $query = $model->from(TableName(Bond::class) . ' as bond')
+                ->leftJoin(TableName(Customer::class) . ' as cus', 'bond.customer_id', '=', 'cus.id')
+                ->select('bond.*')
+                ->where('cus.user_id', $user->id);
+        }
 
+        return $query;
     }
 
     /**
@@ -82,7 +96,7 @@ class BondDataTable extends BaseDataTable
             ->minifiedAjax()
 //             ->dom('Bfrtip')
             ->dom("<lf<t>ip>")
-            /* ->orderBy(1)*/
+             ->orderBy(0)
             ->pageLength(10)
             ->buttons(
                 $this->buttons()
@@ -108,11 +122,12 @@ class BondDataTable extends BaseDataTable
             Column::make('owner_bid_date')->title('Bid Date'),
             Column::make('pb_contract_date')->title('Contract Date'),
             Column::make('pb_contract_amount')->title('Contract Amount'),
-//            Column::computed('actions')
-//                ->exportable(false)
-//                ->printable(false)
-//                ->width(60)
-//                ->addClass('text-center'),
+            Column::computed('status')->title('Status'),
+            Column::computed('actions')
+                ->exportable(false)
+                ->printable(false)
+                ->width(60)
+                ->addClass('text-center'),
         ];
     }
 
@@ -131,16 +146,19 @@ class BondDataTable extends BaseDataTable
         $datas['all'] = 'Select Name';
         $objs  = Customer::from(TableName(Customer::class) . ' as cust')
             ->leftJoin(TableName(User::class) . ' as user', 'cust.user_id', '=', 'user.id')
-            ->select('user.name as name', 'cust.id as id')
+            ->select('user.name as name', 'cust.id as cust_id')
             ->get();
         foreach($objs as $obj){
-            $datas[$obj->id]= $obj->name;
+            $datas[$obj->cust_id]= $obj->name;
         }
 
-        return [
-            'company_name'  => [ 'title' => 'Name','options' => $datas,'id'=>'role-filter', 'placeholder'=>'Select Name', 'class' => 'filter-dropdown', 'type' => 'select', 'condition' => 'like', 'active' => true],
-            'owner_name'  =>  ['title' => 'Owner Name', 'class' => '', 'type' => 'text', 'condition' => 'like', 'active' => true],
-            'pb_contract_amount'  =>  ['title' => 'Contract Amount', 'class' => '', 'type' => 'number', 'condition' => 'like', 'active' => true],
-        ];
+        $user = Auth::user();
+        $role = $user->role;
+        if(isRoleSuperAdmin($role)){
+            $re['company_name'] = [ 'title' => 'Name','options' => $datas,'id'=>'role-filter', 'placeholder'=>'Select Name', 'class' => 'filter-dropdown', 'type' => 'select', 'condition' => 'like', 'active' => true];
+        }
+        $re['owner_name'] = ['title' => 'Owner Name', 'class' => '', 'type' => 'text', 'condition' => 'like', 'active' => true];
+        $re['pb_contract_amount']  =  ['title' => 'Contract Amount', 'class' => '', 'type' => 'number', 'condition' => 'like', 'active' => true];
+        return  $re ;
     }
 }
