@@ -14,7 +14,7 @@
         @include('layouts.partials.user_management')
         @include('layouts.partials.customers')
         @include('layouts.partials.bonds')
-        @include('layouts.partials.projects')
+{{--        @include('layouts.partials.projects')--}}
         @include('layouts.partials.insurer')
         @include('layouts.partials.agents')
         @include('layouts.partials.authority')

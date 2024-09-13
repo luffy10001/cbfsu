@@ -21,6 +21,10 @@ xmlns="http://www.w3.org/1999/html">
                                 <input type="date" class="form-control " id="bid_completion_date" name="bid_completion_date" value="{{$obj->bid_completion_date??''}}" required='required'>
                             </div>
                             <div class="col-md-6 form-group">
+                                <label for="bid_date" class="form-label">Bid Date<span class="req text-danger">*</span></label>
+                                <input type="date" class="form-control" id="bid_date" name="owner_bid_date" value="{{$obj->owner_bid_date??''}}" required='required'>
+                            </div>
+                            <div class="col-md-6 form-group">
                                 <label for="bid_amount" class="form-label">How Much Will You Bid  $ <span class="req text-danger">*</span></label>
                                 <input type="text" class="form-control " id="bid_amount" name="bid_amount" value="{{$obj->bid_amount??''}}" required='required'>
                             </div>
