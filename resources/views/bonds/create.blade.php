@@ -34,10 +34,10 @@
                     <a href="#step-3" type="button" class="btn btn-default btn-circle"><i class="circle" aria-hidden="true"></i></a>
                     <p>Bid Bond</p>
                 </div>
-                <div class="stepwizard-step col-xs-3">
-                    <a href="#step-4" type="button" class="btn btn-default btn-circle"><i class="circle" aria-hidden="true"></i></a>
-                    <p>Performance & Payment Bond</p>
-                </div>
+{{--                <div class="stepwizard-step col-xs-3">--}}
+{{--                    <a href="#step-4" type="button" class="btn btn-default btn-circle"><i class="circle" aria-hidden="true"></i></a>--}}
+{{--                    <p>Performance & Payment Bond</p>--}}
+{{--                </div>--}}
                 <div class="stepwizard-step col-xs-3">
                     <a href="#step-5" type="button" class="btn btn-default btn-circle"><i class="circle" aria-hidden="true"></i></a>
                     <p>Attachments</p>
@@ -51,9 +51,9 @@
                 <hr style="margin-top: 0;">
                 <h6 class="accordion-header mt-0" id="headingFive" style="background-color: #edf7fd;padding:15px">
                     @if(isRoleSuperAdmin($role))
-                        <p>Customer Information</p>
+                        <strong>Customer Information</strong>
                     @else
-                        <p>About You</p>
+                        <strong>About You</strong>
                     @endif
                 </h6>
             </div>
@@ -77,15 +77,15 @@
             </div>
             @include('bonds.sections.bid_bond')
         </div>
-        <div class="panel panel-primary setup-content" id="step-4">
-            <div class="panel-heading">
-                <hr style="margin-top: 0;">
-                <h6 class="accordion-header mt-0" id="headingFive" style="background-color: #edf7fd;padding:15px">
-                    <strong>Performance & Payment Bond </strong>
-                </h6>
-            </div>
-            @include('bonds.sections.payment_bond')
-        </div>
+{{--        <div class="panel panel-primary setup-content" id="step-4">--}}
+{{--            <div class="panel-heading">--}}
+{{--                <hr style="margin-top: 0;">--}}
+{{--                <h6 class="accordion-header mt-0" id="headingFive" style="background-color: #edf7fd;padding:15px">--}}
+{{--                    <strong>Performance & Payment Bond </strong>--}}
+{{--                </h6>--}}
+{{--            </div>--}}
+{{--            @include('bonds.sections.payment_bond')--}}
+{{--        </div>--}}
         <div class="panel panel-primary setup-content" id="step-5">
                 <div class="panel-heading">
                     <hr style="margin-top: 0;">
