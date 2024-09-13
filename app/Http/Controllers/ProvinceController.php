@@ -96,12 +96,21 @@ class ProvinceController extends Controller
 
     public function getStateCities(Request $request)
     {
-        if(!empty($request['province_id'])  && $request['province_id'] != 'all') {
-            $province_id = $request['province_id'];
-            $cities = City::where('province_id', $province_id)
-                ->select(['id', 'name'])
-                ->get();
-            return response()->json($cities);
+        if ((!empty($request['province_id']) && $request['province_id'] != 'all') || (!empty($request['city_id']) && $request['city_id'] != 'all')) {
+            if(!empty($request['province_id']) && $request['province_id'] != 'all'){
+                $province_id = $request['province_id'];
+                $cities = City::where('province_id', $province_id)
+                    ->select(['id', 'name'])
+                    ->get();
+                return response()->json($cities);
+            }else{
+                $province_id = $request['city_id'];
+                $cities = City::where('province_id', $province_id)
+                    ->select(['id', 'name'])
+                    ->get();
+                return response()->json($cities);
+            }
+
         }
     }
 }

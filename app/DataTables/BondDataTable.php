@@ -51,8 +51,8 @@ class BondDataTable extends BaseDataTable
                     $instance->where('owner_name', ($db_connection === 'mysql') ? 'LIKE' : 'ILIKE', "%" . $request->get('owner_name') . "%");
                 }
 
-                if (!empty($request->get('pb_contract_amount'))) {
-                    $instance->where('pb_contract_amount',  $request->get('pb_contract_amount'));
+                if (!empty($request->get('bid_amount'))) {
+                    $instance->where('bid_amount',  $request->get('bid_amount'));
                 }
 
 
@@ -120,8 +120,7 @@ class BondDataTable extends BaseDataTable
             Column::make('company_name')->title('Company Name'),
             Column::make('owner_name')->title('Oblige/Owner Name'),
             Column::make('owner_bid_date')->title('Bid Date'),
-            Column::make('pb_contract_date')->title('Contract Date'),
-            Column::make('pb_contract_amount')->title('Contract Amount'),
+            Column::make('bid_amount')->title('Bid Amount'),
             Column::computed('status')->title('Status'),
             Column::computed('actions')
                 ->exportable(false)
@@ -158,7 +157,7 @@ class BondDataTable extends BaseDataTable
             $re['company_name'] = [ 'title' => 'Name','options' => $datas,'id'=>'role-filter', 'placeholder'=>'Select Name', 'class' => 'filter-dropdown', 'type' => 'select', 'condition' => 'like', 'active' => true];
         }
         $re['owner_name'] = ['title' => 'Owner Name', 'class' => '', 'type' => 'text', 'condition' => 'like', 'active' => true];
-        $re['pb_contract_amount']  =  ['title' => 'Contract Amount', 'class' => '', 'type' => 'number', 'condition' => 'like', 'active' => true];
+        $re['bid_amount']  =  ['title' => 'Bid Amount', 'class' => '', 'type' => 'number', 'condition' => 'like', 'active' => true];
         return  $re ;
     }
 }

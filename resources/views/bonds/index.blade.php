@@ -4,7 +4,7 @@
             <x-slot name="buttons">
                 @if(isPermission('bond.create') && $user['role_id'] != 1)
                     <a href="{{route('bond.create')}}">
-                        <button  class="btn testsss btn-success float-end">Add Bond</button>
+                        <button  class="btn testsss btn-success float-end">Request Bid Bond</button>
                     </a>
                 @endif
             </x-slot>
