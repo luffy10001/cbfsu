@@ -8,6 +8,20 @@
                 Edit</a>
         </li>
     @endif
+    @if(isPermission('bond.bidBondPdf'))
+        <li>
+            <a class="dropdown-item " href="{!! route('bond.bidBondPdf',mws_encrypt('E',$obj->id)) !!}"><i
+                        class="bi bi-info-circle"></i>
+                view documents </a>
+        </li>
+    @endif
+{{--    @if(isPermission('bond.attorneyPdf'))--}}
+{{--        <li>--}}
+{{--            <a class="dropdown-item " href="{!! route('bond.attorneyPdf',mws_encrypt('E',$obj->id)) !!}"><i--}}
+{{--                        class="bi bi-info-circle"></i>--}}
+{{--                view Attorney pdf</a>--}}
+{{--        </li>--}}
+{{--    @endif--}}
 {{--    @if(isPermission('bond.view'))--}}
 {{--        <li>--}}
 {{--            <a class="dropdown-item modal_open" size="lg" url="{!! route('bond.view',$obj->id) !!}"><i--}}
