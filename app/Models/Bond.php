@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use NunoMaduro\Collision\Adapters\Phpunit\State;
 
 class Bond extends Model
 {
@@ -64,6 +65,20 @@ class Bond extends Model
 
     public function customer(){
         return $this->belongsTo(Customer::class,'customer_id');
+    }
+
+    public function state(){
+        return $this->belongsTo(Province::class,'state_id');
+    }
+    public function city(){
+        return $this->belongsTo(City::class,'city_id');
+    }
+
+    public function states(){
+        return $this->belongsTo(Province::class,'owner_state');
+    }
+    public function cities(){
+        return $this->belongsTo(City::class,'owner_city');
     }
 
 }

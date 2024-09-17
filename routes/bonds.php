@@ -12,6 +12,9 @@ Route::group(['prefix'=>'bonds','groupName' => 'Bonds', 'access' => 'all'], func
     Route::get('{bond}/view', [BondController::class, 'view'])->name('bond.view')->defaults('title','Details');
     Route::post('delete/{id}',[BondController::class,'delete'])->name('bond.delete')->defaults('title','Delete');
     Route::post('status/{id}/{status}',[BondController::class,'status'])->name('bond.status')->defaults('title','Status');
+
+    Route::get('bid-bond-pdf/{id}',[BondController::class,'viewBidBondPdf'])->name('bond.bidBondPdf')->defaults('title','Bid Bond Pdf');
+    Route::get('attorney-pdf/{id}',[BondController::class,'viewAttorneyPdf'])->name('bond.attorneyPdf')->defaults('title','Attorney Pdf');
 });
 
 
