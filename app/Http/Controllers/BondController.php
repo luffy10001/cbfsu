@@ -10,6 +10,7 @@ use App\Models\City;
 use App\Models\Province;
 use App\Models\SubContractor;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -308,6 +309,24 @@ class BondController extends Controller
         $itemNo = $request['itemCount'];
         $contractor = false;
         return view('components.subcontractor',compact('itemNo','contractor'));
+    }
+
+    public function viewBidBondPdf($id){
+
+        $id      =   mws_encrypt('D',$id);
+        $bond    =   Bond::where('id',$id)->first();
+        $c_user  =   Customer::where('id',$bond['customer_id'])->first();
+        $user  =   User::where('id',$c_user['user_id'])->first();
+//        dd($user);
+        $pdf = Pdf::loadView('bonds.bid_bond_pdf', compact('c_user','user','bond'));
+        return $pdf->stream();
+    }
+
+    public function viewAttorneyPdf($id)
+    {
+        $id      =   mws_encrypt('D',$id);
+        $pdf = Pdf::loadView('bonds.attorney_pdf');
+        return $pdf->stream();
     }
 
 }

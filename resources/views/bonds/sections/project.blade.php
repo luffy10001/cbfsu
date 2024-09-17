@@ -125,7 +125,7 @@
                                 </div>
 
                                 <div class="col-md-4 form-group">
-                                    <label for="owner_address" class="form-label">Oblige/Owner Zip Address<span class="req text-danger">*</span></label>
+                                    <label for="owner_address" class="form-label">Oblige/Owner Address<span class="req text-danger">*</span></label>
                                     <input class="form-control" id="address" name="owner_address" value="{{$obj->owner_address??''}}">
                                 </div>
                             </div>
