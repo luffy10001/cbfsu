@@ -325,7 +325,9 @@ class BondController extends Controller
     public function viewAttorneyPdf($id)
     {
         $id      =   mws_encrypt('D',$id);
-        $pdf = Pdf::loadView('bonds.attorney_pdf');
+        $bond_data   =   Bond::where('id',$id)->first();
+//        dd($bond_data);
+        $pdf = Pdf::loadView('bonds.attorney_pdf',compact('bond_data'));
         return $pdf->stream();
     }
 

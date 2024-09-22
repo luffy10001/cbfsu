@@ -12,7 +12,14 @@
         <li>
             <a class="dropdown-item " href="{!! route('bond.bidBondPdf',mws_encrypt('E',$obj->id)) !!}"><i
                         class="bi bi-info-circle"></i>
-                view documents </a>
+                view bid Bond document </a>
+        </li>
+    @endif
+    @if(isPermission('bond.attorneyPdf'))
+        <li>
+            <a class="dropdown-item " href="{!! route('bond.attorneyPdf',mws_encrypt('E',$obj->id)) !!}"><i
+                        class="bi bi-info-circle"></i>
+                view Power of Attorney document </a>
         </li>
     @endif
 {{--    @if(isPermission('bond.attorneyPdf'))--}}
