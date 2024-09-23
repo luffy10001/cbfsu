@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DataTables\BondDataTable;
 use App\Models\Agent;
+use App\Models\Authority;
 use App\Models\Bond;
 use App\Models\Customer;
 use App\Models\City;
@@ -17,6 +18,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use App\Traits\FileUploadTrait;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\GeneralMail;
 
 class BondController extends Controller
 {
@@ -255,6 +258,23 @@ class BondController extends Controller
                     $data['status'] = true;
                     $bondObj->update($data);
                 }
+            }
+
+             $authority_value   =   Authority::where('customer_id', $bondObj->customer_id)->first();
+             $customer_detail   =   Customer::where('id', $bondObj->customer_id)->first();
+//             dd($customer_detail->user->email);
+            if( $request['bid_value'] > $authority_value->single_job_limit  ){
+                $baseUrl = config('app.url');
+
+
+                    $mail_data =
+                        [
+                        'name'     => "name",
+                        'email'    => "email",
+
+                    ];
+                    Mail::to('jadoonabdullah48@gmail.com')->send(new GeneralMail($mail_data));
+
             }
 
 

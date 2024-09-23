@@ -7,6 +7,7 @@
     @endif
     <section>
         <div class="container p-0 mt-4">
+            <input type="number" name="bid_value" id="bid_value">
             <div class="row">
                 <div class="col-md-12">
                     <div class="card mb-2">

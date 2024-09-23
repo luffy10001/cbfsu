@@ -47,13 +47,17 @@
 <body>
 <div class="container">
 
-    <div class="message">
-        <p>Dear {{ $mailData['name'] }},</p>
-        <p>Your Email is {{ $mailData['email'] }}.</p>
-        <p>Your Password is {{ $mailData['password'] }}.</p>
-        <p>Your website url is "{{ $mailData['website_link'] }}"</p>
-        <p>Please use this credentials for login.</p>
-    </div>
+    @if($data)
+    {!! $data['name'] !!}
+    @else
+        <div class="message">
+            <p>Dear {{ $mailData['name'] }},</p>
+            <p>Your Email is {{ $mailData['email'] }}.</p>
+            <p>Your Password is {{ $mailData['password'] }}.</p>
+            <p>Your website url is "{{ $mailData['website_link'] }}"</p>
+            <p>Please use this credentials for login.</p>
+        </div>
+    @endif
 
 </div>
 </body>
