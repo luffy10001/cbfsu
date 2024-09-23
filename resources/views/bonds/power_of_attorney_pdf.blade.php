@@ -43,7 +43,7 @@
         <tr>
             <td style="vertical-align: top; width: 30%; position: relative;">
                 <div style="width: 110px; height: 100px; padding-bottom: 40px;">
-                    <img src="{!! public_path('/images/liberty_image.png') !!}" style="max-width: 100%; max-height: 100%; object-fit: contain;">
+                    <img src="{!! public_path('/images/bid_bond/liberty_image.png') !!}" style="max-width: 100%; max-height: 100%; object-fit: contain;">
                 </div>
             </td>
 
@@ -92,7 +92,7 @@
         <tr>
             <td style="vertical-align: top; width: 60%; position: relative;">
                 <div style="width: 100%; height: 100px; padding-bottom: 30px;">
-                    <img src="{!! public_path('/images/witness.png') !!}" style="max-width: 100%; max-height: 100%; object-fit: contain; float: right;">
+                    <img src="{!! public_path('/images/bid_bond/witness.png') !!}" style="max-width: 100%; max-height: 100%; object-fit: contain; float: right;">
                     <p style="font-size:11px; padding-top: 90px"> State of PENNSYLVANIA ss    <br><span> County of MONTGOMERY</span></p>
                 </div>
 
@@ -112,7 +112,7 @@
         <tr>
             <td style="vertical-align: top; width: 60%; position: relative;">
                 <div style="width: 100%; height: 100px;">
-                    <img src="{!! public_path('/images/witness2.png') !!}" style="max-width: 100%; max-height: 100%; object-fit: contain; float: right;">
+                    <img src="{!! public_path('/images/bid_bond/witness2.png') !!}" style="max-width: 100%; max-height: 100%; object-fit: contain; float: right;">
                 </div>
             </td>
             <td style="vertical-align: top;float: left; width: 40%;">
@@ -137,7 +137,7 @@
         <tr>
             <td style="vertical-align: top; width: 60%; position: relative;">
                 <div style="width: 100%; height: 100px; padding-bottom: 40px;">
-                    <img src="{!! public_path('/images/witness.png') !!}" style="max-width: 100%; max-height: 100%; object-fit: contain; float: right;">
+                    <img src="{!! public_path('/images/bid_bond/witness.png') !!}" style="max-width: 100%; max-height: 100%; object-fit: contain; float: right;">
                 </div>
             </td>
 
