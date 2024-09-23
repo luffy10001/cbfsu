@@ -63,7 +63,7 @@
         <tr>
             <td style=" width: 20%; position: relative;">
                 <div style="width: 130px; height: 120px">
-                    <img src="{!! public_path('/images/liberty_image.png') !!}" style="max-width: 130%; max-height: 120%; object-fit: contain; display: block;">
+                    <img src="{!! public_path('/images/bid_bond/liberty_image.png') !!}" style="max-width: 130%; max-height: 120%; object-fit: contain; display: block;">
                 </div>
             </td>
 
