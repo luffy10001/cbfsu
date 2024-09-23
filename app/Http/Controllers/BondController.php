@@ -149,6 +149,13 @@ class BondController extends Controller
                 'owner_state'    => $request['owner_state'],
                 'owner_city'     => $request['owner_city'],
             ];
+            $general_data=[
+                'customer_id' => $request['customer_id'],
+                'status'      => false,
+            ];
+            if(!$bondObj){
+                $bondObj = Bond::create($general_data);
+            }
             $bondObj->update($project_data);
             return response()->json([
                 'success' => true,
