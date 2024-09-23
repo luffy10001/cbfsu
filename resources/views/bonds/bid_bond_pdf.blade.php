@@ -91,7 +91,7 @@
             </tr>
             <tr  >
                 <td style="border: 1px solid #ddd; padding: 8px;"> Corporation Type   </td>
-                <td style="border: 1px solid #ddd; padding: 8px;">  {{ corporation_types()[$c_user->corporation_type]    }}   </td>
+                <td style="border: 1px solid #ddd; padding: 8px;">  @if($c_user->corporation_type) {{ corporation_types()[$c_user->corporation_type] }} @endif   </td>
             </tr>
             <tr>
                 <td style="border: 1px solid #ddd; padding: 8px;"> Phone  </td>
@@ -111,7 +111,7 @@
             </tr>
             <tr>
                 <td style="border: 1px solid #ddd; padding: 8px;"> Sate </td>
-                <td style="border: 1px solid #ddd; padding: 8px;">  {{ $c_user->state->name}}  </td>
+                <td style="border: 1px solid #ddd; padding: 8px;">  {{ $c_user->state->name??''}}  </td>
             </tr>
             <tr  >
                 <td style="border: 1px solid #ddd; padding: 8px;"> City </td>
@@ -162,7 +162,7 @@
             </tr>
             <tr  >
                 <td style="border: 1px solid #ddd; padding: 8px;"> Design Build </td>
-                <td style="border: 1px solid #ddd; padding: 8px;">  {{$c_user->authority->design_build==true ? 'Yes' : 'No'}}  </td>
+                <td style="border: 1px solid #ddd; padding: 8px;">  @if($c_user->authority) {{$c_user->authority->design_build==true ? 'Yes' : 'No'}} @endif  </td>
             </tr>
             <tr>
                 <td style="border: 1px solid #ddd; padding: 8px;"> Job Duration (Years) </td>
@@ -174,7 +174,7 @@
             </tr>
             <tr>
                 <td style="border: 1px solid #ddd; padding: 8px;"> Hazmat/Asbestos </td>
-                <td style="border: 1px solid #ddd; padding: 8px;">  {{$c_user->authority->hazmat==true ? 'Yes' : 'No'}}  </td>
+                <td style="border: 1px solid #ddd; padding: 8px;">  @if($c_user->authority) {{$c_user->authority->hazmat==true ? 'Yes' : 'No'}} @endif </td>
             </tr>
             <tr  >
                 <td style="border: 1px solid #ddd; padding: 8px;"> Bid Spread % </td>
