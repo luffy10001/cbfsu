@@ -12,14 +12,22 @@
         <li>
             <a class="dropdown-item " href="{!! route('bond.bidBondPdf',mws_encrypt('E',$obj->id)) !!}"><i
                         class="bi bi-info-circle"></i>
-                view bid Bond document </a>
+                Bid Bond Documents </a>
         </li>
     @endif
+    @if(isPermission('bond.viewPerformancePaymentPdf'))
+        <li>
+            <a class="dropdown-item " href="{!! route('bond.viewPerformancePaymentPdf',mws_encrypt('E',$obj->id)) !!}"><i
+                        class="bi bi-info-circle"></i>
+                Payment & Performance Bond Documents </a>
+        </li>
+    @endif
+
     @if(isPermission('bond.attorneyPdf'))
         <li>
             <a class="dropdown-item " href="{!! route('bond.attorneyPdf',mws_encrypt('E',$obj->id)) !!}"><i
                         class="bi bi-info-circle"></i>
-                view Power of Attorney document </a>
+                Power of Attorney Documents </a>
         </li>
     @endif
 {{--    @if(isPermission('bond.attorneyPdf'))--}}
