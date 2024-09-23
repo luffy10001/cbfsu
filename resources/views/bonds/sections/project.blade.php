@@ -5,6 +5,7 @@
     @if($obj)
         <input type="hidden" name="bond_id" value="{{$obj->id}}">
     @endif
+    <input type="hidden" class="form-control " name="customer_id" id="customer_id" value="{{$customer->id}}">
     <section>
         <div class="container p-0 mt-4">
             <div class="row">
