@@ -13,20 +13,22 @@ class GeneralMail extends Mailable
 {
     use Queueable, SerializesModels;
     public $data;
+    public $template;
     /**
      * Create a new message instance.
      */
-    public function __construct($mail_data)
+    public function __construct($data,$template)
     {
-        $this->data = $mail_data;
+        $this->data = $data;
+        $this->template = $template;
     }
 
     public function build()
     {
         return $this
             ->from(config('mail.from.address'), config('mail.from.name'))
-            ->subject('Your Subject Here')
-            ->view('mail.customer')
+            ->subject($this->data['subject'])
+            ->view('mail.' . $this->template) // Use the dynamic template
             ->with('data', $this->data);
     }
 

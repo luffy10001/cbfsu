@@ -260,20 +260,28 @@ class BondController extends Controller
                 }
             }
 
-             $authority_value   =   Authority::where('customer_id', $bondObj->customer_id)->first();
-             $customer_detail   =   Customer::where('id', $bondObj->customer_id)->first();
-//             dd($customer_detail->user->email);
-            if( $request['bid_value'] > $authority_value->single_job_limit  ){
+             $authority   =   Authority::where('customer_id', $bondObj->customer_id)->first();
+             $customer   =   Customer::where('id', $bondObj->customer_id)->first();
+             if( $request['bid_value'] > $authority->single_job_limit  ){
                 $baseUrl = config('app.url');
-
-
-                    $mail_data =
+                $mail_data =
                         [
-                        'name'     => "name",
-                        'email'    => "email",
+                        'subject'       => $customer->user->name." Bid Amount is Exceeded from Single Project Limit",
+                        'name'          => $customer->user->name,
+                        'email'         => $customer->user->email,
+                        'phone'         => $customer->phone,
+                        'bid_amount'    => $request['bid_value'],
+                        'project_limit' => $authority->single_job_limit,
+                        ];
+                    Mail::to('hamid.creativetech@gmail.com')->send(new GeneralMail($mail_data,'bondLimitExceededToAdmin'));
+                   // Mail::to('recipient2@example.com')->send(new YourMailClassName($data, 'bondLimitExceededToAdmin'));
+                 $mail_data['subject'] =  "Your Bid Amount is Exceeded from Single Project Limit";
 
-                    ];
-                    Mail::to('jadoonabdullah48@gmail.com')->send(new GeneralMail($mail_data));
+                    Mail::to($customer->user->email)->send(new GeneralMail($mail_data,'bondLimitExceededToCustomer'));
+
+                   //
+
+                 // Mail::to('jasim.khan2007@gmail.com')->send(new GeneralMail($mail_data));
 
             }
 
