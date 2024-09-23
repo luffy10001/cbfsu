@@ -314,11 +314,13 @@ class BondController extends Controller
     public function viewBidBondPdf($id){
 
         $id      =   mws_encrypt('D',$id);
-        $bond    =   Bond::where('id',$id)->first();
-        $c_user  =   Customer::where('id',$bond['customer_id'])->first();
-        $user  =   User::where('id',$c_user['user_id'])->first();
+//        $bond    =   Bond::where('id',$id)->first();
+//        $c_user  =   Customer::where('id',$bond['customer_id'])->first();
+//        $user  =   User::where('id',$c_user['user_id'])->first();
 //        dd($user);
-        $pdf = Pdf::loadView('bonds.bid_bond_pdf', compact('c_user','user','bond'));
+        $bond_data   =   Bond::where('id',$id)->first();
+
+        $pdf = Pdf::loadView('bonds.bid_bond_pdf', compact('bond_data',));
         return $pdf->stream();
     }
 
@@ -327,7 +329,16 @@ class BondController extends Controller
         $id      =   mws_encrypt('D',$id);
         $bond_data   =   Bond::where('id',$id)->first();
 //        dd($bond_data);
-        $pdf = Pdf::loadView('bonds.attorney_pdf',compact('bond_data'));
+        $pdf = Pdf::loadView('bonds.power_of_attorney_pdf',compact('bond_data'));
+        return $pdf->stream();
+    }
+
+    public function viewPerformancePaymentPdf($id)
+    {
+        $id      =   mws_encrypt('D',$id);
+        $bond_data   =   Bond::where('id',$id)->first();
+//        dd($bond_data);
+        $pdf = Pdf::loadView('bonds.payment_and_performance',compact('bond_data'));
         return $pdf->stream();
     }
 
