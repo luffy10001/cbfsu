@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DataTables\BondDataTable;
 use App\Models\Agent;
+use App\Models\Authority;
 use App\Models\Bond;
 use App\Models\Customer;
 use App\Models\City;
@@ -17,6 +18,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use App\Traits\FileUploadTrait;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\GeneralMail;
 
 class BondController extends Controller
 {
@@ -149,6 +152,13 @@ class BondController extends Controller
                 'owner_state'    => $request['owner_state'],
                 'owner_city'     => $request['owner_city'],
             ];
+            $general_data=[
+                'customer_id' => $request['customer_id'],
+                'status'      => false,
+            ];
+            if(!$bondObj){
+                $bondObj = Bond::create($general_data);
+            }
             $bondObj->update($project_data);
             return response()->json([
                 'success' => true,
@@ -250,6 +260,31 @@ class BondController extends Controller
                 }
             }
 
+             $authority   =   Authority::where('customer_id', $bondObj->customer_id)->first();
+             $customer   =   Customer::where('id', $bondObj->customer_id)->first();
+             if( $request['bid_value'] > $authority->single_job_limit  ){
+                $baseUrl = config('app.url');
+                $mail_data =
+                        [
+                        'subject'       => $customer->user->name." Bid Amount is Exceeded from Single Project Limit",
+                        'name'          => $customer->user->name,
+                        'email'         => $customer->user->email,
+                        'phone'         => $customer->phone,
+                        'bid_amount'    => $request['bid_value'],
+                        'project_limit' => $authority->single_job_limit,
+                        ];
+                    Mail::to('hamid.creativetech@gmail.com')->send(new GeneralMail($mail_data,'bondLimitExceededToAdmin'));
+                   // Mail::to('recipient2@example.com')->send(new YourMailClassName($data, 'bondLimitExceededToAdmin'));
+                 $mail_data['subject'] =  "Your Bid Amount is Exceeded from Single Project Limit";
+
+                    Mail::to($customer->user->email)->send(new GeneralMail($mail_data,'bondLimitExceededToCustomer'));
+
+                   //
+
+                 // Mail::to('jasim.khan2007@gmail.com')->send(new GeneralMail($mail_data));
+
+            }
+
 
             $route = route('bond.index');
             return response()->json([
@@ -314,18 +349,31 @@ class BondController extends Controller
     public function viewBidBondPdf($id){
 
         $id      =   mws_encrypt('D',$id);
-        $bond    =   Bond::where('id',$id)->first();
-        $c_user  =   Customer::where('id',$bond['customer_id'])->first();
-        $user  =   User::where('id',$c_user['user_id'])->first();
+//        $bond    =   Bond::where('id',$id)->first();
+//        $c_user  =   Customer::where('id',$bond['customer_id'])->first();
+//        $user  =   User::where('id',$c_user['user_id'])->first();
 //        dd($user);
-        $pdf = Pdf::loadView('bonds.bid_bond_pdf', compact('c_user','user','bond'));
+        $bond_data   =   Bond::where('id',$id)->first();
+
+        $pdf = Pdf::loadView('bonds.bid_bond_pdf', compact('bond_data',));
         return $pdf->stream();
     }
 
     public function viewAttorneyPdf($id)
     {
         $id      =   mws_encrypt('D',$id);
-        $pdf = Pdf::loadView('bonds.attorney_pdf');
+        $bond_data   =   Bond::where('id',$id)->first();
+//        dd($bond_data);
+        $pdf = Pdf::loadView('bonds.power_of_attorney_pdf',compact('bond_data'));
+        return $pdf->stream();
+    }
+
+    public function viewPerformancePaymentPdf($id)
+    {
+        $id      =   mws_encrypt('D',$id);
+        $bond_data   =   Bond::where('id',$id)->first();
+//        dd($bond_data);
+        $pdf = Pdf::loadView('bonds.payment_and_performance',compact('bond_data'));
         return $pdf->stream();
     }
 

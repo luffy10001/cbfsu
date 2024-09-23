@@ -31,7 +31,10 @@ mix.copy('resources/css/images/login.png', 'public/images/login.png');
 mix.copy('resources/css/images/login-illustrator.png', 'public/images/login-illustrator.png');
 mix.copy('resources/css/images/LOGO.png', 'public/images/LOGO.png');
 
- 
+
+mix.copyDirectory('resources/css/images/bid_bond', 'public/images/bid_bond');
+
+
 mix.copyDirectory('resources/css/icons', 'public/assets/icons');
 
 

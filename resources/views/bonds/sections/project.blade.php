@@ -5,6 +5,7 @@
     @if($obj)
         <input type="hidden" name="bond_id" value="{{$obj->id}}">
     @endif
+    <input type="hidden" class="form-control " name="customer_id" id="customer_id" value="{{$customer->id}}">
     <section>
         <div class="container p-0 mt-4">
             <div class="row">
@@ -72,7 +73,7 @@
                                 </div>
                                 <div class="col-md-4 mb-3">
                                     <label class="form-label">Liquidated Damages<span class="req text-danger">*</span></label>
-                                    <input type="text" class="form-control"  name="liquidated_damages" placeholder="Liquidated Damages" value="{{$obj->damages??''}}"/>
+                                    <input type="number" class="form-control"  name="liquidated_damages" placeholder="Liquidated Damages" value="{{$obj->damages??''}}"/>
                                 </div>
                                 <div class="col-md-4 mb-3">
                                     <label class="form-label">Retainage Amount<span class="req text-danger">*</span></label>

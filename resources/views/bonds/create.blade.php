@@ -102,7 +102,19 @@
 </x-app-layout>
 <script src="{!! asset('assets/js/jquery-ui.min.js') !!}?v=11"></script>
 <script>
+    $(document).ready(function(){
+        // On page load, if #bid_amount has a value, assign it to #bid_value
+        var bid_value = $('#bid_amount').val();
+        if (bid_value) {
+            $('#bid_value').val(bid_value);
+        }
 
+        // On change of #bid_amount, update #bid_value
+        $('#bid_amount').on('change', function() {
+            var bid_value = $(this).val();
+            $('#bid_value').val(bid_value);
+        });
+    });
     // $(document).find('.select2selector').select2();
     $(document).ready(function () {
 
