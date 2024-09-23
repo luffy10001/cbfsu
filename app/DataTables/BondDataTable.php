@@ -71,14 +71,12 @@ class BondDataTable extends BaseDataTable
     {
         $user = $this->user;
         $query = $model->newQuery();
-
         if (isRoleCustomer($user->role)) {
             $query = $model->from(TableName(Bond::class) . ' as bond')
                 ->leftJoin(TableName(Customer::class) . ' as cus', 'bond.customer_id', '=', 'cus.id')
                 ->select('bond.*')
                 ->where('cus.user_id', $user->id);
         }
-
         return $query;
     }
 
