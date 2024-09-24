@@ -57,6 +57,7 @@ class Bond extends Model
         'is_subcontracted',
         'attachment',
         'status',
+        'issue_doc',
 
     ];
     public function subcontractors(){
