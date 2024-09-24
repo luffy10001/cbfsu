@@ -372,4 +372,18 @@ class BondController extends Controller
         return $pdf->stream();
     }
 
+    public function IssueDocuments($id){
+       $d_id    =    mws_encrypt('D',$id);
+//       dd($d_id);
+        Bond::where('id',$d_id)->update([
+            'issue_doc' =>  1
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Documents Issued Successfully!',
+            'table' => 'bonds'
+        ]);
+    }
+
 }
