@@ -274,8 +274,7 @@ class BondController extends Controller
                         'bid_amount'    => $request['bid_value'],
                         'project_limit' => $authority->single_job_limit,
                         ];
-//                    Mail::to('hamid.creativetech@gmail.com')->send(new GeneralMail($mail_data,'bondLimitExceededToAdmin'));
-                Mail::to('recipient2@example.com')->send(new YourMailClassName($mail_data, 'bondLimitExceededToAdmin'));
+                Mail::to('jasim.khan2007@gmail.com')->send(new GeneralMail($mail_data,'bondLimitExceededToAdmin'));
                 $mail_data['subject'] =  "Your Bid Amount is Exceeded from Single Project Limit";
                 Mail::to($customer->user->email)->send(new GeneralMail($mail_data,'bondLimitExceededToCustomer'));
              }
