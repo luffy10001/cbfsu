@@ -7,38 +7,30 @@
         </li>
     @endif
 
-    @if(isRoleSuperAdmin($role))
-        @if(isPermission('bond.bidBondPdf'))
-            <li>
-                <a class="dropdown-item " target="_blank"  href="{!! route('bond.bidBondPdf',mws_encrypt('E',$obj->id)) !!}"><i
-                            class="bi bi-info-circle"></i>
-                    Bid Bond Documents </a>
-            </li>
-        @endif
-        @if(isPermission('bond.viewPerformancePaymentPdf'))
-            <li>
-                <a class="dropdown-item " target="_blank" href="{!! route('bond.viewPerformancePaymentPdf',mws_encrypt('E',$obj->id)) !!}"><i
-                            class="bi bi-info-circle"></i>
-                    Payment & Performance Bond Documents </a>
-            </li>
-        @endif
 
-        @if(isPermission('bond.attorneyPdf'))
-            <li>
-                <a class="dropdown-item " target="_blank" href="{!! route('bond.attorneyPdf',mws_encrypt('E',$obj->id)) !!}"><i
-                            class="bi bi-info-circle"></i>
-                    Power of Attorney Documents </a>
-            </li>
-        @endif
-    @else
-            @if(isPermission('bond.bidBondPdf') && $obj->issue_doc===true)
+        @if(isRoleSuperAdmin($role))
+            @if(isPermission('bond.issue-docs'))
+                <li>
+                    <a
+                            swal_title="Are you Sure!"
+                            swal_icon="warning"
+                            swal_text="Do you Want to Issue Documents to the Customer against the Bond?"
+                            swal_button="Yes"
+                            cancel_button_text="No"
+                            class="dropdown-item modal_submit" size="lg"
+                            url="{!! route('bond.issue-docs',mws_encrypt('E',$obj->id)) !!}"><i
+                                class="bi bi-info-circle"></i>
+                        Issue Docs</a>
+                </li>
+            @endif
+            @if(isPermission('bond.bidBondPdf'))
                 <li>
                     <a class="dropdown-item " target="_blank"  href="{!! route('bond.bidBondPdf',mws_encrypt('E',$obj->id)) !!}"><i
                                 class="bi bi-info-circle"></i>
                         Bid Bond Documents </a>
                 </li>
             @endif
-            @if(isPermission('bond.viewPerformancePaymentPdf') && $obj->issue_doc===true)
+            @if(isPermission('bond.viewPerformancePaymentPdf'))
                 <li>
                     <a class="dropdown-item " target="_blank" href="{!! route('bond.viewPerformancePaymentPdf',mws_encrypt('E',$obj->id)) !!}"><i
                                 class="bi bi-info-circle"></i>
@@ -46,13 +38,37 @@
                 </li>
             @endif
 
-            @if(isPermission('bond.attorneyPdf') && $obj->issue_doc===true)
+            @if(isPermission('bond.attorneyPdf'))
                 <li>
                     <a class="dropdown-item " target="_blank" href="{!! route('bond.attorneyPdf',mws_encrypt('E',$obj->id)) !!}"><i
                                 class="bi bi-info-circle"></i>
                         Power of Attorney Documents </a>
                 </li>
             @endif
+        @else
+
+                @if(isPermission('bond.bidBondPdf') && $obj->issue_doc===true)
+                    <li>
+                        <a class="dropdown-item " target="_blank"  href="{!! route('bond.bidBondPdf',mws_encrypt('E',$obj->id)) !!}"><i
+                                    class="bi bi-info-circle"></i>
+                            Bid Bond Documents </a>
+                    </li>
+                @endif
+                @if(isPermission('bond.viewPerformancePaymentPdf') && $obj->issue_doc===true)
+                    <li>
+                        <a class="dropdown-item " target="_blank" href="{!! route('bond.viewPerformancePaymentPdf',mws_encrypt('E',$obj->id)) !!}"><i
+                                    class="bi bi-info-circle"></i>
+                            Payment & Performance Bond Documents </a>
+                    </li>
+                @endif
+
+                @if(isPermission('bond.attorneyPdf') && $obj->issue_doc===true)
+                    <li>
+                        <a class="dropdown-item " target="_blank" href="{!! route('bond.attorneyPdf',mws_encrypt('E',$obj->id)) !!}"><i
+                                    class="bi bi-info-circle"></i>
+                            Power of Attorney Documents </a>
+                    </li>
+                @endif
         @endif
 
 
