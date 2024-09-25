@@ -20,13 +20,13 @@
 
 
 
-{{--                <?php $notifications = notifications(); ?>--}}
+                <?php $notifications = notifications(); ?>
                 <div class="dropdown d-inline-block">
 
-{{--                    <button type="button" class="btn header-item noti-icon waves-effect" id="page-header-notifications-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="toggleDropdown()">--}}
-
-{{--                        <img src="{{ asset('/assets/icons/bellIcon.svg') }}" style="width:34px">--}}
-{{--                    </button>--}}
+                    <button type="button" class="btn header-item noti-icon waves-effect" id="page-header-notifications-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="toggleDropdown()">
+                        <img src="{{url('/')}}/icons/bellIcon.svg" style="width:34px">
+                        <span class="badge iconStyle rounded-pill messages-count" style="margin-left:-15px">{!! count($notifications)??0 !!}</span>
+                    </button>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
                          aria-labelledby="page-header-notifications-dropdown"
                          style="position: absolute;inset: auto auto auto auto;margin-left: 0px;  margin-top: -63px;transform: translate(-248px, 72px);"
@@ -34,57 +34,57 @@
                         <div class="p-3">
                             <div class="row align-items-center">
                                 <div class="col-auto">
-{{--                                    <a href="{{route('notifications.index')}}" class="small"--}}
-{{--                                       key="t-view-all"> @lang('View_All')</a>--}}
+                                    <a href="{{route('notifications.index')}}" class="small"
+                                       key="t-view-all"> @lang('View_All')</a>
                                 </div>
                             </div>
                         </div>
 
-{{--                        @if(count($notifications)>0)--}}
-{{--                            <div class="FixedHeightContainer">--}}
-{{--                                <div id="all-notifications" class="scroller">--}}
+                        @if(count($notifications)>0)
+                            <div class="FixedHeightContainer">
+                                <div id="all-notifications" class="scroller">
 
-{{--                                    @foreach ($notifications ?? [] as $notification)--}}
-{{--                                        --}}{{-- {{url('plot-request/'.$notification->data['request_id'])}} --}}
-{{--                                        <a href="{{url($notification->page_route_name)}}"--}}
-{{--                                           --}}{{--                                        <a href="#"--}}
-{{--                                           class="text-reset notification-item"--}}
-{{--                                           onclick="mark_as_read('{{ $notification->id ?? '' }}')">--}}
-{{--                                            <div class="media">--}}
-{{--                                                <div class="avatar-xs me-3">--}}
-{{--                                                    <span class="avatar-title bg-primary rounded-circle font-size-16"></span>--}}
-{{--                                                </div>--}}
-{{--                                                <div class="media-body">--}}
-{{--                                                    <h6 class="mt-0 mb-1"--}}
-{{--                                                        key="t-your-order">@lang($notification->message ?? '')</h6>--}}
-{{--                                                    <div class="font-size-12 text-muted">--}}
-{{--                                                        <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span--}}
-{{--                                                                    key="t-min-ago">@lang($notification->created_at->diffForHumans() ?? '')</span>--}}
-{{--                                                        </p>--}}
-{{--                                                    </div>--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                        </a>--}}
-{{--                                        <hr>--}}
-{{--                                    @endforeach--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        @else--}}
-{{--                            <div id="all-notifications" style="width:300px;height:50px;">--}}
-{{--                                <div class="media">--}}
-{{--                                    <div class="avatar-xs me-3">--}}
-{{--                                        <span class="avatar-title bg-primary rounded-circle font-size-16"></span>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="media-body">--}}
-{{--                                        <h6 class="mt-0 mb-1"--}}
-{{--                                            key="t-your-order">No Notifications</h6>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        @endif--}}
+                                    @foreach ($notifications ?? [] as $notification)
+                                        {{-- {{url('plot-request/'.$notification->data['request_id'])}} --}}
+                                        <a href="{{url($notification->page_route_name)}}"
+                                           {{--                                        <a href="#"--}}
+                                           class="text-reset notification-item"
+                                           onclick="mark_as_read('{{ $notification->id ?? '' }}')">
+                                            <div class="media">
+                                                <div class="avatar-xs me-3">
+                                                    <span class="avatar-title bg-primary rounded-circle font-size-16"></span>
+                                                </div>
+                                                <div class="media-body">
+                                                    <h6 class="mt-0 mb-1"
+                                                        key="t-your-order">@lang($notification->message ?? '')</h6>
+                                                    <div class="font-size-12 text-muted">
+                                                        <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span
+                                                                    key="t-min-ago">@lang($notification->created_at->diffForHumans() ?? '')</span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <hr>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @else
+                            <div id="all-notifications" style="width:300px;height:50px;">
+                                <div class="media">
+                                    <div class="avatar-xs me-3">
+                                        <span class="avatar-title bg-primary rounded-circle font-size-16"></span>
+                                    </div>
+                                    <div class="media-body">
+                                        <h6 class="mt-0 mb-1"
+                                            key="t-your-order">No Notifications</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
                     </div>
                 </div>
-                 <div class="d-inline-block">
+                <div class="d-inline-block">
                     <div class="dropdown">
                         <button class="dropbtn">{!! auth()->user()->name??'' !!}</button>
                         <div class="dropdown-content">
@@ -109,7 +109,7 @@
 </header>
 
 
-{{--<input type="hidden" value="{{ route('notifications.read') }}" id="url_message">--}}
+<input type="hidden" value="{{ route('notifications.read') }}" id="url_message">
 <script>
     function mark_as_read(id) {
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
