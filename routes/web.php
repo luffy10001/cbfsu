@@ -38,7 +38,7 @@ Route::middleware('auth')->group(function () {
 
 
     Route::get('customer-detail',[\App\Http\Controllers\CustomerController::class,'landPageDetail'])->name('customer.landpage');
-
+    Route::post('/notifications/notifications/read/', [NotificationController::class, 'update'])->name('notifications.read');
 });
 
 Route::group(['middleware' => ['auth', 'user_permission']], function () {
@@ -54,6 +54,7 @@ Route::group(['middleware' => ['auth', 'user_permission']], function () {
     include __DIR__ . '/authority.php';
     include __DIR__ . '/project.php';
     include __DIR__ . '/bonds.php';
+    include __DIR__ . '/notification.php';
 
 });
 

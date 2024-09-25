@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Classes\Notification;
 use App\DataTables\BondDataTable;
 use App\Models\Agent;
 use App\Models\Authority;
@@ -165,15 +166,6 @@ class BondController extends Controller
                 'message' => 'Bond Details Updated Successfully!',
             ]);
         }elseif($request['type'] == 3){
-//            $request->validate([
-//                'bid_start_date'       => 'required',
-//                'bid_completion_date'  => 'required',
-//                'bid_amount'           => 'required',
-//                'bid_project_cost'     => 'required',
-//                'bid_amount_percentage'=> 'required',
-//                'bid_warranty_period'  => 'required|gt:0',
-//                'bid_damages'          => 'required|gt:0',
-//            ]);
             $bid_data=[
                 'owner_bid_date'       => $request['owner_bid_date'],
                 'bid_start_date'       => $request['bid_start_date'],
@@ -259,25 +251,41 @@ class BondController extends Controller
                     $bondObj->update($data);
                 }
             }
+            $authority   =   Authority::where('customer_id', $bondObj->customer_id)->first();
+            $customer   =   Customer::where('id', $bondObj->customer_id)->first();
+            if( $request['bid_value'] > $authority->single_job_limit  ){
+             $mail_data =
+                    [
+                    'subject'       => $customer->user->name." Bid Amount is Exceeded from Single Project Limit",
+                    'name'          => $customer->user->name,
+                    'email'         => $customer->user->email,
+                    'phone'         => $customer->phone,
+                    'bid_amount'    => $request['bid_value'],
+                    'project_limit' => $authority->single_job_limit,
+                    ];
+            Mail::to('jasim.khan2007@gmail.com')->send(new GeneralMail($mail_data,'bondLimitExceededToAdmin'));
+            $mail_data['subject'] =  "Your Bid Amount is Exceeded from Single Project Limit";
+            Mail::to($customer->user->email)->send(new GeneralMail($mail_data,'bondLimitExceededToCustomer'));
+            }
 
 
-             $authority   =   Authority::where('customer_id', $bondObj->customer_id)->first();
-             $customer   =   Customer::where('id', $bondObj->customer_id)->first();
-             if( $request['bid_value'] > $authority->single_job_limit  ){
-//                $baseUrl = config('app.url');
-                $mail_data =
-                        [
-                        'subject'       => $customer->user->name." Bid Amount is Exceeded from Single Project Limit",
-                        'name'          => $customer->user->name,
-                        'email'         => $customer->user->email,
-                        'phone'         => $customer->phone,
-                        'bid_amount'    => $request['bid_value'],
-                        'project_limit' => $authority->single_job_limit,
-                        ];
-                Mail::to('jasim.khan2007@gmail.com')->send(new GeneralMail($mail_data,'bondLimitExceededToAdmin'));
-                $mail_data['subject'] =  "Your Bid Amount is Exceeded from Single Project Limit";
-                Mail::to($customer->user->email)->send(new GeneralMail($mail_data,'bondLimitExceededToCustomer'));
-             }
+            // Notifications to Admin
+            $message = config('messages.messages.bond_request');
+            $user    = Auth::user();
+            $sent_by_user_id  = $user->id;
+            $find_array = ['{name}'];
+            $rep_array  = [$user->name];
+            $message    = str_replace($find_array, $rep_array, $message);
+            $notifiableUser = toAdmin();
+            $reference_id   = $bondObj->id;
+            $modal_name     = Bond::class;
+            $message_type = '';
+            $page_route_name = '/bonds';
+            $action_route = '';
+            $is_modal = '0';
+            $notification = new Notification;
+            $notification->sendNotification($notifiableUser, $sent_by_user_id, $message, $reference_id, $modal_name, $message_type, $page_route_name, $action_route, $is_modal);
+
 
 
             $route = route('bond.index');
@@ -335,7 +343,7 @@ class BondController extends Controller
     }
 
     public function append_subcontractor_form(Request $request){
-        $itemNo = $request['itemCount'];
+        $itemNo     = $request['itemCount'];
         $contractor = false;
         return view('components.subcontractor',compact('itemNo','contractor'));
     }
@@ -343,38 +351,50 @@ class BondController extends Controller
     public function viewBidBondPdf($id){
 
         $id      =   mws_encrypt('D',$id);
-//        $bond    =   Bond::where('id',$id)->first();
-//        $c_user  =   Customer::where('id',$bond['customer_id'])->first();
-//        $user  =   User::where('id',$c_user['user_id'])->first();
-//        dd($user);
         $bond_data   =   Bond::where('id',$id)->first();
-
         $pdf = Pdf::loadView('bonds.bid_bond_pdf', compact('bond_data',));
         return $pdf->stream();
     }
 
     public function viewAttorneyPdf($id)
     {
-        $id      =   mws_encrypt('D',$id);
+        $id          =   mws_encrypt('D',$id);
         $bond_data   =   Bond::where('id',$id)->first();
-//        dd($bond_data);
-        $pdf = Pdf::loadView('bonds.power_of_attorney_pdf',compact('bond_data'));
+        $pdf         = Pdf::loadView('bonds.power_of_attorney_pdf',compact('bond_data'));
         return $pdf->stream();
     }
 
     public function viewPerformancePaymentPdf($id)
     {
-        $id      =   mws_encrypt('D',$id);
-        $bond_data   =   Bond::where('id',$id)->first();
-//        dd($bond_data);
-        $pdf = Pdf::loadView('bonds.payment_and_performance',compact('bond_data'));
+        $id         =   mws_encrypt('D',$id);
+        $bond_data  =   Bond::where('id',$id)->first();
+        $pdf        = Pdf::loadView('bonds.payment_and_performance',compact('bond_data'));
         return $pdf->stream();
     }
 
     public function IssueDocuments($id){
        $d_id    =    mws_encrypt('D',$id);
-       Bond::where('id',$d_id)->update(['issue_doc'=>true]);
-       return response()->json([
+       $bond    = Bond::where('id',$d_id)->first();
+       $bond->update(['issue_doc'=>true]);
+
+       // Notifications to Customer
+        $message = config('messages.messages.issue_documents');
+        $user    = Auth::user();
+        $sent_by_user_id  = $user->id;
+        $find_array = ['{name}'];
+        $rep_array  = [$user->name];
+        $message    = str_replace($find_array, $rep_array, $message);
+        $notifiableUser = $bond->customer->user;
+        $reference_id   = $d_id;
+        $modal_name     = Bond::class;
+        $message_type = '';
+        $page_route_name = '/bonds';
+        $action_route = '';
+        $is_modal = '0';
+        $notification = new Notification;
+        $notification->sendNotification($notifiableUser, $sent_by_user_id, $message, $reference_id, $modal_name, $message_type, $page_route_name, $action_route, $is_modal);
+
+        return response()->json([
             'success' =>true,
             'message' =>'Documents Issued Successfully!',
             'table'   =>'bonds'
