@@ -20,7 +20,7 @@
                             class="dropdown-item modal_submit" size="lg"
                             url="{!! route('bond.issue-docs',mws_encrypt('E',$obj->id)) !!}"><i
                                 class="bi bi-info-circle"></i>
-                        Issue Docs</a>
+                        Approve & Issue Documents</a>
                 </li>
             @endif
             @if(isPermission('bond.bidBondPdf'))
@@ -28,6 +28,13 @@
                     <a class="dropdown-item " target="_blank"  href="{!! route('bond.bidBondPdf',mws_encrypt('E',$obj->id)) !!}"><i
                                 class="bi bi-info-circle"></i>
                         Bid Bond Documents </a>
+                </li>
+            @endif
+            @if(isPermission('bond.convertToPerformance'))
+                <li>
+                    <a class="dropdown-item modal_open" size="md" url="{!! route('bond.convertToPerformance',mws_encrypt('E',$obj->id)) !!}"><i
+                                class="bi bi-info-circle"></i>
+                        Convert into performance bond </a>
                 </li>
             @endif
             @if(isPermission('bond.viewPerformancePaymentPdf'))
@@ -54,7 +61,14 @@
                             Bid Bond Documents </a>
                     </li>
                 @endif
-                @if(isPermission('bond.viewPerformancePaymentPdf') && $obj->issue_doc==true)
+                @if(isPermission('bond.convertToPerformance') && $obj->issue_doc===true)
+                    <li>
+                        <a class="dropdown-item modal_open" size="md" url="{!! route('bond.convertToPerformance',mws_encrypt('E',$obj->id)) !!}"><i
+                                    class="bi bi-info-circle"></i>
+                            Convert into performance bond </a>
+                    </li>
+                @endif
+                @if(isPermission('bond.viewPerformancePaymentPdf') && $obj->issue_doc===true)
                     <li>
                         <a class="dropdown-item " target="_blank" href="{!! route('bond.viewPerformancePaymentPdf',mws_encrypt('E',$obj->id)) !!}"><i
                                     class="bi bi-info-circle"></i>
@@ -70,8 +84,6 @@
                     </li>
                 @endif
         @endif
-
-
     @if(isPermission('bond.delete'))
         <li>
             <a
