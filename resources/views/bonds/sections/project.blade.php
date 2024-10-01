@@ -57,7 +57,7 @@
                                 </div>
                                 <div class="col-md-4 mb-3">
                                     <label class="form-label">Project Delivery Method<span class="req text-danger">*</span></label>
-                                    <input type="number" class="form-control"  name="project_delivery_method" value="{{$obj->delivery_method??''}}" placeholder="Project Delivery Method"/>
+                                    <input type="text" class="form-control"  name="project_delivery_method" value="{{$obj->delivery_method??''}}" placeholder="Project Delivery Method"/>
                                 </div>
                                 <div class="col-md-4 mb-3">
                                     <label class="form-label">Estimate Project Start Date<span class="req text-danger">*</span></label>
