@@ -458,6 +458,7 @@ class BondController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Converted In To Performance Successfully!',
+            'close_modal' => true,
             'table' => 'bonds'
         ]);
     }
