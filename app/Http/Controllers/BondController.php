@@ -350,7 +350,7 @@ class BondController extends Controller
 //        dd($user);
         $bond_data   =   Bond::where('id',$id)->first();
 
-        $pdf = Pdf::loadView('bonds.bid_bond_pdf', compact('bond_data',));
+        $pdf = Pdf::loadView('bonds.bid_bond_pdf', compact('bond_data'));
         return $pdf->stream();
     }
 
@@ -382,6 +382,66 @@ class BondController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Documents Issued Successfully!',
+            'table' => 'bonds'
+        ]);
+    }
+    public function convertToPerformance($id){
+        $d_id    =    mws_encrypt('D',$id);
+        $bond    =    Bond::where('id',$d_id)->first();
+        return view('bonds.convert_to_performance',compact('d_id','bond'));
+    }
+    public function storeConvertToPerformance(Request $request)
+    {
+        $bond    =    Bond::where('id',$request['id'])->first();
+
+        $request->validate([
+            'contract_detail'   => 'required',
+            'contract_date'     => 'required',
+            'contract_amount'   => 'required',
+            'description'       => 'required',
+            'bond_detail'       => 'required',
+            'date'              => 'required',
+            'amount'            => 'required',
+            'contract_document' => $bond && $bond->perf_contract_document ? 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048' : 'required|file|mimes:pdf,jpg,jpeg,png|max:2048',
+        ]);
+
+        if ($request->hasFile('contract_document')) {
+            $fileUploadResponse = $this->uploadFile($request->file('contract_document'), 'images/bonds/');
+            if (isset($fileUploadResponse['success']) && $fileUploadResponse['success'] == true) {
+                $data['perf_contract_document'] = $fileUploadResponse['filename'];
+                Bond::where('id', $request['id'])->update($data);
+            }
+        }
+
+        $data = [
+            'perf_contract_detail'   => $request['contract_detail'],
+            'perf_contract_date'     => $request['contract_date'],
+            'perf_contract_amount'   => $request['contract_amount'],
+            'perf_description'       => $request['description'],
+            'perf_bond_detail'       => $request['bond_detail'],
+            'perf_date'              => $request['date'],
+            'perf_amount'            => $request['amount'],
+        ];
+
+        Bond::where('id', $request['id'])->update($data);
+
+        $authority   =   Authority::where('customer_id', $bond->customer_id)->first();
+        $customer   =   Customer::where('id', $bond->customer_id)->first();
+
+        $mail_data =
+            [
+                'subject'       => $customer->user->name." Bid Amount is Exceeded from Single Project Limit",
+                'name'          => $customer->user->name,
+                'email'         => $customer->user->email,
+                'phone'         => $customer->phone,
+                'bid_amount'    => $request['bid_value'],
+                'project_limit' => $authority->single_job_limit,
+            ];
+        $mail_data['subject'] =  "Approval Required for Document Conversion";
+        Mail::to('recipient2@example.com')->send(new GeneralMail($mail_data,'convert_into_performance'));
+        return response()->json([
+            'success' => true,
+            'message' => 'Converted In To Performance Successfully!',
             'table' => 'bonds'
         ]);
     }
