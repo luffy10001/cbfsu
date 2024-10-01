@@ -54,7 +54,7 @@
             @endif
         @else
 
-                @if(isPermission('bond.bidBondPdf') && $obj->issue_doc===true)
+                @if(isPermission('bond.bidBondPdf') && $obj->issue_doc==true)
                     <li>
                         <a class="dropdown-item " target="_blank"  href="{!! route('bond.bidBondPdf',mws_encrypt('E',$obj->id)) !!}"><i
                                     class="bi bi-info-circle"></i>
@@ -76,7 +76,7 @@
                     </li>
                 @endif
 
-                @if(isPermission('bond.attorneyPdf') && $obj->issue_doc===true)
+                @if(isPermission('bond.attorneyPdf') && $obj->issue_doc==true)
                     <li>
                         <a class="dropdown-item " target="_blank" href="{!! route('bond.attorneyPdf',mws_encrypt('E',$obj->id)) !!}"><i
                                     class="bi bi-info-circle"></i>

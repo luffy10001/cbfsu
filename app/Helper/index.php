@@ -1,10 +1,12 @@
 <?php
 
+use App\Mail\GeneralMail;
 use App\Models\Agency;
 use App\Models\AssignUserAgency;
 use App\Models\ContractProperties;
 use App\Models\Department;
 use App\Models\User;
+use App\Models\Notification;
 use App\Models\Role;
 use App\Models\UserArea;
 use App\Models\UsersMappings;
@@ -14,6 +16,7 @@ use App\Models\ContractsQuota;
 use App\Models\Payment;
 use App\Models\PropertyLogs;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use App\Models\Property;
 use App\Models\Contract;
@@ -271,14 +274,29 @@ if (!function_exists('isRoleCustomer')) {
         return false;
     }
 }
+if (!function_exists('toAdmin')) {
+    function toAdmin()
+    {
+        $user = User::from(TableName(User::class).' as user')
+            ->leftJoin(TableName(Role::class).' as role','user.role_id','=','role.id')
+            ->where('role.slug','super-admin')
+            ->select('user.*')
+            ->first();
+        return $user;
+    }
+}
 if (!function_exists('send_email')){ // Email Notifications
-    function send_email($to,$subject,$text,$cc){
+    function send_email($to,$subject,$text,$cc,$page_route_name,$toName){
         try {
-            Http::post(env('OTP_API_URL') . "email", [
-                'to'=> $to,
-                'subject'=> $subject,
-                'text'=> $text,
-            ]);
+            $mail_data= [
+                'subject' => $subject,
+                'message' => $text,
+                'name'    => $toName,
+                'url'     => $page_route_name
+
+            ];
+
+            Mail::to($to)->send(new GeneralMail($mail_data,'Notification'));
         } catch (\Exception $e) {
             return response()->json([
                 'success'   =>false,
@@ -306,6 +324,16 @@ if (!function_exists('send_email_html')){ // Email Notifications
     }
 }
 
+if (!function_exists('date_formats')) {
+    function date_formats($dateTime, $isDate = false): string
+    {
+        if (!empty($dateTime)) {
+            return \Carbon\Carbon::parse($dateTime)->format($isDate ? 'Y-m-d' : 'Y-m-d H:i:s');
+        }
+        return 'N/A';
+    }
+
+}
 
 
 
@@ -398,5 +426,13 @@ if (!function_exists('territory_units')) {
             '3'=>'Kilometers',
             '4'=>'Meters',
         );
+    }
+}
+if (!function_exists('notifications')){
+    function notifications(){
+        if (!empty(\auth()->user())){
+            return Notification::where('user_id',auth()->id())->where('is_read',false)->orderBy('id','desc')->get();
+        }
+        return [];
     }
 }
