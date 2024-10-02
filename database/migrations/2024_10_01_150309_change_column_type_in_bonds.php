@@ -12,11 +12,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-//        Schema::table('bonds', function (Blueprint $table) {
-            // Change column type
-            DB::statement('ALTER TABLE bonds ALTER COLUMN delivery_method TYPE TEXT');
-//            $table->text('delivery_method')->nullable()->change();
-//        });
+
+        DB::statement('ALTER TABLE bonds ALTER COLUMN delivery_method TYPE TEXT');
     }
 
     /**
