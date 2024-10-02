@@ -458,6 +458,26 @@ class BondController extends Controller
             ];
         $mail_data['subject'] =  "Approval Required for Document Conversion";
         Mail::to('recipient2@example.com')->send(new GeneralMail($mail_data,'convert_into_performance'));
+
+
+        // Notifications to Admin
+        $message = config('messages.messages.performance_bond_request');
+        $user    = Auth::user();
+        $sent_by_user_id  = $user->id;
+        $find_array = ['{name}'];
+        $rep_array  = [$user->name];
+        $message    = str_replace($find_array, $rep_array, $message);
+        $notifiableUser = toAdmin();
+        $reference_id   =  $request['id'];
+        $modal_name     = Bond::class;
+        $message_type = '';
+        $page_route_name = '/bonds';
+        $action_route = '';
+        $is_modal = '0';
+        $notification = new Notification;
+        $notification->sendNotification($notifiableUser, $sent_by_user_id, $message, $reference_id, $modal_name, $message_type, $page_route_name, $action_route, $is_modal);
+
+
         return response()->json([
             'success' => true,
             'message' => 'Converted In To Performance Successfully!',
@@ -472,15 +492,15 @@ class BondController extends Controller
         $bond    = Bond::where('id',$d_id)->first();
         $bond->update(['status'=>2]);
 
-        // Notifications to Customer
-        $message = config('messages.messages.issue_documents');
+        // Notifications to Admin
+        $message = config('messages.messages.cancel_request');
         $user    = Auth::user();
         $sent_by_user_id  = $user->id;
         $find_array = ['{name}'];
         $rep_array  = [$user->name];
         $message    = str_replace($find_array, $rep_array, $message);
-        $notifiableUser = $bond->customer->user;
-        $reference_id   = $d_id;
+        $notifiableUser = toAdmin();
+        $reference_id   =  $d_id;
         $modal_name     = Bond::class;
         $message_type = '';
         $page_route_name = '/bonds';
@@ -491,7 +511,7 @@ class BondController extends Controller
 
         return response()->json([
             'success' =>true,
-            'message' =>'Documents Issued Successfully!',
+            'message' =>'Documents Cancelled Successfully!',
             'table'   =>'bonds'
         ]);
     }
@@ -502,7 +522,7 @@ class BondController extends Controller
         $bond->update(['perf_doc_issue'=>true]);
 
         // Notifications to Customer
-        $message = config('messages.messages.issue_performance_and_payment_documents');
+        $message = config('messages.messages.issue_performance_documents');
         $user    = Auth::user();
         $sent_by_user_id  = $user->id;
         $find_array = ['{name}'];
