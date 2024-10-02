@@ -59,6 +59,17 @@ class Bond extends Model
         'status',
         'issue_doc',
 
+        'perf_contract_detail',
+        'perf_contract_date',
+        'perf_contract_amount',
+        'perf_description',
+        'perf_bond_detail',
+        'perf_date',
+        'perf_amount',
+        'perf_contract_document',
+        'bond_type',
+        'perf_doc_issue'
+
     ];
     public function subcontractors(){
         return $this->hasMany(SubContractor::class,'bond_id');
