@@ -436,3 +436,23 @@ if (!function_exists('notifications')){
         return [];
     }
 }
+
+if (!function_exists('bondStatus')) {
+    function bondStatus(): array
+    {
+        return array(
+            '0'=>'Draft',
+            '1'=>'Completed',
+            '2'=>'Cancelled',
+        );
+    }
+}
+if (!function_exists('bondType')) {
+    function bondType(): array
+    {
+        return array(
+            '0'=>'Bid Bond',
+            '1'=>'P&P Bond',
+        );
+    }
+}
