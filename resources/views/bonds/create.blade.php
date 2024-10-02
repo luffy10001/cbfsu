@@ -102,6 +102,18 @@
 </x-app-layout>
 <script src="{!! asset('assets/js/jquery-ui.min.js') !!}?v=11"></script>
 <script>
+    $('#bid_bond, #project_cost').on('change', function () {
+        var bid_bond = $('#bid_bond').val();
+        var project_cost  = $('#project_cost').val();
+
+        if (!isNaN(bid_bond) && !isNaN(project_cost) && project_cost !== 0) {
+            var result = project_cost / bid_bond ;
+            var bid_bond_val = (result * 100).toFixed(3);
+            $('#gpm').val(bid_bond_val);
+        } else {
+            alert("Please enter valid numbers and make sure project cost is not zero.");
+        }
+    });
     $(document).ready(function(){
         // On page load, if #bid_amount has a value, assign it to #bid_value
         var bid_value = $('#bid_amount').val();
@@ -109,6 +121,7 @@
             $('#bid_value').val(bid_value);
         }
 
+        var bid_value = $('#bid_amount').val();
         // On change of #bid_amount, update #bid_value
         $('#bid_amount').on('change', function() {
             var bid_value = $(this).val();

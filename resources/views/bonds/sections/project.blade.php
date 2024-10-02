@@ -88,10 +88,10 @@
     {{--                                <input type="date" class="form-control" id="bid_date" name="owner_bid_date" value="{{$obj->owner_bid_date??''}}" required='required'>--}}
     {{--                            </div>--}}
 
-                                <div class="col-md-4 mb-3">
-                                    <label class="form-label">GPM<span class="req text-danger">*</span></label>
-                                    <input type="number" class="form-control" name="gpm" placeholder="GPM" value="{{$obj->gpm??''}}"/>
-                                </div>
+{{--                                <div class="col-md-4 mb-3">--}}
+{{--                                    <label class="form-label">GPM<span class="req text-danger">*</span></label>--}}
+{{--                                    <input type="number" class="form-control" name="gpm" placeholder="GPM" id="gpm" value="{{$obj->gpm??''}}" readonly/>--}}
+{{--                                </div>--}}
                                 <div class="col-md-4 mb-3">
                                     <label class="form-label">Engineer Name<span class="req text-danger">*</span></label>
                                     <input type="text" class="form-control"  name="engineer_name" placeholder="Engineer Name" value="{{$obj->engineer_name??''}}"/>

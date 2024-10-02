@@ -110,7 +110,7 @@ class BondController extends Controller
                 'liquidated_damages'    => 'required',
                 'retainage_amount'      => 'required',
                 'current_backlog'       => 'required',
-                'gpm'            => 'required',
+//                'gpm'            => 'required',
                 'engineer_name'  => 'required',
                 'owner_name'     => 'required',
                 'owner_zip'      => 'required',
@@ -142,7 +142,6 @@ class BondController extends Controller
                 'damages'     => $request['liquidated_damages'],
                 'retain_amount'     => $request['retainage_amount'],
                 'current_backlog'     => $request['current_backlog'],
-                'gpm'     => $request['gpm'],
                 'engineer_name'     => $request['engineer_name'],
                 'owner_name'     => $request['owner_name'],
                 'owner_zip'      => $request['owner_zip'],
@@ -160,6 +159,8 @@ class BondController extends Controller
             if(!$bondObj){
                 $bondObj = Bond::create($general_data);
             }
+
+            dd($project_data);
             $bondObj->update($project_data);
             return response()->json([
                 'success' => true,
@@ -173,6 +174,7 @@ class BondController extends Controller
                 'bid_amount'           => $request['bid_amount'],
                 'bid_project_cost'     => $request['bid_project_cost'],
                 'bid_amount_percentage'=> $request['bid_amount_percentage'],
+                'gpm'     => $request['gpm'],
                 'bid_warranty_period'  => $request['bid_warranty_period'],
                 'bid_damages'          => $request['bid_damages'],
             ];
@@ -287,7 +289,7 @@ class BondController extends Controller
             $notification->sendNotification($notifiableUser, $sent_by_user_id, $message, $reference_id, $modal_name, $message_type, $page_route_name, $action_route, $is_modal);
 
 
-
+            dd('wefef');
             $route = route('bond.index');
             return response()->json([
                 'success' => true,
