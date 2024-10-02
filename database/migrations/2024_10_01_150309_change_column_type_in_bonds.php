@@ -13,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
 
-        DB::statement('ALTER TABLE bonds ALTER COLUMN delivery_method TYPE TEXT');
+        //DB::statement('ALTER TABLE bonds ALTER COLUMN delivery_method TYPE TEXT');
     }
 
     /**
