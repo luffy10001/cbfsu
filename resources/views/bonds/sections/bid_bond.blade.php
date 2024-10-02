@@ -36,6 +36,10 @@ xmlns="http://www.w3.org/1999/html">
                                 <label for="bid_bond" class="form-label">Amount of Bid Bond (i.e. 5%, 10%, etc.)<span class="req text-danger">*</span></label>
                                 <input type="number" class="form-control " id="bid_bond" name="bid_amount_percentage" value="{{$obj->bid_amount_percentage??''}}" required='required'>
                             </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">GPM<span class="req text-danger">*</span></label>
+                                <input type="number" class="form-control" name="gpm" placeholder="GPM" id="gpm" value="{{$obj->gpm??''}}" readonly/>
+                            </div>
                             <div class="col-md-6 form-group">
                                 <label for="warranty_period" class="form-label"> Warranty Period<span class="req text-danger">*</span></label>
                                 <input type="number" class="form-control " id="warranty_period" name="bid_warranty_period" value="{{$obj->bid_warranty_period??''}}" required='required'>

@@ -110,7 +110,7 @@ class BondController extends Controller
                 'liquidated_damages'    => 'required',
                 'retainage_amount'      => 'required',
                 'current_backlog'       => 'required',
-                'gpm'            => 'required',
+//                'gpm'            => 'required',
                 'engineer_name'  => 'required',
                 'owner_name'     => 'required',
                 'owner_zip'      => 'required',
@@ -142,7 +142,6 @@ class BondController extends Controller
                 'damages'     => $request['liquidated_damages'],
                 'retain_amount'     => $request['retainage_amount'],
                 'current_backlog'     => $request['current_backlog'],
-                'gpm'     => $request['gpm'],
                 'engineer_name'     => $request['engineer_name'],
                 'owner_name'     => $request['owner_name'],
                 'owner_zip'      => $request['owner_zip'],
@@ -152,6 +151,7 @@ class BondController extends Controller
                 'job_location'   => $request['job_location'],
                 'owner_state'    => $request['owner_state'],
                 'owner_city'     => $request['owner_city'],
+                'bond_type'              => 0,
             ];
             $general_data=[
                 'customer_id' => $request['customer_id'],
@@ -160,6 +160,7 @@ class BondController extends Controller
             if(!$bondObj){
                 $bondObj = Bond::create($general_data);
             }
+
             $bondObj->update($project_data);
             return response()->json([
                 'success' => true,
@@ -173,6 +174,7 @@ class BondController extends Controller
                 'bid_amount'           => $request['bid_amount'],
                 'bid_project_cost'     => $request['bid_project_cost'],
                 'bid_amount_percentage'=> $request['bid_amount_percentage'],
+                'gpm'     => $request['gpm'],
                 'bid_warranty_period'  => $request['bid_warranty_period'],
                 'bid_damages'          => $request['bid_damages'],
             ];
@@ -352,7 +354,8 @@ class BondController extends Controller
 
         $id      =   mws_encrypt('D',$id);
         $bond_data   =   Bond::where('id',$id)->first();
-        $pdf = Pdf::loadView('bonds.bid_bond_pdf', compact('bond_data',));
+
+        $pdf = Pdf::loadView('bonds.bid_bond_pdf', compact('bond_data'));
         return $pdf->stream();
     }
 
@@ -397,6 +400,147 @@ class BondController extends Controller
         return response()->json([
             'success' =>true,
             'message' =>'Documents Issued Successfully!',
+            'table'   =>'bonds'
+        ]);
+    }
+    public function convertToPerformance($id){
+        $d_id    =    mws_encrypt('D',$id);
+        $bond    =    Bond::where('id',$d_id)->first();
+        return view('bonds.convert_to_performance',compact('d_id','bond'));
+    }
+    public function storeConvertToPerformance(Request $request)
+    {
+        $bond    =    Bond::where('id',$request['id'])->first();
+
+        $request->validate([
+            'contract_detail'   => 'required',
+            'contract_date'     => 'required',
+            'contract_amount'   => 'required',
+            'description'       => 'required',
+            'bond_detail'       => 'required',
+            'date'              => 'required',
+            'amount'            => 'required',
+            'contract_document' => $bond && $bond->perf_contract_document ? 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048' : 'required|file|mimes:pdf,jpg,jpeg,png|max:2048',
+        ]);
+
+        if ($request->hasFile('contract_document')) {
+            $fileUploadResponse = $this->uploadFile($request->file('contract_document'), 'images/bonds/');
+            if (isset($fileUploadResponse['success']) && $fileUploadResponse['success'] == true) {
+                $data['perf_contract_document'] = $fileUploadResponse['filename'];
+                Bond::where('id', $request['id'])->update($data);
+            }
+        }
+
+        $data = [
+            'perf_contract_detail'   => $request['contract_detail'],
+            'perf_contract_date'     => $request['contract_date'],
+            'perf_contract_amount'   => $request['contract_amount'],
+            'perf_description'       => $request['description'],
+            'perf_bond_detail'       => $request['bond_detail'],
+            'perf_date'              => $request['date'],
+            'perf_amount'            => $request['amount'],
+            'bond_type'              => 1,
+        ];
+
+        Bond::where('id', $request['id'])->update($data);
+
+        $authority   =   Authority::where('customer_id', $bond->customer_id)->first();
+        $customer   =   Customer::where('id', $bond->customer_id)->first();
+
+        $mail_data =
+            [
+                'subject'       => $customer->user->name." Bid Amount is Exceeded from Single Project Limit",
+                'name'          => $customer->user->name,
+                'email'         => $customer->user->email,
+                'phone'         => $customer->phone,
+                'bid_amount'    => $request['bid_value'],
+                'project_limit' => $authority->single_job_limit,
+            ];
+        $mail_data['subject'] =  "Approval Required for Document Conversion";
+        Mail::to('recipient2@example.com')->send(new GeneralMail($mail_data,'convert_into_performance'));
+
+
+        // Notifications to Admin
+        $message = config('messages.messages.performance_bond_request');
+        $user    = Auth::user();
+        $sent_by_user_id  = $user->id;
+        $find_array = ['{name}'];
+        $rep_array  = [$user->name];
+        $message    = str_replace($find_array, $rep_array, $message);
+        $notifiableUser = toAdmin();
+        $reference_id   =  $request['id'];
+        $modal_name     = Bond::class;
+        $message_type = '';
+        $page_route_name = '/bonds';
+        $action_route = '';
+        $is_modal = '0';
+        $notification = new Notification;
+        $notification->sendNotification($notifiableUser, $sent_by_user_id, $message, $reference_id, $modal_name, $message_type, $page_route_name, $action_route, $is_modal);
+
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Converted In To Performance Successfully!',
+            'close_modal' => true,
+            'table' => 'bonds'
+        ]);
+    }
+
+    public function cancelRequest($id)
+    {
+        $d_id    =    mws_encrypt('D',$id);
+        $bond    = Bond::where('id',$d_id)->first();
+        $bond->update(['status'=>2]);
+
+        // Notifications to Admin
+        $message = config('messages.messages.cancel_request');
+        $user    = Auth::user();
+        $sent_by_user_id  = $user->id;
+        $find_array = ['{name}'];
+        $rep_array  = [$user->name];
+        $message    = str_replace($find_array, $rep_array, $message);
+        $notifiableUser = toAdmin();
+        $reference_id   =  $d_id;
+        $modal_name     = Bond::class;
+        $message_type = '';
+        $page_route_name = '/bonds';
+        $action_route = '';
+        $is_modal = '0';
+        $notification = new Notification;
+        $notification->sendNotification($notifiableUser, $sent_by_user_id, $message, $reference_id, $modal_name, $message_type, $page_route_name, $action_route, $is_modal);
+
+        return response()->json([
+            'success' =>true,
+            'message' =>'Documents Cancelled Successfully!',
+            'table'   =>'bonds'
+        ]);
+    }
+
+    public function issuePerformanceDoc($id){
+        $d_id    =    mws_encrypt('D',$id);
+        $bond    = Bond::where('id',$d_id)->first();
+        $bond->update(['perf_doc_issue'=>true]);
+
+        // Notifications to Customer
+        $message = config('messages.messages.issue_performance_documents');
+        $user    = Auth::user();
+        $sent_by_user_id  = $user->id;
+        $find_array = ['{name}'];
+        $rep_array  = [$user->name];
+        $message    = str_replace($find_array, $rep_array, $message);
+        $notifiableUser = $bond->customer->user;
+        $reference_id   = $d_id;
+        $modal_name     = Bond::class;
+        $message_type = '';
+        $page_route_name = '/bonds';
+        $action_route = '';
+        $is_modal = '0';
+        $notification = new Notification;
+        $notification->sendNotification($notifiableUser, $sent_by_user_id, $message, $reference_id, $modal_name, $message_type, $page_route_name, $action_route, $is_modal);
+
+        return response()->json([
+            'success' =>true,
+            'message' =>'Performance and Payment Bond Document Issued Successfully!',
             'table'   =>'bonds'
         ]);
     }

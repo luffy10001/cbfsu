@@ -32,9 +32,27 @@ class BondDataTable extends BaseDataTable
                 return $obj->customer->user['name'];
             })
             ->addColumn('status', function($community){
-                if($community->status)
-                    return "<span class='badge bg-success '>Submitted</span> ";
-                return "<span class='badge bg-primary '>Draft</span> ";
+                $statuses = bondStatus(); // Call the bondStatus() function
+
+                if (isset($statuses[$community->status])) {
+                    if($statuses[$community->status] == 'Completed'){
+                        return "<span class='badge bg-success'>{$statuses[$community->status]}</span>";
+                    }
+                    if($statuses[$community->status] == 'Draft'){
+                        return "<span class='badge bg-primary'>{$statuses[$community->status]}</span>";
+                    }
+                    if($statuses[$community->status] == 'Cancelled'){
+                        return "<span class='badge bg-danger'>{$statuses[$community->status]}</span>";
+                    }
+                }
+            })
+            ->addColumn('bond_type', function($community){
+                if($community->bond_type)
+                    return bondType()[$community->bond_type]; // Call the bondStatus() function
+                return bondType()[0];
+
+
+
             })
 
             ->addColumn('actions', function($obj){
@@ -58,7 +76,7 @@ class BondDataTable extends BaseDataTable
 
             })
 
-            ->rawColumns(['actions','company_name','status']);
+            ->rawColumns(['actions','company_name','status','bond_type']);
     }
 
     /**
@@ -120,6 +138,7 @@ class BondDataTable extends BaseDataTable
             Column::make('owner_bid_date')->title('Bid Date'),
             Column::make('bid_amount')->title('Bid Amount'),
             Column::computed('status')->title('Status'),
+            Column::computed('bond_type')->title('Bond Type'),
             Column::computed('actions')
                 ->exportable(false)
                 ->printable(false)
