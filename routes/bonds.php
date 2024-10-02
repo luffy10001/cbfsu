@@ -15,11 +15,13 @@ Route::group(['prefix'=>'bonds','groupName' => 'Bonds', 'access' => 'all'], func
     Route::get('bid-bond-pdf/{id}',[BondController::class,'viewBidBondPdf'])->name('bond.bidBondPdf')->defaults('title','Bid Bond Pdf');
 //    Route::get('attorney-pdf/{id}',[BondController::class,'viewAttorneyPdf'])->name('bond.attorneyPdf')->defaults('title','Power of Attorney Pdf');
     Route::get('per-pay-pdf/{id}',[BondController::class,'viewPerformancePaymentPdf'])->name('bond.viewPerformancePaymentPdf')->defaults('title','Performance & Payment Pdf');
-    Route::post('issue-docs/{id}',[BondController::class,'IssueDocuments'])->name('bond.issue-docs')->defaults('title','Issue Documents');
+    Route::post('issue-docs/{id}',[BondController::class,'IssueDocuments'])->name('bond.issue-docs')->defaults('title','Issue Bid Bond Documents');
 
 
     Route::get('convert-to-Performance/{id}',[BondController::class,'convertToPerformance'])->name('bond.convertToPerformance')->defaults('title','Create Convert inTo Performance');
     Route::post('store-convert-to-Performance',[BondController::class,'storeConvertToPerformance'])->name('bond.storeConvertToPerformance')->defaults('title','Save Convert inTo Performance');
+    Route::post('cancel-request/{id}',[BondController::class,'cancelRequest'])->name('bond.cancelRequest')->defaults('title','Cancel Request');
+    Route::post('issue-performance-doc/{id}',[BondController::class,'issuePerformanceDoc'])->name('bond.issuePerformanceDoc')->defaults('title','Issue Payment & Performance Documents');
 
 
 });

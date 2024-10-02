@@ -67,6 +67,8 @@ class Bond extends Model
         'perf_date',
         'perf_amount',
         'perf_contract_document',
+        'bond_type',
+        'perf_doc_issue'
 
     ];
     public function subcontractors(){
