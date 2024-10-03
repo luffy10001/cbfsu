@@ -13,7 +13,6 @@ return new class extends Migration
     {
         DB::statement('ALTER TABLE bonds ALTER COLUMN status DROP DEFAULT');
         DB::statement('ALTER TABLE bonds ALTER COLUMN status TYPE integer USING status::integer');
-//        DB::statement('ALTER TABLE bonds ALTER COLUMN status SET DEFAULT your_default_value');
 
     }
 

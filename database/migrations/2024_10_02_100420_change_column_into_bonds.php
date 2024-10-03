@@ -11,8 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        DB::statement('ALTER TABLE bonds ALTER COLUMN gpm TYPE DECIMAL(10, 2)');
-
+        Schema::table('bonds', function (Blueprint $table) {
+            $table->dropColumn('gpm');
+        });
+        Schema::table('bonds', function (Blueprint $table) {
+            $table->decimal('gpm')->nullable();
+        });
     }
 
     /**
