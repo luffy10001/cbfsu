@@ -23,6 +23,9 @@ Route::group(['prefix'=>'bonds','groupName' => 'Bonds', 'access' => 'all'], func
     Route::post('cancel-request/{id}',[BondController::class,'cancelRequest'])->name('bond.cancelRequest')->defaults('title','Cancel Request');
     Route::post('issue-performance-doc/{id}',[BondController::class,'issuePerformanceDoc'])->name('bond.issuePerformanceDoc')->defaults('title','Issue Payment & Performance Documents');
 
+    Route::get('review-bid-bond-document/{id}',[BondController::class,'detailBidBondDocument'])->name('bond.reviewBidBondDocument')->defaults('title','Review Bid Bond Documents');
+    Route::get('review-performance-bond-document/{id}',[BondController::class,'reviewPerformanceBondDocument'])->name('bond.reviewPerformanceBondDocument')->defaults('title','Review Performance Bond Documents');
+
 
 });
 
