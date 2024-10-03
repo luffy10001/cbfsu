@@ -11,8 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        DB::statement('ALTER TABLE bonds ALTER COLUMN status DROP DEFAULT');
-        DB::statement('ALTER TABLE bonds ALTER COLUMN status TYPE integer USING status::integer');
+        Schema::table('bonds', function (Blueprint $table) {
+            $table->dropColumn('status');
+        });
+        Schema::table('bonds', function (Blueprint $table) {
+            $table->integer('status')->default(0);
+        });
 
     }
 
