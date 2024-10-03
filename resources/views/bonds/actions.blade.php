@@ -35,13 +35,6 @@
                         Bid Bond Documents </a>
                 </li>
             @endif
-            @if(isPermission('bond.convertToPerformance'))
-                <li>
-                    <a class="dropdown-item modal_open" size="md" url="{!! route('bond.convertToPerformance',mws_encrypt('E',$obj->id)) !!}"><i
-                                class="bi bi-info-circle"></i>
-                        Convert into performance bond </a>
-                </li>
-            @endif
             @if(isPermission('bond.viewPerformancePaymentPdf'))
                 <li>
                     <a class="dropdown-item " target="_blank" href="{!! route('bond.viewPerformancePaymentPdf',mws_encrypt('E',$obj->id)) !!}"><i
@@ -73,21 +66,21 @@
                             Bid Bond Documents </a>
                     </li>
                 @endif
-                @if(isPermission('bond.convertToPerformance') && $obj->issue_doc===true && $obj->perf_doc_issue!=true && $obj->bond_type != 1)
+                @if(isPermission('bond.convertToPerformance') && $obj->issue_doc == true && $obj->perf_doc_issue!=true && $obj->bond_type != 1)
                     <li>
-                        <a class="dropdown-item modal_open" size="md" url="{!! route('bond.convertToPerformance',mws_encrypt('E',$obj->id)) !!}"><i
+                        <a class="dropdown-item modal_open" size="lg" url="{!! route('bond.convertToPerformance',mws_encrypt('E',$obj->id)) !!}"><i
                                     class="bi bi-info-circle"></i>
                             Convert into performance bond </a>
                     </li>
                 @endif
-                @if(isPermission('bond.viewPerformancePaymentPdf') && $obj->perf_doc_issue===true)
+                @if(isPermission('bond.viewPerformancePaymentPdf') && $obj->perf_doc_issue==true)
                     <li>
                         <a class="dropdown-item " target="_blank" href="{!! route('bond.viewPerformancePaymentPdf',mws_encrypt('E',$obj->id)) !!}"><i
                                     class="bi bi-info-circle"></i>
                             Payment & Performance Bond Documents </a>
                     </li>
                 @endif
-                @if(isPermission('bond.cancelRequest') && $obj->issue_doc===true && $obj->perf_doc_issue != true && $obj->bond_type != 1)
+                @if(isPermission('bond.cancelRequest'))
                     <li>
                         <a
                                 swal_title="Are you Sure!"
