@@ -10,36 +10,40 @@
                 <input type="hidden" class="form-control" value="{{isset($d_id) ? $d_id: '' }}" id="id" name="id">
 
                 <div class="row">
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-12 mb-3">
                         <label class="form-label">Contract Details<span class="req text-danger">*</span></label>
-                        <input type="text" class="form-control"  name="contract_detail" value="{{$bond->perf_contract_detail??''}}"/>
+                        <textarea type="text" class="form-control"  name="contract_detail" rows="3">{{$bond->perf_contract_detail??''}}</textarea>
                     </div>
+
+                </div>
+                <div class="row">
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Contract Date<span class="req text-danger">*</span></label>
                         <input type="date" class="form-control"  name="contract_date" value="{{$bond->perf_contract_date??''}}"/>
                     </div>
-                </div>
-                <div class="row">
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Contract Amount<span class="req text-danger">*</span></label>
                         <input type="number" class="form-control"  name="contract_amount" value="{{$bond->perf_contract_amount??''}}"/>
                     </div>
-                    <div class="col-md-6 mb-3">
+                </div>
+                <div class="row">
+                    <div class="col-md-12 mb-3">
                         <label class="form-label">Description<span class="req text-danger">*</span></label>
-                        <input type="text" class="form-control"  name="description" value="{{$bond->perf_description??''}}"/>
+                        <textarea type="text" class="form-control"  name="description" rows="3"> {{$bond->perf_description??''}}</textarea>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-12 mb-3">
                         <label class="form-label">Bond Details<span class="req text-danger">*</span></label>
-                        <input type="text" class="form-control"  name="bond_detail" value="{{$bond->perf_bond_detail??''}}"/>
+                        <textarea type="text" class="form-control"  name="bond_detail" rows="3"> {{$bond->perf_bond_detail??''}}</textarea>
                     </div>
+
+                </div>
+                <div class="row">
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Date<span class="req text-danger">*</span></label>
                         <input type="date" class="form-control"  name="date" value="{{$bond->perf_date??''}}"/>
                     </div>
-                </div>
-                <div class="row">
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Amount<span class="req text-danger">*</span></label>
                         <input type="number" class="form-control"  name="amount" value="{{$bond->perf_amount??''}}"/>
