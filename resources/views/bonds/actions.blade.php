@@ -51,7 +51,7 @@
                 <li>
                     <a class="dropdown-item " target="_blank" href="{!! route('bond.viewPerformancePaymentPdf',mws_encrypt('E',$obj->id)) !!}"><i
                                 class="bi bi-info-circle"></i>
-                        Payment & Performance Bond Documents </a>
+                        Performance Bond Documents </a>
                 </li>
             @endif
 
@@ -89,7 +89,7 @@
                     <li>
                         <a class="dropdown-item " target="_blank" href="{!! route('bond.viewPerformancePaymentPdf',mws_encrypt('E',$obj->id)) !!}"><i
                                     class="bi bi-info-circle"></i>
-                            Payment & Performance Bond Documents </a>
+                            Performance Bond Documents </a>
                     </li>
                 @endif
                 @if(isPermission('bond.cancelRequest'))
