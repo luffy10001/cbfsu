@@ -1,32 +1,44 @@
 <x-crm-dropdown>
         @if(isRoleSuperAdmin($role))
             @if(isPermission('bond.issue-docs') && $obj->bond_type == 0 && $obj->issue_doc != true)
-                <li>
-                    <a
-                            swal_title="Are you Sure!"
-                            swal_icon="warning"
-                            swal_text="Do you Want to Approve & Issue Bid Bond Documents to the Customer against the Bond?"
-                            swal_button="Yes"
-                            cancel_button_text="No"
-                            class="dropdown-item modal_submit" size="lg"
-                            url="{!! route('bond.issue-docs',mws_encrypt('E',$obj->id)) !!}"><i
-                                class="bi bi-info-circle"></i>
-                        Approve & Issue Bid Bond Documents</a>
-                </li>
+            <li>
+                <a class="dropdown-item modal_open" size="xl" url="{{ route('bond.reviewBidBondDocument',mws_encrypt('E',$obj->id)) }}"><i
+                            class="bi bi-pencil-square"></i>
+                    Review & Approve Bid Bond Documents</a>
+            </li>
+
+{{--            <li>--}}
+{{--                <a--}}
+{{--                        swal_title="Are you Sure!"--}}
+{{--                        swal_icon="warning"--}}
+{{--                        swal_text="Do you Want to Approve & Issue Bid Bond Documents to the Customer against the Bond?"--}}
+{{--                        swal_button="Yes"--}}
+{{--                        cancel_button_text="No"--}}
+{{--                        class="dropdown-item modal_submit" size="lg"--}}
+{{--                        url="{!! route('bond.issue-docs',mws_encrypt('E',$obj->id)) !!}"><i--}}
+{{--                            class="bi bi-info-circle"></i>--}}
+{{--                    Review & Approve Bid Bond Documents</a>--}}
+{{--            </li>--}}
             @endif
             @if(isPermission('bond.issuePerformanceDoc') && $obj->bond_type == 1  && $obj->perf_doc_issue!=true)
+
                 <li>
-                    <a
-                            swal_title="Are you Sure!"
-                            swal_icon="warning"
-                            swal_text="Do you Want to Issue Performance & Payment Bond Documents to the Customer against the Bond?"
-                            swal_button="Yes"
-                            cancel_button_text="No"
-                            class="dropdown-item modal_submit" size="lg"
-                            url="{!! route('bond.issuePerformanceDoc',mws_encrypt('E',$obj->id)) !!}"><i
-                                class="bi bi-info-circle"></i>
-                        Approve & Issue Performance & Payment Bond Documents</a>
+                    <a class="dropdown-item modal_open" size="xl" url="{{ route('bond.reviewPerformanceBondDocument',mws_encrypt('E',$obj->id)) }}"><i
+                                class="bi bi-pencil-square"></i>
+                        Review & Approve Performance Bond Documents</a>
                 </li>
+{{--                    <li>--}}
+{{--                    <a--}}
+{{--                            swal_title="Are you Sure!"--}}
+{{--                            swal_icon="warning"--}}
+{{--                            swal_text="Do you Want to Issue Performance & Payment Bond Documents to the Customer against the Bond?"--}}
+{{--                            swal_button="Yes"--}}
+{{--                            cancel_button_text="No"--}}
+{{--                            class="dropdown-item modal_submit" size="lg"--}}
+{{--                            url="{!! route('bond.issuePerformanceDoc',mws_encrypt('E',$obj->id)) !!}"><i--}}
+{{--                                class="bi bi-info-circle"></i>--}}
+{{--                        Review & Approve Performance Bond Documents</a>--}}
+{{--                </li>--}}
             @endif
             @if(isPermission('bond.bidBondPdf'))
                 <li>
