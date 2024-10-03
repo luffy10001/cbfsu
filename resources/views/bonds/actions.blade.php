@@ -14,7 +14,7 @@
                         Approve & Issue Bid Bond Documents</a>
                 </li>
             @endif
-            @if(isPermission('bond.issuePerformanceDoc') && $obj->bond_type == 1  )
+            @if(isPermission('bond.issuePerformanceDoc') && $obj->bond_type == 1  && $obj->perf_doc_issue!=true)
                 <li>
                     <a
                             swal_title="Are you Sure!"
