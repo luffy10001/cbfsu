@@ -107,7 +107,7 @@
         var project_cost  = $('#project_cost').val();
 
         if (!isNaN(bid_bond) && !isNaN(project_cost) && project_cost !== 0) {
-            var result = project_cost / bid_bond ;
+            var result = bid_bond  / project_cost ;
             var bid_bond_val = (result * 100).toFixed(3);
             $('#gpm').val(bid_bond_val);
         } else {
