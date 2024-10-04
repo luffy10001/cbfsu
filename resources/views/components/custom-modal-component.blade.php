@@ -1,3 +1,14 @@
+<style>
+    .custom-modal-body {
+        max-height: 800px; /* Adjust the height as needed */
+        overflow-y: auto;  /* Scrollbar for overflowing content */
+    }
+
+    /*.modal-dialog {*/
+    /*    max-width: 600px; !* Adjust the modal width as needed *!*/
+    /*}*/
+</style>
+
 <div class="modal-dialog" role="document">
     <div class="modal-content">
         <div class="modal-header">
@@ -6,7 +17,9 @@
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-       {{$body}}
+        <div class="custom-modal-body">
+            {{$body}}
+        </div>
     </div>
  </div>
 
