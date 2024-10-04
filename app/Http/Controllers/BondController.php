@@ -375,8 +375,9 @@ class BondController extends Controller
         return $pdf->stream();
     }
 
-    public function IssueDocuments($id){
+    public function IssueDocuments(Request $request,$id){
        $d_id    =    mws_encrypt('D',$id);
+
        $bond    = Bond::where('id',$d_id)->first();
        $bond->update(['issue_doc'=>true]);
 
@@ -400,6 +401,7 @@ class BondController extends Controller
         return response()->json([
             'success' =>true,
             'message' =>'Documents Issued Successfully!',
+            'close_modal' =>  TRUE,
             'table'   =>'bonds'
         ]);
     }
@@ -517,6 +519,7 @@ class BondController extends Controller
     }
 
     public function issuePerformanceDoc($id){
+
         $d_id    =    mws_encrypt('D',$id);
         $bond    = Bond::where('id',$d_id)->first();
         $bond->update(['perf_doc_issue'=>true]);
@@ -541,8 +544,23 @@ class BondController extends Controller
         return response()->json([
             'success' =>true,
             'message' =>'Performance and Payment Bond Document Issued Successfully!',
+            'close_modal' => true,
             'table'   =>'bonds'
         ]);
+    }
+
+    public function detailBidBondDocument($id)
+    {
+        $d_id    =    mws_encrypt('D',$id);
+        $bond_detail    =   Bond::where('id',$d_id)->first();
+        return view('bonds.review_bid_bond_document',compact('bond_detail'));
+    }
+
+    public function reviewPerformanceBondDocument($id)
+    {
+        $d_id    =    mws_encrypt('D',$id);
+        $bond_detail    =   Bond::where('id',$d_id)->first();
+        return view('bonds.review_performance_bond_document',compact('bond_detail'));
     }
 
 }
