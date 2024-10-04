@@ -33,7 +33,7 @@ xmlns="http://www.w3.org/1999/html">
                                 <input type="number" class="form-control " id="project_cost" name="bid_project_cost" value="{{$obj->bid_project_cost??''}}" required='required'>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label class="form-label">GPM<span class="req text-danger">*</span></label>
+                                <label class="form-label">GPM  ( % ) <span class="req text-danger">*</span></label>
                                 <input type="number" class="form-control" name="gpm" placeholder="GPM" id="gpm" value="{{$obj->gpm??''}}" readonly/>
                             </div>
                             <div class="col-md-6 form-group">

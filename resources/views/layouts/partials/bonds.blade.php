@@ -6,7 +6,7 @@
             </svg>
         </x-slot>
         <x-slot name="label">
-            Manage Bid Bonds
+            Manage Bonds
         </x-slot>
         <x-slot name="activeTab">
             {!! (isCurrentRoute('bond.index')||isCurrentRoute('bond.create')||isCurrentRoute('bond.edit'))?'show':'' !!}
