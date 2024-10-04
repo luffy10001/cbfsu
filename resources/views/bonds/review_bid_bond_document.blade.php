@@ -422,12 +422,12 @@
                                                 @if(pathinfo($bond_detail->attachment, PATHINFO_EXTENSION) === 'pdf')
                                                     <!-- Display a PDF icon and a link to the PDF -->
                                                     <a href="{{ asset('images/bonds/' . $bond_detail->attachment) }}" target="_blank">
-                                                        <img src="{{ asset('images/pdf.svg') }}" alt="PDF" style="width: 40px; height: 40px;">
+                                                        <img src="{{ asset('/assets/icons/pdf.svg') }}" alt="PDF" style="width: 40px; height: 40px;">
                                                         View File
                                                     </a>
                                                 @else
                                                     <a href="{{ asset('images/bonds/' . $bond_detail->attachment) }}" target="_blank">
-                                                        <img src="{{ asset('images/pdf.svg') }}" alt="Image" style="width: 40px; height: 40px;">
+                                                        <img src="{{ asset('/assets/icons/pdf.svg') }}" alt="Image" style="width: 40px; height: 40px;">
                                                         View
                                                     </a>
                                                     <!-- If it's not a PDF, display the image and ensure it fills the entire column -->
