@@ -55,6 +55,7 @@ Route::group(['middleware' => ['auth', 'user_permission']], function () {
     include __DIR__ . '/project.php';
     include __DIR__ . '/bonds.php';
     include __DIR__ . '/notification.php';
+    include __DIR__ . '/signature.php';
 
 });
 

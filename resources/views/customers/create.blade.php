@@ -255,8 +255,16 @@
                                     <input type="date" class="form-control" id="exp_date" name="exp_date" placeholder="Expiration Date"/>
                                 </div>
                                 <div class="col-md-4 mb-3">
+
                                     <label for="territory" class="form-label">Territory <span class="req text-danger">*</span></label>
-                                    <input type="number" class="form-control" id="territory" name="territory" placeholder="Territory"/>
+                                    <select name="territory" class="form-select select2selector">
+                                        <option value="0">Select State</option>
+                                        @foreach($provinces as $row)
+                                            <option value="{!! $row->id !!}">{!! $row->name !!}</option>
+                                        @endforeach
+                                    </select>
+
+{{--                                    <input type="number" class="form-control" id="territory" name="territory" placeholder="Territory"/>--}}
                                 </div>
                                 <div class="col-md-4 mb-3">
                                     <label class="form-label">Single Project Limit <span class="req text-danger">*</span></label>
@@ -278,7 +286,7 @@
                                     <input type="number" class="form-control" placeholder="Job Duration"  name="job_dur">
                                 </div>
                                 <div class="col-md-4 mb-3">
-                                    <label for="warranty_dur" class="form-label">Warranty Period (years) <span class="req text-danger">*</span></label>
+                                    <label for="warranty_dur" class="form-label">Warranty Period (Years) <span class="req text-danger">*</span></label>
                                     <input type="number" class="form-control" id="warranty_dur" name="warranty_dur" placeholder="Warranty Period"/>
                                 </div>
                                 <div class="col-md-4 mb-3">
