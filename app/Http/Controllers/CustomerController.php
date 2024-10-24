@@ -279,9 +279,12 @@ class CustomerController extends Controller
         ]);
 
     }
-    public function view(Customer $customer)
+    public function view($id)
     {
+        $d_id   =   mws_encrypt('D',$id);
+        $customer = Customer::where('id',$d_id)->first();
         return view('customers.show', compact('customer'));
+//        return view('customers.show', compact('customer'));
     }
 
     public function status(Request $request,$id, $status){
