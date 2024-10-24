@@ -28,7 +28,7 @@ class SignatureController extends Controller
         [
             'attachment_type'   =>  'The attachment type field is required.',
         ]);
-
+        $att_time='';
         if($request->hasFile('attachment')){
             $fileUploadResponse = $this->uploadFile($request->file('attachment'), 'images/signature/');
             if (isset($fileUploadResponse['success']) && $fileUploadResponse['success'] == TRUE )
