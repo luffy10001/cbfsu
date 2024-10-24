@@ -61,7 +61,7 @@ class CustomerController extends Controller
             'insurer'               => 'required|gt:0',
             'start_date'            => 'required',
             'exp_date'              => 'required',
-            'territory'             => 'required',
+            'territory'             => 'required|gt:0',
             'single_limt'            => 'required|',
             'aggr_limt'              => 'required',
             'design_build'          => 'required',
@@ -87,6 +87,7 @@ class CustomerController extends Controller
             'job_dur'        => 'The job duration field is required.',
             'warranty_dur'   => 'The warranty period field is required.',
             'minim_bid'      => 'The bid spread field is required.',
+            'territory'      => 'The territory field is required.',
 
 
         ]);
@@ -131,7 +132,6 @@ class CustomerController extends Controller
             'minimum_bid'      =>    $request['minim_bid'],
         ];
         Authority::create($authority_data);
-
 //        $baseUrl = config('app.url');
 //        Mail::to($request['email'])->send(new CustomerMail(
 //            [
@@ -204,7 +204,6 @@ class CustomerController extends Controller
             'address'      => $request['address'],
         ];
         $customer->update($customerData);
-
         return response()->json([
             'success' => true,
             'message' => 'Customer Updated Successfully!',
