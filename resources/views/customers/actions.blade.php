@@ -1,7 +1,7 @@
 <x-crm-dropdown>
     @if(isPermission('customer.edit'))
         <li>
-            <a class="dropdown-item modal_open" size="xl" url="{!! route('customer.edit',$obj->id) !!}"><i
+            <a class="dropdown-item" size="xl" href="{!! route('customer.edit',mws_encrypt('E',$obj->id)) !!}"><i
                         class="bi bi-pencil-square"></i>
                 Edit</a>
         </li>
