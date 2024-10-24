@@ -255,6 +255,20 @@ class BondController extends Controller
             }
             $authority   =   Authority::where('customer_id', $bondObj->customer_id)->first();
             $customer   =   Customer::where('id', $bondObj->customer_id)->first();
+            $startDate = Carbon::parse($bondObj->bid_start_date);
+            $completionDate = Carbon::parse($bondObj->completion_date);
+            $daysDifference = $startDate->diffInDays($completionDate);
+            $job_year = $authority->job_duration;
+            $job_duration_days = Carbon::now()->diffInDays(Carbon::now()->addYears($job_year));
+
+            //For automatic assign bid bond Documents
+
+            if($authority->territory == $bondObj->state_id && $job_duration_days >= $daysDifference && $authority->single_job_limit >= $bondObj->bid_amount){
+                $bid_bond_data  =   [
+                    'issue_doc'=>true
+                ];
+                $bondObj->update($bid_bond_data);
+            }
             if( $request['bid_value'] > $authority->single_job_limit  ){
              $mail_data =
                     [
@@ -299,9 +313,11 @@ class BondController extends Controller
         }
     }
 
-    public function view(Customer $customer)
+    public function view($id)
     {
-        return view('customers.show', compact('customer'));
+        $d_id    =    mws_encrypt('D',$id);
+        $bond_detail    =   Bond::where('id',$d_id)->first();
+        return view('bonds.details', compact('bond_detail'));
     }
 
     public function status(Request $request,$id, $status){

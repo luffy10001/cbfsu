@@ -18,6 +18,7 @@
         @include('layouts.partials.insurer')
         @include('layouts.partials.agents')
         @include('layouts.partials.authority')
+        @include('layouts.partials.signature')
         @include('layouts.partials.settings')
 {{--        @if(isPermission('notifications.index'))--}}
 {{--            <li class="nav-item {!! isCurrentRoute('notifications.index') ? 'live-active':'' !!}">--}}

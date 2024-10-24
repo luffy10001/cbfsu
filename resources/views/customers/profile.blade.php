@@ -314,7 +314,7 @@
                                         <p class="mb-0"> Territory  </p>
                                     </div>
                                     <div class="col-sm-9">
-                                        <p class="text-muted mb-0"> {{$customer->authority->territory ?? ''}}  </p>
+                                        <p class="text-muted mb-0"> {{$customer->authority->province->name ?? ''}}  </p>
                                     </div>
                                 </div>
                                 <hr>

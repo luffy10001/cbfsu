@@ -9,7 +9,7 @@ Route::group(['prefix'=>'bonds','groupName' => 'Bonds', 'access' => 'all'], func
     Route::post('store', [BondController::class, 'store'])->name('bond.store')->defaults('title','Save');
     Route::get('create/{id}', [BondController::class, 'create'])->name('bond.edit')->defaults('title','Edit');
     Route::post('update', [BondController::class, 'update'])->name('bond.update')->defaults('title','Update');
-    Route::get('{bond}/view', [BondController::class, 'view'])->name('bond.view')->defaults('title','Details');
+//    Route::get('{bond}/view', [BondController::class, 'view'])->name('bond.view')->defaults('title','Details');
     Route::post('delete/{id}',[BondController::class,'delete'])->name('bond.delete')->defaults('title','Delete');
     Route::post('status/{id}/{status}',[BondController::class,'status'])->name('bond.status')->defaults('title','Status');
     Route::get('bid-bond-pdf/{id}',[BondController::class,'viewBidBondPdf'])->name('bond.bidBondPdf')->defaults('title','Bid Bond Pdf');
@@ -25,6 +25,7 @@ Route::group(['prefix'=>'bonds','groupName' => 'Bonds', 'access' => 'all'], func
 
     Route::get('review-bid-bond-document/{id}',[BondController::class,'detailBidBondDocument'])->name('bond.reviewBidBondDocument')->defaults('title','Review Bid Bond Documents');
     Route::get('review-performance-bond-document/{id}',[BondController::class,'reviewPerformanceBondDocument'])->name('bond.reviewPerformanceBondDocument')->defaults('title','Review Performance Bond Documents');
+    Route::get('{bond}/view', [BondController::class, 'view'])->name('bond.view')->defaults('title','Details');
 
 
 });
