@@ -33,4 +33,7 @@ class Authority extends Model
     public function surerty(){
         return $this->belongsTo(Insurer::class,'insurer_id');
     }
+    public function Province(){
+        return $this->belongsTo(Province::class,'territory');
+    }
 }

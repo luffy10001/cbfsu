@@ -123,6 +123,14 @@
         </li>
     @endif
 
+    @if(isPermission('bond.view'))
+        <li>
+            <a class="dropdown-item modal_open" size="xl" url="{{ route('bond.view',mws_encrypt('E',$obj->id)) }}"><i
+                        class="bi bi-eye-fill"></i>
+                Details</a>
+        </li>
+    @endif
+
 </x-crm-dropdown>
 {{--                @if(isPermission('bond.attorneyPdf') && $obj->issue_doc==true)--}}
 {{--                    <li>--}}
