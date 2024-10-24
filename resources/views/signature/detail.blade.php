@@ -1,6 +1,6 @@
 <x-custom-modal-component>
     <x-slot name="title">
-        {{ __("Seal & Signature Details") }}
+        {{ __("Seal/Signature Details") }}
     </x-slot>
     <x-slot name="body">
         <div class="modal-body">
@@ -36,13 +36,13 @@
                                             @if(isset($signature->attachment))
                                                 @if(pathinfo($signature->attachment, PATHINFO_EXTENSION) === 'pdf')
                                                     <!-- Display a PDF icon and a link to the PDF -->
-                                                    <a href="{{ asset('images/signature/' . $signature->attachment) }}" target="_blank">
+                                                    <a href="{{ asset('images/bonds/' . $signature->attachment) }}" target="_blank">
                                                         <img src="{{ asset('images/pdf.svg') }}" alt="PDF" style="width: 40px; height: 20px;">
                                                         View File
                                                     </a>
                                                 @else
                                                     <!-- If it's not a PDF, display the image -->
-                                                    <img src="{{ asset('images/signature/' . $signature->attachment) }}" alt="Attachment" style="max-width: 50%;">
+                                                    <img src="{{ asset('images/bonds/' . $signature->attachment) }}" alt="Attachment" style="max-width: 50%;">
                                                 @endif
                                             @endif
                                         </div>

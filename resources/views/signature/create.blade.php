@@ -1,6 +1,6 @@
 <x-custom-modal-component>
     <x-slot name="title">
-        {{ __('Create Seal & Signature') }}
+        {{ __('Create Seal/Signature') }}
     </x-slot>
 
     <x-slot name="body">

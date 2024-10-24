@@ -31,7 +31,7 @@ class SignatureDataTable extends BaseDataTable
                 }
             })
             ->addColumn('attachment', function($signature){
-                return "<a href='" . asset('images/signature/'.$signature->attachment) . "'><span class='badge bg-primary '>View </span></a>";
+                return "<a href='" . asset('images/bonds/'.$signature->attachment) . "'><span class='badge bg-primary '>View </span></a>";
             })
             ->addColumn('actions', function($signature){
                 return view('signature.actions', compact('signature'));
@@ -99,7 +99,7 @@ class SignatureDataTable extends BaseDataTable
             Column::make('id')->title('ID'),
             Column::computed('name'),
             Column::make('attachment_type'),
-            Column::make('attachment')->title('view Seal & Signature'),
+            Column::make('attachment')->title('View Seal/Signature'),
             Column::computed('actions')
                 ->title('Action')
                 ->exportable(true)
@@ -122,7 +122,7 @@ class SignatureDataTable extends BaseDataTable
     public function getFilters(): array
     {
         $attch  =   [
-            0 => " select a Seal & Signature",
+            0 => " select Seal/Signature",
             1 => "Seal",
             2 => "Signature",
         ];
