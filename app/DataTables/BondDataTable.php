@@ -87,8 +87,7 @@ class BondDataTable extends BaseDataTable
      */
     public function query(Bond $model)
     {
-        $user = $this->user;
-//        dd($user->role->slug);
+        $user = Auth::user();
         $query = $model->where('status','!=', 0)->newQuery();
         if (isRoleCustomer($user->role)) {
             $query = $model->from(TableName(Bond::class) . ' as bond')
