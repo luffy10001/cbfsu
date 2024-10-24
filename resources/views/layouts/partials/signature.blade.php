@@ -6,7 +6,7 @@
             </svg>
         </x-slot>
         <x-slot name="label">
-            Seal & Signature
+            Seals/Signatures
         </x-slot>
         <x-slot name="activeTab">
             {!! ( isCurrentRoute('signature.index') )?'show':'' !!}
@@ -22,7 +22,7 @@
                         <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
                         <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                     </svg>
-                    Seal & Signature
+                    Seals/Signatures
                 </a>
             </li>
         @endif

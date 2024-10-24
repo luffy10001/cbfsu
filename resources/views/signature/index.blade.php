@@ -3,13 +3,13 @@
         <x-table-header-component>
             <x-slot name="buttons">
                 @if(isPermission('signature.create'))
-                    <button data='{!! json_encode(['test'=>'1']) !!}' class="btn testsss btn-success float-end modal_open"  url="{{route('signature.create')}}" size="md">Create Seal & Signature</button>
+                    <button data='{!! json_encode(['test'=>'1']) !!}' class="btn testsss btn-success float-end modal_open"  url="{{route('signature.create')}}" size="md">Create Seal/Signature</button>
                 @endif
             </x-slot>
             {{ $dataTable->filters() }}
         </x-table-header-component>
         <x-slot name="title">
-            {{ __('Manage Seal & Signature') }}
+            {{ __('Manage Seals/Signatures') }}
         </x-slot>
     </x-slot>
     <div class="py-12">

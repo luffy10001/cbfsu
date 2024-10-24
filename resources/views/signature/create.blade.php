@@ -1,6 +1,6 @@
 <x-custom-modal-component>
     <x-slot name="title">
-        {{ __('Create Seal & Signature') }}
+        {{ __('Create Seal/Signature') }}
     </x-slot>
 
     <x-slot name="body">
@@ -19,7 +19,7 @@
             }
         </style>
         <div class="modal-body">
-            <form action="{{route('signature.store')}}" method="POST">
+            <form action="{{route('signature.store')}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row relative">
                     <div class="col-md-12 mb-3">

@@ -1,6 +1,6 @@
 <x-custom-modal-component>
     <x-slot name="title">
-        {{ __('Edit Seal & Signature') }}
+        {{ __('Edit Seal/Signature') }}
     </x-slot>
 
     <x-slot name="body">
@@ -37,7 +37,8 @@
                                     </a>
                                 @else
                                     <!-- If it's not a PDF, display the image -->
-                                    <img src="{{ asset('images/signature/' . $signature->attachment) }}" alt="Attachment" style="max-width: 100%;">
+                                    <img src="{{ asset('images/bonds/'.$signature->attachment) }}" alt="Attachment" style="max-width: 100%;">
+
                                 @endif
                                 <input type="hidden" name="attachment" value="{{ $signature->attachment ?? '' }}">
 
