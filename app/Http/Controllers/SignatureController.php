@@ -34,7 +34,7 @@ class SignatureController extends Controller
         ];
         if($request->has('attachment') && gettype($request->attachment)=="object")
         {
-            $fileUploadResponse = $this->uploadFile($request->file('attachment'), 'images/signatures/');
+            $fileUploadResponse = $this->uploadFile($request->file('attachment'), 'images/bonds/');
             if (isset($fileUploadResponse['success']) && $fileUploadResponse['success'] == TRUE )
             {
                 $data['attachment'] = $fileUploadResponse['filename'];
