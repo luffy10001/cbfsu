@@ -28,19 +28,18 @@ class SignatureController extends Controller
         [
             'attachment_type'   =>  'The attachment type field is required.',
         ]);
-        $att_time='';
-        if($request->hasFile('attachment')){
-            $fileUploadResponse = $this->uploadFile($request->file('attachment'), 'images/signature/');
-            if (isset($fileUploadResponse['success']) && $fileUploadResponse['success'] == TRUE )
-            {
-                $att_time = $fileUploadResponse['filename'];
-            }
-        }
         $data   =   [
             'name'  =>  $request['name'],
             'attachment_type'  =>  $request['attachment_type'],
-            'attachment'  =>  $att_time,
         ];
+        if($request->has('attachment') && gettype($request->attachment)=="object")
+        {
+            $fileUploadResponse = $this->uploadFile($request->file('attachment'), 'images/signatures/');
+            if (isset($fileUploadResponse['success']) && $fileUploadResponse['success'] == TRUE )
+            {
+                $data['attachment'] = $fileUploadResponse['filename'];
+            }
+        }
         Signature::create($data);
         return response()->json([
             'success' => true,
