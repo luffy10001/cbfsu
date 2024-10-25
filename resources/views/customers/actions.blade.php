@@ -1,14 +1,14 @@
 <x-crm-dropdown>
     @if(isPermission('customer.edit'))
         <li>
-            <a class="dropdown-item modal_open" size="xl" url="{!! route('customer.edit',$obj->id) !!}"><i
+            <a class="dropdown-item" size="xl" href="{!! route('customer.edit',mws_encrypt('E',$obj->id)) !!}"><i
                         class="bi bi-pencil-square"></i>
                 Edit</a>
         </li>
     @endif
     @if(isPermission('customer.view'))
         <li>
-            <a class="dropdown-item modal_open" size="lg" url="{!! route('customer.view',$obj->id) !!}"><i
+            <a class="dropdown-item" size="lg" href="{!! route('customer.view',mws_encrypt('E',$obj->id)) !!}"><i
                         class="bi bi-info-circle"></i>
                 View</a>
         </li>
