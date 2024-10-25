@@ -30,7 +30,7 @@ class BondController extends Controller
     public function index(BondDataTable $dataTable)
     {
         $user = Auth::user();
-        $slug = $user->role()->slug;
+        $slug = $user->role->slug??'';
         return $dataTable->render('bonds.index',compact('slug'));
     }
 
