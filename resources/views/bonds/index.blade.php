@@ -2,7 +2,7 @@
     <x-slot name="header">
         <x-table-header-component>
             <x-slot name="buttons">
-                @if(isPermission('bond.create') && $user['role_id'] != 1)
+                @if(isPermission('bond.create') && $slug == "customer")
                     <a href="{{route('bond.create')}}">
                         <button  class="btn testsss btn-success float-end">Request Bid Bond</button>
                     </a>

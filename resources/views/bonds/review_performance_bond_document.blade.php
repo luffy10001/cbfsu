@@ -61,7 +61,7 @@
                                             <p class="mb-0"> Territory  </p>
                                         </div>
                                         <div class="col-sm-8">
-                                            <p class="text-muted mb-0"> {{$bond_detail->customer->authority->territory ?? ''}}  </p>
+                                            <p class="text-muted mb-0"> {{$bond_detail->customer->authority->province->name ?? ''}}  </p>
                                         </div>
                                     </div>
                                     <hr>
