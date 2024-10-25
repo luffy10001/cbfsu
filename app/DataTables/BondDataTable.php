@@ -29,7 +29,7 @@ class BondDataTable extends BaseDataTable
         return datatables()
             ->eloquent($query)
             ->addColumn('company_name', function($obj){
-                return $obj->customer->user['name'];
+                return $obj->customer->user['name']??'';
             })
             ->addColumn('status', function($community){
                 $statuses = bondStatus(); // Call the bondStatus() function
