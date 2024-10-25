@@ -29,7 +29,7 @@ class BondDataTable extends BaseDataTable
         return datatables()
             ->eloquent($query)
             ->addColumn('company_name', function($obj){
-                return $obj->customer->user['name'];
+                return $obj->customer->user['name']??'';
             })
             ->addColumn('status', function($community){
                 $statuses = bondStatus(); // Call the bondStatus() function
@@ -87,9 +87,11 @@ class BondDataTable extends BaseDataTable
      */
     public function query(Bond $model)
     {
+
         $user = Auth::user();
+        $role = $user->role;
         $query = $model->where('status','!=', 0)->newQuery();
-        if (isRoleCustomer($user->role)) {
+        if ($role->slug=='customer') {
             $query = $model->from(TableName(Bond::class) . ' as bond')
                 ->leftJoin(TableName(Customer::class) . ' as cus', 'bond.customer_id', '=', 'cus.id')
                 ->select('bond.*')
