@@ -257,12 +257,16 @@ class BondController extends Controller
             $authority   =   Authority::where('customer_id', $bondObj->customer_id)->first();
             $customer   =   Customer::where('id', $bondObj->customer_id)->first();
             $startDate = Carbon::parse($bondObj->bid_start_date);
-            $completionDate = Carbon::parse($bondObj->completion_date);
+            $completionDate = Carbon::parse($bondObj->bid_completion_date);
+//            echo "<pre>";
+//            print_r($startDate);
+//            print_r($completionDate);
+//            exit;
             $daysDifference = $startDate->diffInDays($completionDate);
             $job_year = $authority->job_duration;
             $job_duration_days = Carbon::now()->diffInDays(Carbon::now()->addYears($job_year));
-
-            //For automatic assign bid bond Documents
+//            dd($job_duration_days, $daysDifference);
+//            //For automatic assign bid bond Documents
 
             if($authority->territory == $bondObj->state_id && $job_duration_days >= $daysDifference && $authority->single_job_limit >= $bondObj->bid_amount){
                 $bid_bond_data  =   [
