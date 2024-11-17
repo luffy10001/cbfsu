@@ -263,6 +263,34 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="panel-heading">
+                    <h6 class="accordion-header mt-0" id="headingFive" style="background-color: #edf7fd;padding:15px">
+                        <strong>Questions </strong>
+                    </h6>
+                </div>
+                <div class="panel-body">
+                    <div class="accordion-body">
+                        <div class="card mb-4 mt-2 question-row" data-index="{{ $key }}">
+                            <div class="card-body">
+                                <div class="row" id="questions-container">
+                                    @foreach($questions as $key => $item)
+                                        <div class="col-md-6 mb-3" id="question-row-{{ $key }}">
+                                            <label for="questions_{{ $key }}" class="form-label">Question <span class="req text-danger">*</span></label>
+                                            <input type="text" class="form-control" placeholder="Questions" id="questions_{{ $key }}" name="questions[{{ $key }}]" value="{{ $item->question }}">
+                                            <input type="hidden" class="form-control" placeholder="Questions" name="question_id[{{ $key }}]" value="{{ $item->id }}">
+                                            <button type="button" class="btn btn-danger btn-sm remove-question" data-index="{{ $key }}" style="margin-top: 10px;">Remove</button>
+                                        </div>
+                                    @endforeach
+                                </div>
+                                <button class="btn btn-success" type="button" id="add-question">+ Add More</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
                 @include('layouts.stepform.footer',['last' => false])
             </div>
 
@@ -382,5 +410,34 @@
         }
     });
 
+</script>
+<script>
+    $(document).ready(function () {
+        let questionIndex = {{ count($questions) }};  // Set the starting index from the count of existing questions
+
+        // Click event for adding a new question input field
+        $('#add-question').click(function () {
+            addQuestionField('', questionIndex);
+            questionIndex++;
+        });
+
+        // Function to add a question field dynamically
+        function addQuestionField(value, index) {
+            const newQuestionField = `
+                <div class="col-md-6 mb-3" id="question-row-${index}">
+                    <label for="questions_${index}" class="form-label">Question <span class="req text-danger">*</span></label>
+                    <input type="text" class="form-control" placeholder="Questions" id="questions_${index}" name="questions[${index}]" value="${value}">
+                    <button type="button" class="btn btn-danger btn-sm remove-question" data-index="${index}" style="margin-top: 10px;">Remove</button>
+                </div>
+            `;
+            $('#questions-container').append(newQuestionField);
+        }
+
+        // Click event for removing question input field
+        $(document).on('click', '.remove-question', function () {
+            const index = $(this).data('index'); // Get the index of the question to be removed
+            $(`#question-row-${index}`).remove(); // Remove the parent div containing the question and remove button
+        });
+    });
 </script>
 
