@@ -216,7 +216,7 @@ class CustomerController extends Controller
             'warranty_dur'          => 'required',
             'hazmat'                => 'required',
             'minim_bid'             => 'required',
-            'questions.0'              => 'required',
+//            'questions.0'              => 'required',
             'questions.*'              => 'required',
 
 
