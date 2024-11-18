@@ -275,20 +275,24 @@
                             <div class="card-body">
                                 <div class="row" id="questions-container">
                                     @foreach($questions as $key => $item)
-                                        <div class="col-md-6 mb-3" id="question-row-{{ $key }}">
-                                            <label for="questions_{{ $key }}" class="form-label">Question <span class="req text-danger">*</span></label>
-                                            <input type="text" class="form-control" placeholder="Questions" id="questions_{{ $key }}" name="questions[{{ $key }}]" value="{{ $item->question }}">
-                                            <input type="hidden" class="form-control" placeholder="Questions" name="question_id[{{ $key }}]" value="{{ $item->id }}">
-                                            <button type="button" class="btn btn-danger btn-sm remove-question" data-index="{{ $key }}" style="margin-top: 10px;">Remove</button>
+                                        <div class="row mb-3" id="question-row-{{ $key }}">
+                                            <div class="col-md-11">
+                                                <label for="questions_{{ $key }}" class="form-label">Question <span class="req text-danger">*</span></label>
+                                                <input type="text" class="form-control" placeholder="Questions" id="questions_{{ $key }}" name="questions[{{ $key }}]" value="{{ $item->question }}">
+                                                <input type="hidden" name="question_id[{{ $key }}]" value="{{ $item->id }}">
+                                            </div>
+                                            <div class="col-md-1 d-flex align-items-center" style="margin-top: 24px">
+                                                <button type="button" class="btn btn-danger btn-sm remove-question" data-index="{{ $key }}">Remove</button>
+                                            </div>
                                         </div>
                                     @endforeach
                                 </div>
                                 <button class="btn btn-success" type="button" id="add-question">+ Add More</button>
                             </div>
                         </div>
-
                     </div>
                 </div>
+
 
 
                 @include('layouts.stepform.footer',['last' => false])
@@ -413,30 +417,34 @@
 </script>
 <script>
     $(document).ready(function () {
-        let questionIndex = {{ count($questions) }};  // Set the starting index from the count of existing questions
+        let questionIndex = {{ count($questions) }}; // Initialize index from the count of existing questions
 
-        // Click event for adding a new question input field
+        // Add a new question field dynamically
         $('#add-question').click(function () {
             addQuestionField('', questionIndex);
             questionIndex++;
         });
 
-        // Function to add a question field dynamically
+        // Function to append a new question field
         function addQuestionField(value, index) {
             const newQuestionField = `
-                <div class="col-md-6 mb-3" id="question-row-${index}">
-                    <label for="questions_${index}" class="form-label">Question <span class="req text-danger">*</span></label>
-                    <input type="text" class="form-control" placeholder="Questions" id="questions_${index}" name="questions[${index}]" value="${value}">
-                    <button type="button" class="btn btn-danger btn-sm remove-question" data-index="${index}" style="margin-top: 10px;">Remove</button>
+                <div class="row mb-3" id="question-row-${index}">
+                    <div class="col-md-11">
+                        <label for="questions_${index}" class="form-label">Question <span class="req text-danger">*</span></label>
+                        <input type="text" class="form-control" placeholder="Questions" id="questions_${index}" name="questions[${index}]" value="${value}">
+                    </div>
+                    <div class="col-md-1 d-flex align-items-center" style="margin-top: 24px">
+                        <button type="button" class="btn btn-danger btn-sm remove-question" data-index="${index}">Remove</button>
+                    </div>
                 </div>
             `;
             $('#questions-container').append(newQuestionField);
         }
 
-        // Click event for removing question input field
+        // Remove a question field dynamically
         $(document).on('click', '.remove-question', function () {
-            const index = $(this).data('index'); // Get the index of the question to be removed
-            $(`#question-row-${index}`).remove(); // Remove the parent div containing the question and remove button
+            const index = $(this).data('index');
+            $(`#question-row-${index}`).remove();
         });
     });
 </script>
