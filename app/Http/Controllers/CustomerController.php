@@ -70,6 +70,8 @@ class CustomerController extends Controller
             'warranty_dur'          => 'required',
             'hazmat'                => 'required',
             'minim_bid'             => 'required',
+            'questions.0'           => 'required',
+            'questions.*'           => 'required',
 
 
 
@@ -207,14 +209,15 @@ class CustomerController extends Controller
             'start_date'            => 'required',
             'exp_date'              => 'required',
             'territory'             => 'required|gt:0',
-            'single_limt'            => 'required|',
-            'aggr_limt'              => 'required',
+            'single_limt'           => 'required|',
+            'aggr_limt'             => 'required',
             'design_build'          => 'required',
             'job_dur'               => 'required',
             'warranty_dur'          => 'required',
             'hazmat'                => 'required',
             'minim_bid'             => 'required',
-
+            'questions.0'              => 'required',
+            'questions.*'              => 'required',
 
 
         ], [

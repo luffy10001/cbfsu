@@ -54,6 +54,53 @@ xmlns="http://www.w3.org/1999/html">
             </div>
         </div>
     </div>
+
+
+    <div class="container p-0 mt-4">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card mb-2">
+                    <div class="card-body">
+                        <div class="container mt-3">
+                            <!-- Tabs -->
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                @foreach($quest_data as $key => $item)
+                                        <?php $tab_id = $key + 1; ?>
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link {{ $key === 0 ? 'active' : '' }}" id="tab{{ $key }}-tab" data-bs-toggle="tab" href="#tab{{ $key }}" role="tab" aria-controls="tab{{ $key }}" aria-selected="{{ $key === 0 ? 'true' : 'false' }}">
+                                            Question {{ $tab_id }}
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
+
+                            <!-- Tab Content -->
+                            <div class="tab-content" id="myTabContent">
+                                @foreach($quest_data as $key => $item)
+                                    <div class="tab-pane fade {{ $key === 0 ? 'show active' : '' }} tab-height" id="tab{{ $key }}" role="tabpanel" aria-labelledby="tab{{ $key }}-tab">
+                                        <div class="panel-body mt-3">
+                                            <div class="accordion-body">
+                                                <div class="card mb-4 mt-2">
+                                                    <div class="card-body">
+                                                        <!-- Add your question content here -->
+                                                        <div class="col-md-12 form-group">
+                                                            <label for="damages" class="form-label"> {!! $item->question !!} <span class="req text-danger">*</span></label>
+                                                            <input type="hidden" class="form-control "  name="ques_id['{!! $item->id !!}']" value="{{$item->id??''}}" required='required'>
+                                                            <textarea class="form-control"  name="ques_answer['{!! $item->id !!}']" required='required'> {!! $item->answer ?? '' !!} </textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 <div class="panel-body">
     @include('bonds.sections.footer',['last' => false])

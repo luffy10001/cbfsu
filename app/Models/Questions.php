@@ -12,6 +12,7 @@ class Questions extends Model
     use SoftDeletes;
      protected $fillable    =   [
          'question',
-         'customer_id'
+         'customer_id',
+         'answer'
      ];
 }
