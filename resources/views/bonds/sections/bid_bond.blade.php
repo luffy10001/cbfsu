@@ -71,15 +71,11 @@ xmlns="http://www.w3.org/1999/html">
                                     </h2>
                                     <div id="collapse{{ $key }}" class="accordion-collapse collapse {{ $key === 0 ? 'show' : '' }}" aria-labelledby="heading{{ $key }}" data-bs-parent="#questionAccordion">
                                         <div class="accordion-body">
-
-
-                                                    <div class="">
+                                            <div class="">
 {{--                                                        <label for="damages" class="form-label">{!! $item->question !!} <span class="req text-danger">*</span></label>--}}
-                                                        <input type="hidden" class="form-control" name="ques_id['{!! $item->id !!}']" value="{{ $item->id ?? '' }}" required="required">
-                                                        <textarea class="form-control" name="ques_answer['{!! $item->id !!}']" required="required">{!! $item->answer ?? '' !!}</textarea>
-                                                    </div>
-
-
+                                                <input type="hidden" class="form-control" name="ques_id['{!! $item->id !!}']" value="{{ $item->id ?? '' }}" required="required">
+                                                <textarea class="form-control" name="ques_answer['{!! $item->id !!}']" required="required">{!! $item->answer ?? '' !!}</textarea>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
