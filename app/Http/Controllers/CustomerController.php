@@ -10,6 +10,7 @@ use App\Models\Authority;
 use App\Models\City;
 use App\Models\Insurer;
 use App\Models\Province;
+use App\Models\Questions;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Customer;
@@ -69,6 +70,8 @@ class CustomerController extends Controller
             'warranty_dur'          => 'required',
             'hazmat'                => 'required',
             'minim_bid'             => 'required',
+            'questions.0'           => 'required',
+            'questions.*'           => 'required',
 
 
 
@@ -132,6 +135,15 @@ class CustomerController extends Controller
             'minimum_bid'      =>    $request['minim_bid'],
         ];
         Authority::create($authority_data);
+
+        foreach ($request['questions'] as $question) {
+            $question_data  =   [
+                'customer_id'       => $customer->id,
+                'question'         => $question,
+            ];
+            Questions::create($question_data);
+        }
+
 //        $baseUrl = config('app.url');
 //        Mail::to($request['email'])->send(new CustomerMail(
 //            [
@@ -167,8 +179,9 @@ class CustomerController extends Controller
             ->orderBy('name')
             ->get();
         $insurers = Insurer::get();
+        $questions   =   Questions::where('customer_id',$customer->id)->get();
         $route = 'customer.index';
-        return view('customers.edit', compact('customer','customer','provinces','insurers','route','cities','authority'));
+        return view('customers.edit', compact('customer','customer','provinces','insurers','route','cities','authority','questions'));
     }
     public function update(Request $request)
     {
@@ -196,14 +209,15 @@ class CustomerController extends Controller
             'start_date'            => 'required',
             'exp_date'              => 'required',
             'territory'             => 'required|gt:0',
-            'single_limt'            => 'required|',
-            'aggr_limt'              => 'required',
+            'single_limt'           => 'required|',
+            'aggr_limt'             => 'required',
             'design_build'          => 'required',
             'job_dur'               => 'required',
             'warranty_dur'          => 'required',
             'hazmat'                => 'required',
             'minim_bid'             => 'required',
-
+//            'questions.0'              => 'required',
+            'questions.*'              => 'required',
 
 
         ], [
@@ -269,6 +283,47 @@ class CustomerController extends Controller
             'minimum_bid'      =>    $request['minim_bid'],
         ];
         Authority::where('id',$request['authority_id'])->update($authority_data);
+
+        // Get all existing questions for the customer
+        $existing_questions = Questions::where('customer_id', $request['cust_id'])->get();
+
+// Extract existing question IDs from the database
+        $existing_question_ids = $existing_questions->pluck('id')->toArray();
+
+// Initialize an array to hold the question IDs from the request
+        $request_question_ids = [];
+
+        foreach ($request['questions'] as $key => $question_text) {
+            // Prepare the question data to be saved
+            $question_data = [
+                'customer_id' => $request['cust_id'],  // Customer ID
+                'question'    => $question_text,  // Question text from the form
+            ];
+
+            // Check if question_id exists for the current question
+            if (isset($request['question_id'][$key]) && !empty($request['question_id'][$key])) {
+                // If a question_id exists, update the existing record
+                $question_id = $request['question_id'][$key];
+                Questions::updateOrCreate(
+                    ['id' => $question_id],  // Use the question_id to find the record
+                    $question_data  // Update the record with the new data
+                );
+
+                // Add this question_id to the request array for deletion check
+                $request_question_ids[] = $question_id;
+            } else {
+                // If question_id does not exist, create a new record
+                Questions::create($question_data);  // Create a new record with the question data
+            }
+        }
+
+// Find the question IDs that need to be deleted (those in the database but not in the request)
+        $questions_to_delete = array_diff($existing_question_ids, $request_question_ids);
+
+// Delete the records that are no longer in the request data
+        if (!empty($questions_to_delete)) {
+            Questions::whereIn('id', $questions_to_delete)->delete();
+        }
 
         return response()->json([
             'success' => true,

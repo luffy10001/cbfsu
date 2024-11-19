@@ -10,6 +10,7 @@ use App\Models\Bond;
 use App\Models\Customer;
 use App\Models\City;
 use App\Models\Province;
+use App\Models\Questions;
 use App\Models\SubContractor;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -49,8 +50,7 @@ class BondController extends Controller
             $customer = Customer::where('user_id',$user->id)->first();
         }
 
-
-
+        $quest_data =   Questions::where('customer_id',$customer->id)->get();
         // for edit
         $request = Request();
         $obj = '';
@@ -63,7 +63,7 @@ class BondController extends Controller
             $user = $obj->customer->user;
         }
         return view('bonds.create',compact('obj','route','role','user','customer',
-            'provinces','cities'));
+            'provinces','cities','quest_data'));
     }
 
     public function store(Request $request)
@@ -180,6 +180,18 @@ class BondController extends Controller
                 'bid_damages'          => $request['bid_damages'],
             ];
             $bondObj->update($bid_data);
+
+            foreach ($request['ques_id'] as $key => $id) {
+                $answer = $request->input('ques_answer')[$key];
+                $quest_data = [
+                    'answer' => $answer // Answer from the textarea
+                ];
+                Questions::where('id',$id)->update($quest_data);
+            }
+//            exit();
+//            dd($request['ques_id'],$request['ques_answer']);
+
+
             return response()->json([
                 'success' => true,
                 'message' => 'Bond Details Updated Successfully!',
