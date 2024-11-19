@@ -405,6 +405,32 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="panel-heading">
+                                <hr style="margin-top: 0;">
+                                <h6 class="accordion-header mt-0" id="headingFive" style="background-color: #edf7fd;padding:15px">
+                                    <strong> Questions </strong>
+                                </h6>
+                            </div>
+                            <div class="panel-body">
+                                <div class="accordion-body">
+                                    <div class="card mb-4 mt-2">
+                                        <div class="card-body">
+                                            @foreach($bond_detail->customer->questions as $key => $quest)
+                                                    <?php $qv= $key+1 ?>
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <p class="mb-0"> <strong>{!! $quest->question ?? '' !!}</strong> </p>
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                        <p class="text-muted mb-0"> {{ $quest->answer ?? ''}}  </p>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

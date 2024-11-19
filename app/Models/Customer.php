@@ -44,4 +44,7 @@ class Customer extends Model
     public function authority(){
         return $this->hasOne(Authority::class,'customer_id');
     }
+    public function questions(){
+        return $this->hasMany(Questions::class,'customer_id');
+    }
 }

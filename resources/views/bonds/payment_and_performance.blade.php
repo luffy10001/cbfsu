@@ -72,16 +72,16 @@
         <tr>
             <td style="vertical-align: top; width: 50%;">
                 <div class="pb-heading"> <strong> CONTRACTOR:</strong> </div>
-                <div class="pb-heading-text"> <strong>Name:</strong> {!! $bond_data->customer->user->name !!}</div>
-                <div class="pb-heading-text"> <strong> Address:</strong> {!! $bond_data->customer->address !!}</div>
-                <div class="pb-heading-text"> <strong>City, ST, Zip: </strong> {!! $bond_data->customer->state->name !!}, {!! $bond_data->customer->city->name !!}, {!! $bond_data->customer->zip !!}</div>
+                <div class="pb-heading-text"> <strong>Name:</strong> {!! $bond_data->customer->user->name ?? '' !!}</div>
+                <div class="pb-heading-text"> <strong> Address:</strong> {!! $bond_data->customer->address ?? '' !!}</div>
+                <div class="pb-heading-text"> <strong>City, ST, Zip: </strong> {!! $bond_data->customer->state->name ?? '' !!}, {!! $bond_data->customer->city->name ?? '' !!}, {!! $bond_data->customer->zip ?? '' !!}</div>
             </td>
 
             <td style="vertical-align: top; width: 50%; text-align: left;">
                 <div class="pb-heading"> <strong> SURETY:</strong> </div>
-                <div class="pb-heading-text"> <strong>Name:</strong> {!! $bond_data->customer->authority->surerty->name !!}</div>
-                <div class="pb-heading-text"> <strong>Address: </strong> {!! $bond_data->customer->authority->surerty->address !!}</div>
-                <div class="pb-heading-text"> <strong>City, ST, Zip: </strong>{!! $bond_data->customer->authority->surerty->state->name !!}, {!! $bond_data->customer->authority->surerty->city->name !!}, {!! $bond_data->customer->authority->surerty->zip !!}</div>
+                <div class="pb-heading-text"> <strong>Name:</strong> {!! $bond_data->customer->authority->surerty->name ?? '' !!}</div>
+                <div class="pb-heading-text"> <strong>Address: </strong> {!! $bond_data->customer->authority->surerty->address ?? '' !!}</div>
+                <div class="pb-heading-text"> <strong>City, ST, Zip: </strong>{!! $bond_data->customer->authority->surerty->state->name ?? '' !!}, {!! $bond_data->customer->authority->surerty->city->name ?? '' !!}, {!! $bond_data->customer->authority->surerty->zip ?? '' !!}</div>
             </td>
         </tr>
     </table>
@@ -92,15 +92,15 @@
         <tr>
             <td style="vertical-align: top; width: 60%;">
                 <div class="pb-heading"> <strong> OWNER:</strong> </div>
-                <div class="pb-heading-text"> <strong>Name: </strong> {!! $bond_data->owner_name !!}</div>
-                <div class="pb-heading-text"> <strong>Address: </strong> {!! $bond_data->owner_address !!}</div>
-                <div class="pb-heading-text"> <strong>City, ST, Zip: </strong> {!! $bond_data->state->name !!}, {!! $bond_data->city->name !!}, {!! $bond_data->zip !!}</div>
+                <div class="pb-heading-text"> <strong>Name: </strong> {!! $bond_data->owner_name ?? '' !!}</div>
+                <div class="pb-heading-text"> <strong>Address: </strong> {!! $bond_data->owner_address ?? '' !!}</div>
+                <div class="pb-heading-text"> <strong>City, ST, Zip: </strong> {!! $bond_data->state->name ?? '' !!}, {!! $bond_data->city->name ?? '' !!}, {!! $bond_data->zip ?? '' !!}</div>
             </td>
             <td style="vertical-align: top; width: 40%; text-align: left;">
                 <div style="font-size: 12px; margin-bottom: 10px"> <strong> MAILING ADDRESS FOR NOTICES:</strong> </div>
-                <div style="font-size: 12px;margin-top: 10px;"> <strong>Name: </strong> {!! $bond_data->customer->authority->surerty->name !!}</div>
-                <div style="font-size: 12px;margin-top: 5px;"> <strong>Address: </strong> {!! $bond_data->customer->authority->surerty->address !!}</div>
-                <div style="font-size: 12px;margin-top: 5px;"> <strong>City, ST, Zip: </strong> {!! $bond_data->customer->authority->surerty->state->name !!}, {!! $bond_data->customer->authority->surerty->city->name !!}, {!! $bond_data->customer->authority->surerty->zip !!}</div>
+                <div style="font-size: 12px;margin-top: 10px;"> <strong>Name: </strong> {!! $bond_data->customer->authority->surerty->name ?? '' !!}</div>
+                <div style="font-size: 12px;margin-top: 5px;"> <strong>Address: </strong> {!! $bond_data->customer->authority->surerty->address ?? '' !!}</div>
+                <div style="font-size: 12px;margin-top: 5px;"> <strong>City, ST, Zip: </strong> {!! $bond_data->customer->authority->surerty->state->name ?? '' !!}, {!! $bond_data->customer->authority->surerty->city->name ?? '' !!}, {!! $bond_data->customer->authority->surerty->zip ?? '' !!}</div>
             </td>
             <td style="vertical-align: top; width: 30%; text-align: left;">
                 <p style="font-size:10px;">
@@ -157,7 +157,7 @@
             <td style="vertical-align: top; width: 50%; text-align: left;">
                 <div class="pb-heading"> <strong> SURETY</strong> </div>
                 <div class="pb-heading-text" style="margin-top: 10px;"> <strong>Company: </strong> <i style="padding-left: 50px">(Corporate Seal)</i> </div>
-                <div style="margin-top: 5px;"> <strong>Surety Name: </strong> {!! $bond_data->customer->authority->surerty->name!!}</div>
+                <div style="margin-top: 5px;"> <strong>Surety Name: </strong> {!! $bond_data->customer->authority->surerty->name ?? '' !!}</div>
                 <div class="pb-heading-text" style="margin-top: 35px !important;"> <strong>Signature: </strong> <span class="line-underline" style=" width: 70%; display: inline-block;">&nbsp;</span>  </div>
                 <div class="pb-heading-text" style="margin-top: 5px;"> <strong>Name and Title: </strong> </div>
             </td>

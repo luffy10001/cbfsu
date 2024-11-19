@@ -79,16 +79,16 @@
         <tr>
             <td style="width: 50%;">
                 <div class="pb-heading"> <strong> CONTRACTOR:</strong> </div>
-                <div class="pb-heading-text"> <strong>Name:</strong> {!! $bond_data->customer->user->name !!}</div>
-                <div class="pb-heading-text"> <strong> Address:</strong> {!! $bond_data->customer->address !!}</div>
-                <div class="pb-heading-text"> <strong>City, ST, Zip: </strong> {!! $bond_data->customer->state->name !!}, {!! $bond_data->customer->city->name !!}, {!! $bond_data->customer->zip !!}</div>
+                <div class="pb-heading-text"> <strong>Name:</strong> {!! $bond_data->customer->user->name ?? '' !!}</div>
+                <div class="pb-heading-text"> <strong> Address:</strong> {!! $bond_data->customer->address ?? '' !!}</div>
+                <div class="pb-heading-text"> <strong>City, ST, Zip: </strong> {!! $bond_data->customer->state->name?? '' !!}, {!! $bond_data->customer->city->name ?? '' !!}, {!! $bond_data->customer->zip ?? ''!!}</div>
             </td>
 
             <td style="vertical-align: top; width: 50%; text-align: left;">
                 <div class="pb-heading"> <strong> SURETY:</strong> </div>
-                <div class="pb-heading-text"> <strong>Name:</strong> {!! $bond_data->customer->authority->surerty->name !!}</div>
-                <div class="pb-heading-text"> <strong>Address: </strong> {!! $bond_data->customer->authority->surerty->address !!}</div>
-                <div class="pb-heading-text"> <strong>City, ST, Zip: </strong>{!! $bond_data->customer->authority->surerty->state->name !!}, {!! $bond_data->customer->authority->surerty->city->name !!}, {!! $bond_data->customer->authority->surerty->zip !!}</div>
+                <div class="pb-heading-text"> <strong>Name:</strong> {!! $bond_data->customer->authority->surerty->name ?? '' !!}</div>
+                <div class="pb-heading-text"> <strong>Address: </strong> {!! $bond_data->customer->authority->surerty->address ?? '' !!}</div>
+                <div class="pb-heading-text"> <strong>City, ST, Zip: </strong>{!! $bond_data->customer->authority->surerty->state->name ?? '' !!}, {!! $bond_data->customer->authority->surerty->city->name  ?? ''!!}, {!! $bond_data->customer->authority->surerty->zip ?? '' !!}</div>
             </td>
         </tr>
     </table>
@@ -99,15 +99,15 @@
         <tr>
             <td style="vertical-align: top; width: 50%;">
                 <div class="pb-heading"> <strong> OWNER:</strong> </div>
-                <div class="pb-heading-text"> <strong>Name: </strong> {!! $bond_data->owner_name !!}</div>
-                <div class="pb-heading-text"> <strong>Address: </strong> {!! $bond_data->owner_address !!}</div>
-                <div class="pb-heading-text"> <strong>City, ST, Zip: </strong> {!! $bond_data->state->name !!}, {!! $bond_data->city->name !!}, {!! $bond_data->zip !!}</div>
+                <div class="pb-heading-text"> <strong>Name: </strong> {!! $bond_data->owner_name ?? '' !!}</div>
+                <div class="pb-heading-text"> <strong>Address: </strong> {!! $bond_data->owner_address ?? '' !!}</div>
+                <div class="pb-heading-text"> <strong>City, ST, Zip: </strong> {!! $bond_data->state->name ?? '' !!}, {!! $bond_data->city->name ?? '' !!}, {!! $bond_data->zip ?? '' !!}</div>
             </td>
             <td style="vertical-align: top; width: 50%; text-align: left;">
                 <div class="pb-heading"> <strong> MAILING ADDRESS FOR NOTICES:</strong> </div>
-                <div style="margin-top: 10px;"> <strong>Name: </strong> {!! $bond_data->customer->authority->surerty->name !!}</div>
-                <div style="margin-top: 5px;"> <strong>Address: </strong> {!! $bond_data->customer->authority->surerty->address !!}</div>
-                <div style="margin-top: 5px;"> <strong>City, ST, Zip: </strong> {!! $bond_data->customer->authority->surerty->state->name !!}, {!! $bond_data->customer->authority->surerty->city->name !!}, {!! $bond_data->customer->authority->surerty->zip !!}</div>
+                <div style="margin-top: 10px;"> <strong>Name: </strong> {!! $bond_data->customer->authority->surerty->name ?? '' !!}</div>
+                <div style="margin-top: 5px;"> <strong>Address: </strong> {!! $bond_data->customer->authority->surerty->address ?? '' !!}</div>
+                <div style="margin-top: 5px;"> <strong>City, ST, Zip: </strong> {!! $bond_data->customer->authority->surerty->state->name ?? '' !!}, {!! $bond_data->customer->authority->surerty->city->name ?? '' !!}, {!! $bond_data->customer->authority->surerty->zip ?? '' !!}</div>
             </td>
         </tr>
     </table>
@@ -115,8 +115,7 @@
     <div class="pb-italic-text"> <i> (Any singular references to Contractor, Surety, Owner or other party shall be considered plural where applicable) </i> </div>
 
     <br>
-
-    <p style="font-size: 13px; text-align: center"> $10% of the Bid Amount</p>
+    <p style="font-size: 13px; text-align: center">{{ $bond_data->bid_amount_percentage ?? '0'}}% of the Bid Amount</p>
     <strong style="font-size: 13px"> Project Description:</strong>
 {{--    <div style="padding-top: 2px">Project :</div> <br>--}}
     <p style="font-size:10px; text-align: justify"> The Contractor and Surety are bound to the Owner in the amount set forth above, for the payment of which the Contractor and Surety bind themselves, their heirs, executors, administrators, successors and assigns, jointly and severally, as provided herein. The conditions of this Bond are such that if the Owner accepts the bid of the Contractor within the time specified in the bid documents, or within such time period as may be agreed to by the Owner and Contractor, and the Contractor either (1) enters into a contract with the Owner in accordance with the terms of such bid, and gives such bond or bonds as may be specified in the bidding or Contract Documents, with a surety admitted in the jurisdiction of the Project and otherwise acceptable to the Owner, for the faithful performance of such Contract and for the prompt payment Flabor and material furnished in the prosecution thereof, or (2) pays to the Owner the difference, not to exceed the amount of this Bond, between the amount specified in said bid and such larger amount for which the Owner may in good faith contract with another party to perform the work covered by said bid, then this obligation shall be null and void, otherwise to remain in full force and effect. The Surety hereby waives any notice of an agreement between the Owner and Contractor to extend the time in which the Owner may accept the bid. Waiver of notice by the Surety shall not apply to any extension exceeding sixty (60) days in the aggregate beyond the time for acceptance of bids specified in the bid documents, and the Owner and Contractor shall obtain the Surety's consent for an extension beyond sixty (60) days.</p>
