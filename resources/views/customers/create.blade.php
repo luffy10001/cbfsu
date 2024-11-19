@@ -231,6 +231,35 @@
                             </div>
                         </div>
                     </div>
+
+                <div class="panel-heading">
+                    <h6 class="accordion-header mt-0" id="headingFive" style="background-color: #edf7fd;padding:15px">
+                        <strong>Questions </strong>
+                    </h6>
+                </div>
+                <div class="panel-body">
+                    <div class="accordion-body">
+                        <div class="card mb-4 mt-2">
+                            <div class="card-body">
+                                <div class="row" id="questions-container">
+                                    <div class="row mb-3" id="question_0">
+                                        <div class="col-md-11 mb-3">
+                                            <label for="questions_0" class="form-label">Question <span class="req text-danger">*</span></label>
+                                            <input type="text" class="form-control" placeholder="Questions" id="questions_0" name="questions[0]">
+                                        </div>
+                                        <div class="col-md-1" style="margin-top: 31px; display: none">
+                                            <button type="button" class="btn btn-danger btn-sm remove-question" data-index="0">Remove</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="btn btn-success col-md-2 mt-2" type="button" id="add-question">+ Add More</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
                     @include('layouts.stepform.footer',['last' => false])
                 </div>
 
@@ -343,3 +372,32 @@
 
 </script>
 
+<script>
+    $(document).ready(function () {
+        let questionIndex = 1; // To keep track of array indices
+
+        // Click event for adding new question input field
+        $('#add-question').click(function () {
+            const newQuestionField = `
+                <div class="row mb-3" id="question_${questionIndex}">
+                    <div class="col-md-11 mb-3">
+                        <label for="questions_${questionIndex}" class="form-label">Question <span class="req text-danger">*</span></label>
+                        <input type="text" class="form-control" placeholder="Questions" id="questions_${questionIndex}" name="questions[${questionIndex}]">
+                    </div>
+                    <div class="col-md-1" style="margin-top: 31px;">
+                        <button type="button" class="btn btn-danger btn-sm remove-question" data-index="${questionIndex}">Remove</button>
+                    </div>
+                </div>
+            `;
+            $('#questions-container').append(newQuestionField);
+            questionIndex++;
+        });
+
+        // Click event for removing question input field
+        $(document).on('click', '.remove-question', function () {
+            const index = $(this).data('index'); // Get the index of the button clicked
+            $(this).closest('.row').remove(); // Removes the parent row div containing the question and remove button
+            console.log(`Removed question index: ${index}`);
+        });
+    });
+</script>
