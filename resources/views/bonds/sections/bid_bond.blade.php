@@ -60,32 +60,32 @@ xmlns="http://www.w3.org/1999/html">
         <div class="row">
             <div class="col-md-12">
                 <div class="card mb-2">
-                    <div class="card-body">
+{{--                    <div class="card-body">--}}
                         <div class="accordion" id="questionAccordion">
                             @foreach($quest_data as $key => $item)
                                 <div class="accordion-item">
                                     <h2 class="accordion-header" id="heading{{ $key }}">
                                         <button class="accordion-button {{ $key !== 0 ? 'collapsed' : '' }}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ $key }}" aria-expanded="{{ $key === 0 ? 'true' : 'false' }}" aria-controls="collapse{{ $key }}">
-                                            Question {{ $key + 1 }}
+                                            {{ $key + 1 }}. {!! $item->question !!}
                                         </button>
                                     </h2>
                                     <div id="collapse{{ $key }}" class="accordion-collapse collapse {{ $key === 0 ? 'show' : '' }}" aria-labelledby="heading{{ $key }}" data-bs-parent="#questionAccordion">
                                         <div class="accordion-body">
-                                            <div class="card mb-4 mt-2">
-                                                <div class="card-body">
-                                                    <div class="col-md-12 form-group">
-                                                        <label for="damages" class="form-label">{!! $item->question !!} <span class="req text-danger">*</span></label>
+
+
+                                                    <div class="">
+{{--                                                        <label for="damages" class="form-label">{!! $item->question !!} <span class="req text-danger">*</span></label>--}}
                                                         <input type="hidden" class="form-control" name="ques_id['{!! $item->id !!}']" value="{{ $item->id ?? '' }}" required="required">
                                                         <textarea class="form-control" name="ques_answer['{!! $item->id !!}']" required="required">{!! $item->answer ?? '' !!}</textarea>
                                                     </div>
-                                                </div>
-                                            </div>
+
+
                                         </div>
                                     </div>
                                 </div>
                             @endforeach
                         </div>
-                    </div>
+{{--                    </div>--}}
                 </div>
             </div>
         </div>
