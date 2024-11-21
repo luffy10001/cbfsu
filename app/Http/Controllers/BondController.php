@@ -181,13 +181,16 @@ class BondController extends Controller
             ];
             $bondObj->update($bid_data);
 
-            foreach ($request['ques_id'] as $key => $id) {
-                $answer = $request->input('ques_answer')[$key];
-                $quest_data = [
-                    'answer' => $answer // Answer from the textarea
-                ];
-                Questions::where('id',$id)->update($quest_data);
+            if(isset($request['ques_id'])){
+                foreach ($request['ques_id'] as $key => $id) {
+                    $answer = $request->input('ques_answer')[$key];
+                    $quest_data = [
+                        'answer' => $answer // Answer from the textarea
+                    ];
+                    Questions::where('id',$id)->update($quest_data);
+                }
             }
+
 //            exit();
 //            dd($request['ques_id'],$request['ques_answer']);
 

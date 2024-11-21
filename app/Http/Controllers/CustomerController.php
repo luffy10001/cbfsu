@@ -298,9 +298,16 @@ class CustomerController extends Controller
 
 // Initialize an array to hold the question IDs from the request
         $request_question_ids = [];
+//        dd($request['questions']);
+        if (isset($request['questions'])) {
+            $request_question_ids = []; // Initialize the array for tracking question IDs
 
-        if(isset($request['questions'])){
             foreach ($request['questions'] as $key => $question_text) {
+                // Skip saving if the question_text is empty or null
+                if (empty($question_text)) {
+                    continue;
+                }
+
                 // Prepare the question data to be saved
                 $question_data = [
                     'customer_id' => $request['cust_id'],  // Customer ID
@@ -324,6 +331,7 @@ class CustomerController extends Controller
                 }
             }
         }
+
 
 
 // Find the question IDs that need to be deleted (those in the database but not in the request)
