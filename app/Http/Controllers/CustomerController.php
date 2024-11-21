@@ -70,8 +70,8 @@ class CustomerController extends Controller
             'warranty_dur'          => 'required',
             'hazmat'                => 'required',
             'minim_bid'             => 'required',
-            'questions.0'           => 'required',
-            'questions.*'           => 'required',
+//            'questions.0'           => 'required',
+//            'questions.*'           => 'required',
 
 
 
@@ -136,13 +136,19 @@ class CustomerController extends Controller
         ];
         Authority::create($authority_data);
 
-        foreach ($request['questions'] as $question) {
-            $question_data  =   [
-                'customer_id'       => $customer->id,
-                'question'         => $question,
-            ];
-            Questions::create($question_data);
+
+        if(isset($request['questions'])){
+            foreach ($request['questions'] as $question) {
+                if(isset($question)){
+                    $question_data  =   [
+                        'customer_id'       => $customer->id,
+                        'question'         => $question,
+                    ];
+                    Questions::create($question_data);
+                }
+            }
         }
+
 
 //        $baseUrl = config('app.url');
 //        Mail::to($request['email'])->send(new CustomerMail(
@@ -217,7 +223,7 @@ class CustomerController extends Controller
             'hazmat'                => 'required',
             'minim_bid'             => 'required',
 //            'questions.0'              => 'required',
-            'questions.*'              => 'required',
+//            'questions.*'              => 'required',
 
 
         ], [
@@ -293,29 +299,32 @@ class CustomerController extends Controller
 // Initialize an array to hold the question IDs from the request
         $request_question_ids = [];
 
-        foreach ($request['questions'] as $key => $question_text) {
-            // Prepare the question data to be saved
-            $question_data = [
-                'customer_id' => $request['cust_id'],  // Customer ID
-                'question'    => $question_text,  // Question text from the form
-            ];
+        if(isset($request['questions'])){
+            foreach ($request['questions'] as $key => $question_text) {
+                // Prepare the question data to be saved
+                $question_data = [
+                    'customer_id' => $request['cust_id'],  // Customer ID
+                    'question'    => $question_text,  // Question text from the form
+                ];
 
-            // Check if question_id exists for the current question
-            if (isset($request['question_id'][$key]) && !empty($request['question_id'][$key])) {
-                // If a question_id exists, update the existing record
-                $question_id = $request['question_id'][$key];
-                Questions::updateOrCreate(
-                    ['id' => $question_id],  // Use the question_id to find the record
-                    $question_data  // Update the record with the new data
-                );
+                // Check if question_id exists for the current question
+                if (isset($request['question_id'][$key]) && !empty($request['question_id'][$key])) {
+                    // If a question_id exists, update the existing record
+                    $question_id = $request['question_id'][$key];
+                    Questions::updateOrCreate(
+                        ['id' => $question_id],  // Use the question_id to find the record
+                        $question_data  // Update the record with the new data
+                    );
 
-                // Add this question_id to the request array for deletion check
-                $request_question_ids[] = $question_id;
-            } else {
-                // If question_id does not exist, create a new record
-                Questions::create($question_data);  // Create a new record with the question data
+                    // Add this question_id to the request array for deletion check
+                    $request_question_ids[] = $question_id;
+                } else {
+                    // If question_id does not exist, create a new record
+                    Questions::create($question_data);  // Create a new record with the question data
+                }
             }
         }
+
 
 // Find the question IDs that need to be deleted (those in the database but not in the request)
         $questions_to_delete = array_diff($existing_question_ids, $request_question_ids);
