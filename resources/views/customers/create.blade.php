@@ -115,24 +115,6 @@
                                         <label for="zip" class="form-label">Zip <span class="req text-danger">*</span></label>
                                         <input type="text" class="form-control" id="zip" name="zip" placeholder="Zip"/>
                                     </div>
-                                    {{--                                <div class="col-md-4 mb-3">--}}
-                                    {{--                                    <label for="positions" class="form-label">Positions Title*</label>--}}
-                                    {{--                                    <select  placeholder="Select a Position" class="form-select select2selector" id="positions" name="positions">--}}
-                                    {{--                                        <option value="0"> Select a positions</option>--}}
-                                    {{--                                        @foreach(positions() as $key => $position)--}}
-                                    {{--                                            <option value="{{$key}}">{{$position}}</option>--}}
-                                    {{--                                        @endforeach--}}
-                                    {{--                                    </select>--}}
-                                    {{--                                </div>--}}
-                                    {{--                                <div class="col-md-4 mb-3">--}}
-                                    {{--                                    <label for="agent_id" class="form-label">Service Agent Name*</label>--}}
-                                    {{--                                    <select  placeholder="Select a Agent" class="form-select select2selector" id="agent_id" name="agent_id">--}}
-                                    {{--                                        <option value="0"> Select a Agent</option>--}}
-                                    {{--                                        @foreach($agents as $agent)--}}
-                                    {{--                                            <option value="{{$agent->id}}"> {{ $agent->name }} </option>--}}
-                                    {{--                                        @endforeach--}}
-                                    {{--                                    </select>--}}
-                                    {{--                                </div>--}}
                                     <div class="col-md-4 mb-0 " toggle="password-parent" style="position: relative">
                                         <label class=" control-label">Password <span class="req text-danger">*</span></label>
                                         <input id="password-field" type="password" class="form-control" name="password">
@@ -242,25 +224,20 @@
                         <div class="card mb-4 mt-2">
                             <div class="card-body">
                                 <div class="row" id="questions-container">
-                                    <div class="row mb-3" id="question_0">
-                                        <div class="col-md-11 mb-3">
-                                            <label for="questions_0" class="form-label">Question <span class="req text-danger">*</span></label>
-                                            <input type="text" class="form-control" placeholder="Questions" id="questions_0" name="questions[0]">
-                                        </div>
-                                        <div class="col-md-1" style="margin-top: 31px; display: none">
-                                            <button type="button" class="btn btn-danger btn-sm remove-question" data-index="0">Remove</button>
-                                        </div>
+                                    <div class="col-md-12 mb-3 questions" id="question_0">
+                                        <label for="questions_0" class="form-label">Question <span class="req text-danger">*</span></label>
+                                        <input type="text" class="form-control" placeholder="Questions" id="questions_0" name="questions[0]">
+                                    </div>
+                                    <div class="col-md-1" style="margin-top: 31px; display: none">
+                                        <button type="button" class="btn btn-danger btn-sm remove-question" data-index="0">Remove</button>
                                     </div>
                                 </div>
-                                <button class="btn btn-success col-md-2 mt-2" type="button" id="add-question">+ Add More</button>
+                                <button class="btn btn-success btn-xs mt-2" type="button" id="add-question">+ Add More</button>
                             </div>
                         </div>
                     </div>
                 </div>
-
-
-
-                    @include('layouts.stepform.footer',['last' => false])
+                @include('layouts.stepform.footer',['last' => false])
                 </div>
 
             <div class="panel panel-primary setup-content" id="step-4">
@@ -374,30 +351,23 @@
 
 <script>
     $(document).ready(function () {
-        let questionIndex = 1; // To keep track of array indices
-
-        // Click event for adding new question input field
+        let questionIndex = 1;
         $('#add-question').click(function () {
+            var length = $(document).find('.questions').length + 1;
+            $(document).find('.questions:eq(0)').removeClass('col-md-12').addClass('col-md-6');
+            $(document).find('.questions:eq(0)').find('.form-label').text('Question 1');
             const newQuestionField = `
-                <div class="row mb-3" id="question_${questionIndex}">
-                    <div class="col-md-11 mb-3">
-                        <label for="questions_${questionIndex}" class="form-label">Question <span class="req text-danger">*</span></label>
+                     <div class="col-md-6 mb-3 questions" id="question_${questionIndex}">
+                        <label for="questions_${questionIndex}" class="form-label w-100">Question ${length}<span class="req text-danger">*</span> <i class="fa fa-trash remove-question text-danger float-right" data-index="${questionIndex}"></i> </label>
                         <input type="text" class="form-control" placeholder="Questions" id="questions_${questionIndex}" name="questions[${questionIndex}]">
-                    </div>
-                    <div class="col-md-1" style="margin-top: 31px;">
-                        <button type="button" class="btn btn-danger btn-sm remove-question" data-index="${questionIndex}">Remove</button>
-                    </div>
-                </div>
-            `;
+                    </div>`;
             $('#questions-container').append(newQuestionField);
             questionIndex++;
         });
 
         // Click event for removing question input field
         $(document).on('click', '.remove-question', function () {
-            const index = $(this).data('index'); // Get the index of the button clicked
-            $(this).closest('.row').remove(); // Removes the parent row div containing the question and remove button
-            console.log(`Removed question index: ${index}`);
+            $(this).closest('.questions').remove();
         });
     });
 </script>
