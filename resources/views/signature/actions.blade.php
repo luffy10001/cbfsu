@@ -24,8 +24,8 @@
                     swal_button="Yes"
                     cancel_button_text="No"
                     class="dropdown-item modal_submit" size="lg"
-                    url="{!! route('signature.delete',[mws_encrypt('E',$signature->id)]) !!}"><i
-                        class="fa fa-trash"></i>
+                    url="{!! route('signature.delete',[mws_encrypt('E',$signature->id)]) !!}">
+                <i class="fa fa-trash"></i>
                 Delete </a>
         </li>
     @endif
