@@ -276,7 +276,7 @@
                                 <div class="row" id="questions-container">
                                     @foreach($questions as $key => $item)
                                         <div class="{{count($questions) > 1 ? "col-md-6" : "col-md-12"}}  questions mb-3" id="question-row-{{ $key }}">
-                                            <label for="questions_{{ $key }}" class="form-label w-100">Question {{ $key+1 }}<span class="req text-danger">*</span> <i class="fa fa-trash remove-question text-danger float-right"></i></label>
+                                            <label for="questions_{{ $key }}" class="form-label w-100">Question {{ $key+1 }} <i class="fa fa-trash remove-question text-danger float-right"></i></label>
                                             <input type="text" class="form-control" placeholder="Questions" id="questions_{{ $key }}" name="questions[{{ $key }}]" value="{{ $item->question }}">
                                             <input type="hidden" name="question_id[{{ $key }}]" value="{{ $item->id }}">
                                         </div>
@@ -427,7 +427,7 @@
             $(document).find('.questions:eq(0)').find('.form-label').text('Question 1');
             const newQuestionField = `
                      <div class="col-md-6 mb-3 questions" id="question_${questionIndex}">
-                        <label for="questions_${questionIndex}" class="form-label w-100">Question ${length}<span class="req text-danger">*</span> <i class="fa fa-trash remove-question text-danger float-right" data-index="${questionIndex}"></i> </label>
+                        <label for="questions_${questionIndex}" class="form-label w-100">Question ${length}<i class="fa fa-trash remove-question text-danger float-right" data-index="${questionIndex}"></i> </label>
                         <input type="text" class="form-control" placeholder="Questions" id="questions_${questionIndex}" name="questions[${questionIndex}]">
                     </div>`;
             $('#questions-container').append(newQuestionField);
