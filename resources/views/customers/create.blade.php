@@ -225,7 +225,7 @@
                             <div class="card-body">
                                 <div class="row" id="questions-container">
                                     <div class="col-md-12 mb-3 questions" id="question_0">
-                                        <label for="questions_0" class="form-label">Question <span class="req text-danger">*</span></label>
+                                        <label for="questions_0" class="form-label">Question</label>
                                         <input type="text" class="form-control" placeholder="Questions" id="questions_0" name="questions[0]">
                                     </div>
                                     <div class="col-md-1" style="margin-top: 31px; display: none">
@@ -358,7 +358,7 @@
             $(document).find('.questions:eq(0)').find('.form-label').text('Question 1');
             const newQuestionField = `
                      <div class="col-md-6 mb-3 questions" id="question_${questionIndex}">
-                        <label for="questions_${questionIndex}" class="form-label w-100">Question ${length}<span class="req text-danger">*</span> <i class="fa fa-trash remove-question text-danger float-right" data-index="${questionIndex}"></i> </label>
+                        <label for="questions_${questionIndex}" class="form-label w-100">Question ${length} <i class="fa fa-trash remove-question text-danger float-right" data-index="${questionIndex}"></i> </label>
                         <input type="text" class="form-control" placeholder="Questions" id="questions_${questionIndex}" name="questions[${questionIndex}]">
                     </div>`;
             $('#questions-container').append(newQuestionField);
